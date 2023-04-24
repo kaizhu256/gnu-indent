@@ -6,8 +6,8 @@ START-INFO-DIR-ENTRY
 * Indent: (indent).		C code formatter.
 END-INFO-DIR-ENTRY
 
-   This is Edition 2.2.2 of `The `indent' Manual', for Indent Version
-2.2.2, last updated 18 September 1999.
+   This is Edition 2.2.3 of `The `indent' Manual', for Indent Version
+2.2.3, last updated 18 September 1999.
 
    Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
 Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
@@ -26,8 +26,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 2.2.2, 18 September 1999, of `The `indent' Manual',
-for Indent Version 2.2.2.
+   This is Edition 2.2.3, 18 September 1999, of `The `indent' Manual',
+for Indent Version 2.2.3.
 
 * Menu:
 

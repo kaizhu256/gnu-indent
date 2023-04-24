@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-12-04 20:11+0100\n"
+"POT-Creation-Date: 2002-03-21 21:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,84 +14,96 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/args.c:716
-#, c-format
-msgid "indent: unknown option \"%s\"\n"
+#: src/args.c:518
+msgid "usage: indent file [-o outfile ] [ options ]\n"
 msgstr ""
 
-#: src/args.c:720
+#: src/args.c:519
+msgid "       indent file1 file2 ... fileN [ options ]\n"
+msgstr ""
+
+#: src/args.c:583
 #, c-format
 msgid "indent: missing argument to parameter %s\n"
 msgstr ""
 
-#: src/args.c:729
+#: src/args.c:682
+#, c-format
+msgid "indent: unknown option \"%s\"\n"
+msgstr ""
+
+#: src/args.c:693
 #, c-format
 msgid "option: %s\n"
 msgstr ""
 
 #. This is not really an error, but zero exit values are
 #. returned only when code has been successfully formatted.
-#: src/args.c:745
+#: src/args.c:709
 #, c-format
 msgid "GNU indent %s\n"
 msgstr ""
 
-#: src/args.c:819
+#: src/args.c:786
 #, c-format
 msgid "indent: option ``%s'' requires a numeric parameter\n"
 msgstr ""
 
-#: src/args.c:826
+#: src/args.c:796
 #, c-format
 msgid "indent: set_option: internal error: p_type %d\n"
 msgstr ""
 
-#: src/args.c:885 src/args.c:892
+#: src/args.c:852
+msgid "Profile contains an unterminated comment"
+msgstr ""
+
+#: src/args.c:889
 msgid "Profile contains unpalatable characters"
 msgstr ""
 
-#: src/backup.c:376
+#: src/backup.c:381
 msgid "indent:  Strange version-control value\n"
 msgstr ""
 
-#: src/backup.c:377
+#: src/backup.c:382
 msgid "indent:  Using numbered-existing\n"
 msgstr ""
 
-#: src/backup.c:405
+#: src/backup.c:410
 #, c-format
 msgid "indent: Can't make backup filename of %s\n"
 msgstr ""
 
-#: src/backup.c:412
+#: src/backup.c:418
 #, c-format
 msgid "Can't open backup file %s"
 msgstr ""
 
-#: src/backup.c:418
+#: src/backup.c:425
 #, c-format
 msgid "Can't write to backup file %s"
 msgstr ""
 
-#: src/backup.c:431
+#: src/backup.c:439
 #, c-format
 msgid "Can't preserve modification time on backup file %s"
 msgstr ""
 
-#: src/globs.c:42 src/globs.c:65
+#: src/globs.c:41 src/globs.c:64
 msgid "indent: Virtual memory exhausted.\n"
 msgstr ""
 
-#: src/globs.c:81
+#: src/globs.c:79
 #, c-format
 msgid "indent: %s:%d: %s:"
 msgstr ""
 
-#: src/globs.c:95
+#: src/globs.c:93
 msgid "indent: Fatal Error: "
 msgstr ""
 
-#: src/globs.c:105
+#: src/globs.c:103
 msgid "indent: System Error: "
 msgstr ""
 
@@ -105,147 +117,124 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/indent.c:58
-msgid "usage: indent file [-o outfile ] [ options ]\n"
-msgstr ""
-
-#: src/indent.c:59
-msgid "       indent file1 file2 ... fileN [ options ]\n"
-msgstr ""
-
-#: src/indent.c:104
+#: src/indent.c:141
 msgid "Ran out of memory"
 msgstr ""
 
-#: src/indent.c:484
+#: src/indent.c:444
 msgid "EOF encountered in comment"
 msgstr ""
 
-#: src/indent.c:540 src/indent.c:1609 src/indent.c:1631
+#: src/indent.c:500 src/indent.c:1562 src/indent.c:1584
 msgid "Line broken"
 msgstr ""
 
-#: src/indent.c:621
+#: src/indent.c:581
 msgid "Unexpected end of file"
 msgstr ""
 
-#: src/indent.c:627
+#: src/indent.c:587
 #, c-format
 msgid "There were %d non-blank output lines and %d comments\n"
 msgstr ""
 
-#: src/indent.c:631
+#: src/indent.c:591
 #, c-format
 msgid "(Lines with comments)/(Lines with code): %6.3f\n"
 msgstr ""
 
-#: src/indent.c:652
+#: src/indent.c:612
 msgid "Line broken 2"
 msgstr ""
 
-#: src/indent.c:949 src/indent.c:1533
+#: src/indent.c:909 src/indent.c:1486
 #, c-format
 msgid "Extra %c"
 msgstr ""
 
-#: src/indent.c:2253
+#: src/indent.c:2205
 msgid "Unmatched #else"
 msgstr ""
 
-#: src/indent.c:2254
+#: src/indent.c:2206
 msgid "Unmatched #elif"
 msgstr ""
 
-#: src/indent.c:2281
+#: src/indent.c:2233
 msgid "Unmatched #endif"
 msgstr ""
 
-#: src/indent.c:2454
+#: src/indent.c:2385
 #, c-format
 msgid "indent: only one output file (2nd was %s)\n"
 msgstr ""
 
-#: src/indent.c:2463 src/indent.c:2489
+#: src/indent.c:2394 src/indent.c:2420
 msgid "indent: only one input file when output file is specified\n"
 msgstr ""
 
-#: src/indent.c:2477 src/indent.c:2524
+#: src/indent.c:2408 src/indent.c:2455
 msgid "indent: can't have filenames when specifying standard input\n"
 msgstr ""
 
-#: src/indent.c:2497
+#: src/indent.c:2428
 msgid "indent: only one input file when stdout is used\n"
 msgstr ""
 
-#: src/indent.c:2563 src/indent.c:2635
-#, c-format
-msgid "indent: can't create %s\n"
-msgstr ""
-
-#: src/indent.c:2578 src/indent.c:2648
-#, c-format
-msgid "Can't close output file %s"
-msgstr ""
-
-#: src/indent.c:2589 src/indent.c:2662
-#, c-format
-msgid "Can't preserve modification time on output file %s"
-msgstr ""
-
-#: src/indent.c:2720
+#: src/indent.c:2617
 #, c-format
 msgid "Read profile %s\n"
 msgstr ""
 
-#: src/io.c:648
+#: src/io.c:139
 msgid "Internal buffering error"
 msgstr ""
 
-#: src/io.c:1341
+#: src/io.c:300
 #, c-format
 msgid "Can't open input file %s"
 msgstr ""
 
-#: src/io.c:1346
+#: src/io.c:305
 #, c-format
 msgid "Can't stat input file %s"
 msgstr ""
 
-#: src/io.c:1351
+#: src/io.c:310
 #, c-format
 msgid "Warning: Zero-length file %s"
 msgstr ""
 
-#: src/io.c:1359
+#: src/io.c:318
 #, c-format
 msgid "File %s is too big to read"
 msgstr ""
 
-#: src/io.c:1367
+#: src/io.c:326
 #, c-format
 msgid "System problem reading file %s"
 msgstr ""
 
-#: src/io.c:1386
+#: src/io.c:350
 #, c-format
 msgid "Error reading input file %s"
 msgstr ""
 
-#: src/io.c:1390
+#: src/io.c:355
 #, c-format
 msgid "Error closeing input file %s"
 msgstr ""
 
-#: src/io.c:1570
+#: src/io.c:541
 #, c-format
 msgid "Warning: File %s contains NULL-characters\n"
 msgstr ""
 
-#: src/lexi.c:766
+#: src/lexi.c:767
 msgid "Unterminated character constant"
 msgstr ""
 
-#: src/lexi.c:767
+#: src/lexi.c:768
 msgid "Unterminated string constant"
 msgstr ""
 
@@ -256,35 +245,48 @@ msgstr ""
 #. * people want to detect and eliminate old style assignments but
 #. * they don't want indent to silently change the meaning of their
 #. * code).
-#: src/lexi.c:1000
+#: src/lexi.c:1001
 #, c-format
 msgid "old style assignment ambiguity in \"=%c\".  Assuming \"= %c\"\n"
 msgstr ""
 
-#: src/parse.c:359
+#: src/output.c:1067
+#, c-format
+msgid "indent: can't create %s\n"
+msgstr ""
+
+#: src/output.c:1106
+#, c-format
+msgid "Can't close output file %s"
+msgstr ""
+
+#: src/output.c:1119
+#, c-format
+msgid "Can't preserve modification time on output file %s"
+msgstr ""
+
+#: src/parse.c:397
 msgid "Unmatched 'else'"
 msgstr ""
 
-#: src/parse.c:383
+#: src/parse.c:423
 msgid "Stmt nesting error."
 msgstr ""
 
-#: src/parse.c:427
+#: src/parse.c:465
 msgid "Unknown code to parser"
 msgstr ""
 
-#: src/parse.c:435
+#: src/parse.c:475
 #, c-format
-msgid ""
-"\n"
-"ParseStack [%d]:\n"
+msgid "ParseStack [%d]:\n"
 msgstr ""
 
-#: src/parse.c:437
+#: src/parse.c:479
 #, c-format
 msgid "  stack[%d] =>   stack: %d   ind_level: %d\n"
 msgstr ""
 
-#: src/wildexp.c:86
+#: src/wildexp.c:90
 msgid "CANNOT FIND '@' FILE!"
 msgstr ""

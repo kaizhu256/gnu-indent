@@ -16,8 +16,8 @@ END-INFO-DIR-ENTRY
 
 
 
-   This is Edition 2.2.7 of `The `indent' Manual', for Indent Version
-2.2.7, last updated 20 November 2001.
+   This is Edition 2.2.8 of `The `indent' Manual', for Indent Version
+2.2.8, last updated 21 March 2002.
 
    Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
 Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
@@ -36,8 +36,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 2.2.7, 20 November 2001, of `The `indent' Manual',
-for Indent Version 2.2.7.
+   This is Edition 2.2.8, 21 March 2002, of `The `indent' Manual', for
+Indent Version 2.2.8.
 
 * Menu:
 
@@ -145,11 +145,14 @@ be:
 
    If you find that you often use `indent' with the same options, you
 may put those options into a file named `.indent.pro'.  `indent' will
-first look for `.indent.pro' in the current directory and use that if
-found.  Otherwise, `indent' will search your home directory for
-`.indent.pro' and use that file if it is found.  This behaviour is
-different from that of other versions of `indent', which load both
-files if they both exist.
+look for a profile file in three places. First it will check the
+environment variable `INDENT_PROFILE'. If that exists its value is
+expected to name the file that is to be used. If the environment
+variable does not exist, indent looks for `.indent.pro' in the current
+directory  and use that if found.  Finally `indent' will search your
+home directory for `.indent.pro' and use that file if it is found.
+This behaviour is different from that of other versions of `indent',
+which load both files if they both exist.
 
    The format of `.indent.pro' is simply a list of options, just as
 they would appear on the command line, separated by white space (tabs,
@@ -913,16 +916,16 @@ Bugs
 
    When `indent' is run twice on a file, with the same profile, it
 should _never_ change that file the second time.  With the current
-design of `indent', this can not be guaranteed, however, and it has not
-been extensively tested.
+design of `indent', this can not be guaranteed, and it has not been
+extensively tested.
 
    `indent' does not understand C.  In some cases this leads to the
 inability to join lines.  The result is that running a file through
 `indent' is _irreversible_, even if the used input file was the result
 of running `indent' with a given profile (`.indent.pro').
 
-   While an attempt was made to get `indent' working for C++, is will
-not do a good job on any C++ source except the very simple.
+   While an attempt was made to get `indent' working for C++, it will
+not do a good job on any C++ source except the very simplest.
 
    `indent' does not look at the given `--line-length' option when
 writing comments to the output file.  This results often in comments
@@ -1653,25 +1656,25 @@ Index
 
 
 Tag Table:
-Node: Top677
-Node: Indent Program1197
-Node: Invoking indent2280
-Ref: Invoking indent-Footnote-15635
-Node: Backup files5725
-Node: Common styles7804
-Node: Blank lines10065
-Node: -bad11159
-Node: -bap11806
-Node: Comments12667
-Node: Statements17451
-Node: Declarations21048
-Node: Indentation23362
-Node: Breaking long lines26105
-Node: Disabling Formatting28386
-Node: Miscellaneous options30133
-Node: Bugs31026
-Node: Copyright32497
-Node: Option Summary34079
-Node: Index47678
+Node: Top674
+Node: Indent Program1191
+Node: Invoking indent2274
+Ref: Invoking indent-Footnote-15850
+Node: Backup files5940
+Node: Common styles8019
+Node: Blank lines10280
+Node: -bad11374
+Node: -bap12021
+Node: Comments12882
+Node: Statements17666
+Node: Declarations21263
+Node: Indentation23577
+Node: Breaking long lines26320
+Node: Disabling Formatting28601
+Node: Miscellaneous options30348
+Node: Bugs31241
+Node: Copyright32705
+Node: Option Summary34287
+Node: Index47886
 
 End Tag Table

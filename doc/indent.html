@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
-<!-- Created on December, 18  2001 by texi2html 1.65 -->
+<!-- Created on March, 21  2002 by texi2html 1.65 -->
 <!-- 
 Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
             Karl Berry  <karl@freefriends.org>
@@ -36,8 +36,8 @@ The <CODE>indent</CODE> program
 changes the appearance of a C program by inserting or deleting whitespace.  
 </P><P>
 
-This is Edition 2.2.7, 20 November 2001, of <CITE>The <CODE>indent</CODE> Manual</CITE>,
-for Indent Version 2.2.7.
+This is Edition 2.2.8, 21 March 2002, of <CITE>The <CODE>indent</CODE> Manual</CITE>,
+for Indent Version 2.2.8.
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
@@ -210,8 +210,11 @@ indent +braces-on-if-line +line-length185 test/metabolism.c
 <A NAME="IDX12"></A>
 If you find that you often use <CODE>indent</CODE> with the same options, you
 may put those options into a file named `<TT>.indent.pro</TT>'.
-<CODE>indent</CODE> will first look for `<TT>.indent.pro</TT>' in the current
-directory and use that if found.  Otherwise, <CODE>indent</CODE> will search
+<CODE>indent</CODE> will look for a profile file in three places. First it will check
+the environment variable <CODE>INDENT_PROFILE</CODE>. If that exists its value 
+is expected to name the file that is to be used. If the environment variable does 
+not exist, indent looks for `<TT>.indent.pro</TT>' in the current directory
+ and use that if found.  Finally <CODE>indent</CODE> will search
 your home directory for `<TT>.indent.pro</TT>' and use that file if it is
 found.  This behaviour is different from that of other versions of
 <CODE>indent</CODE>, which load both files if they both exist.
@@ -1430,7 +1433,7 @@ Please report any bugs to <A HREF="mailto:bug-indent@gnu.org">bug-indent@gnu.org
 
 When <CODE>indent</CODE> is run twice on a file, with the same profile,
 it should <EM>never</EM> change that file the second time.  With the
-current design of <CODE>indent</CODE>, this can not be guaranteed, however,
+current design of <CODE>indent</CODE>, this can not be guaranteed,
 and it has not been extensively tested.
 </P><P>
 
@@ -1441,8 +1444,8 @@ file was the result of running <CODE>indent</CODE> with a given profile
 (`<TT>.indent.pro</TT>').
 </P><P>
 
-While an attempt was made to get <CODE>indent</CODE> working for C++, is
-will not do a good job on any C++ source except the very simple.
+While an attempt was made to get <CODE>indent</CODE> working for C++, it
+will not do a good job on any C++ source except the very simplest.
 </P><P>
 
 <CODE>indent</CODE> does not look at the given `<SAMP>--line-length</SAMP>' option
@@ -2633,7 +2636,7 @@ the following structure:
 <BR>  
 <FONT SIZE="-1">
 This document was generated
-by <I>david ingamells</I> on <I>December, 18  2001</I>
+by <I>david ingamells</I> on <I>March, 21  2002</I>
 using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
 "><I>texi2html</I></A>
 </FONT>

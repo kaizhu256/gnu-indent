@@ -107,9 +107,11 @@ EXTRA_DIST = ChangeLog-1990 ChangeLog-1998 ChangeLog-2001 \
 		miscel/make-decc.com miscel/vaxc-make.com miscel/gnuc-make.com \
 		aclocal/UTIMBUF.m4 \
 		miscel/Makefile.mingw32 \
+		miscel/makefile.watcom \
 		miscel/README.vc++ \
 		miscel/README.VMS \
-		README
+		README \
+		bootstrap
 
 
 DISTCLEANFILES = config/config.cache config/config.log config.h
@@ -140,9 +142,9 @@ RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
 DIST_COMMON = README ./stamp-h.in ABOUT-NLS AUTHORS COPYING ChangeLog \
-	INSTALL Makefile.am Makefile.in NEWS acconfig.h aclocal.m4 \
-	config.h.in config/config.guess config/config.sub \
-	config/depcomp config/install-sh config/mdate-sh config/missing \
+	INSTALL Makefile.am Makefile.in NEWS aclocal.m4 config.h.in \
+	config/config.guess config/config.sub config/depcomp \
+	config/install-sh config/mdate-sh config/missing \
 	config/mkinstalldirs config/texinfo.tex configure configure.ac
 DIST_SUBDIRS = $(SUBDIRS)
 all: $(BUILT_SOURCES) config.h
@@ -181,7 +183,7 @@ $(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/./stamp-h.in
 		rm -f $(srcdir)/./stamp-h.in; \
 		$(MAKE) $(srcdir)/./stamp-h.in; \
 	else :; fi
-$(srcdir)/./stamp-h.in: $(top_srcdir)/configure.ac $(ACLOCAL_M4) $(top_srcdir)/acconfig.h
+$(srcdir)/./stamp-h.in: $(top_srcdir)/configure.ac $(ACLOCAL_M4) 
 	@rm -f $(srcdir)/./stamp-h.in $(srcdir)/./stamp-h.inT
 	@echo timestamp > $(srcdir)/./stamp-h.inT 2> /dev/null
 	cd $(top_srcdir) && $(AUTOHEADER)
@@ -455,10 +457,10 @@ uninstall-info: uninstall-info-recursive
 
 
 ps:
-	cd doc && $(MAKE) ps
+	cd doc && $(MAKE) @PACKAGE@.ps
 
 pdf:
-	cd doc && $(MAKE) pdf
+	cd doc && $(MAKE) @PACKAGE@.pdf
 
 html:
 	cd doc && $(MAKE) html
@@ -469,10 +471,10 @@ html-split:
 @MAINTAINER_MODE_TRUE@README: Makefile miscel/README.in configure.ac
 @MAINTAINER_MODE_TRUE@	sed -e 's%!VERSION!%@VERSION@%g'  miscel/$@.in > $@
 
-@MAINTAINER_MODE_TRUE@miscel/Makefile.mingw32: miscel/Makefile.mingw32.in
-@MAINTAINER_MODE_TRUE@	cat $< | perl -e 'while (<>) {chomp; print "$$_\015\012"; }'  > $@
+@MAINTAINER_MODE_TRUE@miscel/Makefile.mingw32 miscel/makefile.watcom :%: %.in
+@MAINTAINER_MODE_TRUE@	cat $@.in | perl -e 'while (<>) {chomp; print "$$_\015\012"; }'  > $@
 
-@MAINTAINER_MODE_TRUE@README.vc++ miscel/README.VMS @PACKAGE@.lsm :%: Makefile %.in
+@MAINTAINER_MODE_TRUE@miscel/README.vc++ miscel/README.VMS @PACKAGE@.lsm :%: Makefile %.in
 @MAINTAINER_MODE_TRUE@	sed -e 's%!VERSION!%@VERSION@%g' $@.in > $@
 
 @MAINTAINER_MODE_TRUE@tar:

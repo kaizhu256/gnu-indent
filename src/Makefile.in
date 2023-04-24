@@ -100,8 +100,8 @@ localedir = @localedir@
 AUTOMAKE_OPTIONS = 1.2 gnits
 
 bin_PROGRAMS = indent
-indent_SOURCES = args.c comments.c indent.c lexi.c parse.c backup.c globs.c io.c
-noinst_HEADERS = backup.h indent.h sys.h lexi.h args.h comments.h globs.h io.h parse.h
+indent_SOURCES = indent.c args.c backup.c comments.c lexi.c parse.c globs.c io.c output.c
+noinst_HEADERS = indent.h args.h backup.h comments.h lexi.h parse.h globs.h io.h output.h sys.h 
 indent_LDADD = $(INTLLIBS)
 EXTRA_DIST = @PACKAGE@.gperf @PACKAGE@-cc.gperf wildexp.c gperf.c gperf-cc.c \
 	     @PACKAGE@.dsp \
@@ -121,9 +121,9 @@ CONFIG_CLEAN_FILES =
 bin_PROGRAMS = indent$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
-am_indent_OBJECTS = args.$(OBJEXT) comments.$(OBJEXT) indent.$(OBJEXT) \
-	lexi.$(OBJEXT) parse.$(OBJEXT) backup.$(OBJEXT) globs.$(OBJEXT) \
-	io.$(OBJEXT)
+am_indent_OBJECTS = indent.$(OBJEXT) args.$(OBJEXT) backup.$(OBJEXT) \
+	comments.$(OBJEXT) lexi.$(OBJEXT) parse.$(OBJEXT) \
+	globs.$(OBJEXT) io.$(OBJEXT) output.$(OBJEXT)
 indent_OBJECTS = $(am_indent_OBJECTS)
 indent_DEPENDENCIES =
 indent_LDFLAGS =
@@ -135,7 +135,8 @@ depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 @AMDEP_TRUE@DEP_FILES = $(DEPDIR)/args.Po $(DEPDIR)/backup.Po \
 @AMDEP_TRUE@	$(DEPDIR)/comments.Po $(DEPDIR)/globs.Po \
 @AMDEP_TRUE@	$(DEPDIR)/indent.Po $(DEPDIR)/io.Po \
-@AMDEP_TRUE@	$(DEPDIR)/lexi.Po $(DEPDIR)/parse.Po
+@AMDEP_TRUE@	$(DEPDIR)/lexi.Po $(DEPDIR)/output.Po \
+@AMDEP_TRUE@	$(DEPDIR)/parse.Po
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -198,6 +199,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/indent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/io.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/lexi.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/output.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/parse.Po@am__quote@
 
 distclean-depend:

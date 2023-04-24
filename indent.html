@@ -1,15 +1,15 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from indent.texinfo on 30 September 1999 -->
+     from indent.texinfo on 4 November 1999 -->
 
 <TITLE>indent:  Indent and Format C Program Source</TITLE>
 </HEAD>
 <BODY>
 <H1>Indent</H1>
 <H2>Format C Code</H2>
-<H2>Edition 2.2.3, for Indent Version 2.2.3</H2>
-<H2>18 September 1999</H2>
+<H2>Edition 2.2.4, for Indent Version 2.2.4</H2>
+<H2>4 November 1999</H2>
 <ADDRESS>Carlo Wood</ADDRESS>
 <ADDRESS>Joseph Arceneaux</ADDRESS>
 <ADDRESS>Jim Kingdon</ADDRESS>
@@ -17,16 +17,16 @@
 <P><HR><P>
 
 
-<H1><A NAME="SEC1" HREF="indent_toc.html#TOC1">The <CODE>indent</CODE> Program</A></H1>
+<H1><A NAME="SEC1" HREF="indent_toc.html#TOC1">The @command{indent} Program</A></H1>
 
 <P>
-The <CODE>indent</CODE> program
+The @command{indent} program
 can be used to make code easier to read.  It can also convert from one
 style of writing C to another.  
 
 </P>
 <P>
-<CODE>indent</CODE> understands a substantial amount about the syntax of C,
+@command{indent} understands a substantial amount about the syntax of C,
 but it also attempts to cope with incomplete and misformed syntax.
 
 </P>
@@ -37,7 +37,7 @@ the default.
 </P>
 
 <UL>
-<LI><A HREF="indent.html#SEC2">Invoking indent</A>: Invoking <CODE>indent</CODE>
+<LI><A HREF="indent.html#SEC2">Invoking indent</A>: Invoking @command{indent}
 <LI><A HREF="indent.html#SEC3">Backup files</A>: Backup Files
 <LI><A HREF="indent.html#SEC4">Common styles</A>: Common styles
 <LI><A HREF="indent.html#SEC5">Blank lines</A>: Blank lines
@@ -54,7 +54,7 @@ the default.
 
 
 
-<H2><A NAME="SEC2" HREF="indent_toc.html#TOC2">Invoking <CODE>indent</CODE></A></H2>
+<H2><A NAME="SEC2" HREF="indent_toc.html#TOC2">Invoking @command{indent}</A></H2>
 <P>
 <A NAME="IDX1"></A>
 <A NAME="IDX2"></A>
@@ -62,23 +62,25 @@ the default.
 
 </P>
 <P>
-As of version 1.3, the format of the <CODE>indent</CODE> command is:
+As of version 1.3, the format of the @command{indent} command is:
 
 </P>
 
 <PRE>
+
 indent [<VAR>options</VAR>] [<VAR>input-files</VAR>]
 
 indent [<VAR>options</VAR>] [<VAR>single-input-file</VAR>] [-o <VAR>output-file</VAR>]
+
 </PRE>
 
 <P>
 This format is different from earlier versions and other versions of
-<CODE>indent</CODE>.
+@command{indent}.
 
 </P>
 <P>
-In the first form, one or more input files are specified.  <CODE>indent</CODE>
+In the first form, one or more input files are specified.  @command{indent}
 makes a backup copy of each file, and the original file is replaced with
 its indented version.  See section <A HREF="indent.html#SEC3">Backup Files</A>, for an explanation of how
 backups are made.
@@ -90,14 +92,14 @@ backups are made.
 <A NAME="IDX6"></A>
 In the second form, only one input file is specified.  In this case, or
 when the standard input is used, you may specify an output file after
-the <SAMP>`-o'</SAMP> option.
+the @option{-o} option.
 
 </P>
 <P>
 <A NAME="IDX7"></A>
 <A NAME="IDX8"></A>
 <A NAME="IDX9"></A>
-To cause <CODE>indent</CODE> to write to standard output, use the <SAMP>`-st'</SAMP>
+To cause @command{indent} to write to standard output, use the @option{-st}
 option.  This is only allowed when there is only one input file, or when
 the standard input is used.
 
@@ -105,7 +107,7 @@ the standard input is used.
 <P>
 <A NAME="IDX10"></A>
 If no input files are named, the standard input is read for input.
-Also, if a filename named <SAMP>`-'</SAMP> is specified, then the standard input
+Also, if a filename named @option{-} is specified, then the standard input
 is read.
 
 </P>
@@ -117,19 +119,22 @@ As an example, each of the following commands will input the program
 </P>
 
 <PRE>
+
 indent slithy_toves.c -o slithy_toves.out
 
 indent -st slithy_toves.c &#62; slithy_toves.out
 
 cat slithy_toves.c | indent -o slithy_toves.out
+
 </PRE>
 
 <P>
 <A NAME="IDX11"></A>
-Most other options to <CODE>indent</CODE> control how programs are formatted.
-As of version 1.2, <CODE>indent</CODE> also recognizes a long name for each
-option name.  Long options are prefixed by either <SAMP>`--'</SAMP> or
-<SAMP>`+'</SAMP>.<A NAME="DOCF1" HREF="indent_foot.html#FOOT1">(1)</A> In most of this document,
+Most other options to @command{indent} control how programs are formatted.
+As of version 1.2, @command{indent} also recognizes a long name for each
+option name.  Long options are prefixed by either @option{--} or
+@option{+}.<A NAME="DOCF1" HREF="indent_foot.html#FOOT1">(1)</A> is being superseded by @option{--} to
+maintain consistency with the POSIX standard.} In most of this document,
 the traditional, short names are used for the sake of brevity.
 See section <A HREF="indent.html#SEC17">Option Summary</A>, for a list of options, including both long and
 short names.
@@ -146,7 +151,7 @@ indent -br test/metabolism.c -l85
 
 <P>
 This will indent the program <TT>`test/metabolism.c'</TT> using the
-<SAMP>`-br'</SAMP> and <SAMP>`-l85'</SAMP> options, write the output back to
+@option{-br} and @option{-l85} options, write the output back to
 <TT>`test/metabolism.c'</TT>, and write the original contents of
 <TT>`test/metabolism.c'</TT> to a backup file in the directory <TT>`test'</TT>.
 
@@ -158,9 +163,11 @@ be:
 </P>
 
 <PRE>
+
 indent --braces-on-if-line --line-length185 test/metabolism.c
 
 indent +braces-on-if-line +line-length185 test/metabolism.c
+
 </PRE>
 
 <P>
@@ -168,19 +175,19 @@ indent +braces-on-if-line +line-length185 test/metabolism.c
 <A NAME="IDX13"></A>
 <A NAME="IDX14"></A>
 <A NAME="IDX15"></A>
-If you find that you often use <CODE>indent</CODE> with the same options, you
+If you find that you often use @command{indent} with the same options, you
 may put those options into a file named <TT>`.indent.pro'</TT>.
-<CODE>indent</CODE> will first look for <TT>`.indent.pro'</TT> in the current
-directory and use that if found.  Otherwise, <CODE>indent</CODE> will search
+@command{indent} will first look for <TT>`.indent.pro'</TT> in the current
+directory and use that if found.  Otherwise, @command{indent} will search
 your home directory for <TT>`.indent.pro'</TT> and use that file if it is
 found.  This behaviour is different from that of other versions of
-<CODE>indent</CODE>, which load both files if they both exist.
+@command{indent}, which load both files if they both exist.
 
 </P>
 <P>
-The format of <CODE>.indent.pro</CODE> is simply a list of options, just as
+The format of <TT>`.indent.pro'</TT> is simply a list of options, just as
 they would appear on the command line, separated by white space (tabs,
-spaces, and newlines).  Options in <CODE>.indent.pro</CODE> may be surrounded by C
+spaces, and newlines).  Options in <TT>`.indent.pro'</TT> may be surrounded by C
 or C++ comments, in which case they are ignored.
 
 </P>
@@ -189,15 +196,16 @@ Command line switches are handled <EM>after</EM> processing
 <TT>`.indent.pro'</TT>.  Options specified later override arguments
 specified earlier, with one exception: Explicitly specified options
 always override background options (see section <A HREF="indent.html#SEC4">Common styles</A>).  You can
-prevent <CODE>indent</CODE> from reading an <TT>`.indent.pro'</TT> file by
-specifying the <SAMP>`-npro'</SAMP> option.
+prevent @command{indent} from reading an <TT>`.indent.pro'</TT> file by
+specifying the @option{-npro} option.
 </P>
 
 
 <H2><A NAME="SEC3" HREF="indent_toc.html#TOC3">Backup Files</A></H2>
 
 <P>
-As of version 1.3, GNU <CODE>indent</CODE> makes GNU--style backup files, the
+<A NAME="IDX16"></A>
+As of version 1.3, GNU @command{indent} makes GNU-style backup files, the
 same way GNU Emacs does.  This means that either <EM>simple</EM> or
 <EM>numbered</EM> backup filenames may be made.
 
@@ -205,47 +213,50 @@ same way GNU Emacs does.  This means that either <EM>simple</EM> or
 <P>
 Simple backup file names are generated by appending a suffix to the
 original file name.  The default for this suffix is the
-one-character string <SAMP>`~'</SAMP> (tilde).  Thus, the backup file for
+one-character string <TT>`~'</TT> (tilde).  Thus, the backup file for
 <TT>`python.c'</TT> would be <TT>`python.c~'</TT>.
 
 </P>
 <P>
 Instead of the default, you may specify any string as a suffix by
-setting the environment variable <CODE>SIMPLE_BACKUP_SUFFIX</CODE> to
+setting the environment variable @env{SIMPLE_BACKUP_SUFFIX} to
 your preferred suffix.
 
 </P>
 <P>
-Numbered backup versions of a file <TT>`momewraths'</TT> look like
-<TT>`momewraths.c.~23~'</TT>, where 23 is the version of this particular
-backup.  When making a numbered backup of the file <TT>`src/momewrath.c'</TT>,
-the backup file will be named <TT>`src/momewrath.c.~<VAR>V</VAR>~'</TT>, where
+Numbered backup versions of a file <TT>`momeraths.c'</TT> look like
+<TT>`momeraths.c.~23~'</TT>, where 23 is the version of this particular
+backup.  When making a numbered backup of the file <TT>`src/momeraths.c'</TT>,
+the backup file will be named <TT>`src/momeraths.c.~<VAR>V</VAR>~'</TT>, where
 <VAR>V</VAR> is one greater than the highest version currently existing in
-the directory <TT>`src'</TT>.
+the directory <TT>`src'</TT>.  The environment variable @env{VERSION_WIDTH}
+controls the number of digits, using left zero padding when necessary.
+For instance, setting this variable to "2" will lead to the backup
+file being named <TT>`momeraths.c.~04~'</TT>.
 
 </P>
 <P>
 The type of backup file made is controlled by the value of the
-environment variable <CODE>VERSION_CONTROL</CODE>.  If it is the string
+environment variable @env{VERSION_CONTROL}.  If it is the string
 <SAMP>`simple'</SAMP>, then only simple backups will be made.  If its value is
 the string <SAMP>`numbered'</SAMP>, then numbered backups will be made.  If its
 value is <SAMP>`numbered-existing'</SAMP>, then numbered backups will be made if
 there <EM>already exist</EM> numbered backups for the file being indented;
-otherwise, a simple backup is made.  If <CODE>VERSION_CONTROL</CODE> is not
-set, then <CODE>indent</CODE> assumes the behaviour of
+otherwise, a simple backup is made.  If @env{VERSION_CONTROL} is not
+set, then @command{indent} assumes the behaviour of
 <SAMP>`numbered-existing'</SAMP>.
 
 </P>
 <P>
-Other versions of <CODE>indent</CODE> use the suffix <SAMP>`.BAK'</SAMP> in naming
+Other versions of @command{indent} use the suffix <TT>`.BAK'</TT> in naming
 backup files.  This behaviour can be emulated by setting
-<CODE>SIMPLE_BACKUP_SUFFIX</CODE> to <SAMP>`.BAK'</SAMP>.
+@env{SIMPLE_BACKUP_SUFFIX} to <SAMP>`.BAK'</SAMP>.
 
 </P>
 <P>
-Note also that other versions of <CODE>indent</CODE> make backups in the
+Note also that other versions of @command{indent} make backups in the
 current directory, rather than in the directory of the source file as
-GNU <CODE>indent</CODE> now does.
+GNU @command{indent} now does.
 
 </P>
 
@@ -261,12 +272,12 @@ always override options implied by a background option.
 
 </P>
 <P>
-<A NAME="IDX16"></A>
 <A NAME="IDX17"></A>
 <A NAME="IDX18"></A>
-As of version 1.2, the default style of GNU <CODE>indent</CODE> is the GNU
-style.  Thus, it is no longer neccessary to specify the option
-<SAMP>`-gnu'</SAMP> to obtain this format, although doing so will not cause an
+<A NAME="IDX19"></A>
+As of version 1.2, the default style of GNU @command{indent} is the GNU
+style.  Thus, it is no longer necessary to specify the option
+@option{-gnu} to obtain this format, although doing so will not cause an
 error.  Option settings which correspond to the GNU style are:
 
 </P>
@@ -286,11 +297,11 @@ size of integers, etc.)
 
 </P>
 <P>
-<A NAME="IDX19"></A>
 <A NAME="IDX20"></A>
 <A NAME="IDX21"></A>
+<A NAME="IDX22"></A>
 The Kernighan &#38; Ritchie style is used throughout their well-known book
-<CITE>The C Programming Language</CITE>.  It is enabled with the <SAMP>`-kr'</SAMP>
+<CITE>The C Programming Language</CITE>.  It is enabled with the @option{-kr}
 option.  The Kernighan &#38; Ritchie style corresponds to the following set
 of options:
 
@@ -305,17 +316,17 @@ of options:
 <P>
 Kernighan &#38; Ritchie style does not put comments to the right of code in
 the same column at all times (nor does it use only one space to the
-right of the code), so for this style <CODE>indent</CODE> has arbitrarily
+right of the code), so for this style @command{indent} has arbitrarily
 chosen column 33.
 
 </P>
 <P>
-<A NAME="IDX22"></A>
 <A NAME="IDX23"></A>
 <A NAME="IDX24"></A>
 <A NAME="IDX25"></A>
-The style of the original Berkeley <CODE>indent</CODE> may be obtained by
-specifying <SAMP>`-orig'</SAMP> (or by specifyfying <SAMP>`--original'</SAMP>, using the
+<A NAME="IDX26"></A>
+The style of the original Berkeley @command{indent} may be obtained by
+specifying @option{-orig} (or by specifying @option{--original}, using the
 long option name).  This style is equivalent to the following settings:
 
 </P>
@@ -330,50 +341,50 @@ long option name).  This style is equivalent to the following settings:
 
 <H2><A NAME="SEC5" HREF="indent_toc.html#TOC5">Blank lines</A></H2>
 <P>
-<A NAME="IDX26"></A>
+<A NAME="IDX27"></A>
 
 </P>
 <P>
 Various programming styles use blank lines in different places.
-<CODE>indent</CODE> has a number of options to insert or delete blank lines in
+@command{indent} has a number of options to insert or delete blank lines in
 specific places.
 
 </P>
 <P>
-The <SAMP>`-bad'</SAMP> option causes <CODE>indent</CODE> to force a blank line after
-every block of declarations.  The <SAMP>`-nbad'</SAMP> option causes
-<CODE>indent</CODE> not to force such blank lines.
+The @option{-bad} option causes @command{indent} to force a blank line after
+every block of declarations.  The @option{-nbad} option causes
+@command{indent} not to force such blank lines.
 
 </P>
 <P>
-The <SAMP>`-bap'</SAMP> option forces a blank line after every procedure body.
-The <SAMP>`-nbap'</SAMP> option forces no such blank line.
+The @option{-bap} option forces a blank line after every procedure body.
+The @option{-nbap} option forces no such blank line.
 
 </P>
 <P>
-<A NAME="IDX27"></A>
 <A NAME="IDX28"></A>
 <A NAME="IDX29"></A>
 <A NAME="IDX30"></A>
-The <SAMP>`-bbb'</SAMP> option forces a blank line before every boxed comment,
-See section <A HREF="indent.html#SEC8">Comments</A>. The <SAMP>`-nbbb'</SAMP> option does not force such blank lines.
+<A NAME="IDX31"></A>
+The @option{-bbb} option forces a blank line before every boxed comment,
+See section <A HREF="indent.html#SEC8">Comments</A>. The @option{-nbbb} option does not force such blank lines.
 
 </P>
 <P>
-<A NAME="IDX31"></A>
 <A NAME="IDX32"></A>
 <A NAME="IDX33"></A>
 <A NAME="IDX34"></A>
-The <SAMP>`-sob'</SAMP> option causes <CODE>indent</CODE> to swallow optional blank
+<A NAME="IDX35"></A>
+The @option{-sob} option causes @command{indent} to swallow optional blank
 lines (that is, any optional blank lines present in the input will be
-removed from the output).  If the <SAMP>`-nsob'</SAMP> is specified, any blank
+removed from the output).  If the @option{-nsob} is specified, any blank
 lines present in the input file will be copied to the output file.
 
 </P>
 
 <UL>
-<LI><A HREF="indent.html#SEC6">-bad</A>: More on the <SAMP>`-bad'</SAMP> option.
-<LI><A HREF="indent.html#SEC7">-bap</A>: More on the <SAMP>`-bap'</SAMP> option.
+<LI><A HREF="indent.html#SEC6">-bad</A>: More on the @option{-bad} option.
+<LI><A HREF="indent.html#SEC7">-bap</A>: More on the @option{-bap} option.
 </UL>
 
 
@@ -381,8 +392,8 @@ lines present in the input file will be copied to the output file.
 <H3><A NAME="SEC6" HREF="indent_toc.html#TOC6">--blank-lines-after-declarations</A></H3>
 
 <P>
-The <SAMP>`-bad'</SAMP> option forces a blank line after every block of
-declarations.  The <SAMP>`-nbad'</SAMP> option does not add any such blank
+The @option{-bad} option forces a blank line after every block of
+declarations.  The @option{-nbad} option does not add any such blank
 lines.
 
 </P>
@@ -397,10 +408,10 @@ int baz;
 </PRE>
 
 <P>
-<A NAME="IDX35"></A>
 <A NAME="IDX36"></A>
 <A NAME="IDX37"></A>
 <A NAME="IDX38"></A>
+<A NAME="IDX39"></A>
 <CODE>indent -bad</CODE> produces
 
 </P>
@@ -430,11 +441,11 @@ int baz;
 <H3><A NAME="SEC7" HREF="indent_toc.html#TOC7">--blank-lines-after-procedures</A></H3>
 
 <P>
-<A NAME="IDX39"></A>
 <A NAME="IDX40"></A>
 <A NAME="IDX41"></A>
 <A NAME="IDX42"></A>
-The <SAMP>`-bap'</SAMP> option forces a blank line after every procedure body.
+<A NAME="IDX43"></A>
+The @option{-bap} option forces a blank line after every procedure body.
 
 </P>
 <P>
@@ -503,18 +514,18 @@ No blank line will be added after the procedure <CODE>foo</CODE>.
 
 <H2><A NAME="SEC8" HREF="indent_toc.html#TOC8">Comments</A></H2>
 <P>
-<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
 
 </P>
 <P>
-<CODE>indent</CODE> formats both C and C++ comments. C comments are begun with
+@command{indent} formats both C and C++ comments. C comments are begun with
 <SAMP>`/*'</SAMP>, terminated with <SAMP>`*/'</SAMP> and may contain newline characters.
 C++ comments begin with the delimiter <SAMP>`//'</SAMP> and end at the newline.
 
 </P>
 <P>
-<CODE>indent</CODE> handles comments differently depending upon their context.
-<CODE>indent</CODE> attempts to distinguish amongst comments which follow
+@command{indent} handles comments differently depending upon their context.
+@command{indent} attempts to distinguish between comments which follow
 statements, comments which follow declarations, comments following
 preprocessor directives, and comments which are not preceded by code of
 any sort, i.e., they begin the text of the line (although not
@@ -522,8 +533,8 @@ neccessarily in column 1).
 
 </P>
 <P>
-<CODE>indent</CODE> further distinguishes between comments found outside of
-procecures and aggregates, and those found within them.  In particular,
+@command{indent} further distinguishes between comments found outside of
+procedures and aggregates, and those found within them.  In particular,
 comments beginning a line found within a procedure will be indented to
 the column at which code is currently indented.  The exception to this a
 comment beginning in the leftmost column;  such a comment is output
@@ -531,7 +542,7 @@ at that column.
 
 </P>
 <P>
-<CODE>indent</CODE> attempts to leave <EM>boxed comments</EM> unmodified.  The
+@command{indent} attempts to leave <EM>boxed comments</EM> unmodified.  The
 general idea of such a comment is that it is enclosed in a rectangle or
 "box" of stars or dashes to visually set it apart.  More precisely,
 boxed comments are defined as those in which the initial <SAMP>`/*'</SAMP> is
@@ -558,7 +569,7 @@ Examples of boxed comments are:
 </PRE>
 
 <P>
-<CODE>indent</CODE> attempts to leave boxed comments exactly as they are found
+@command{indent} attempts to leave boxed comments exactly as they are found
 in the source file.  Thus the indentation of the comment is unchanged,
 and its length is not checked in any way.  The only alteration made is
 that an embedded tab character may be converted into the appropriate
@@ -566,12 +577,11 @@ number of spaces.
 
 </P>
 <P>
-If the <SAMP>`-bbb'</SAMP> option is specified, all such boxed comments will be
+If the @option{-bbb} option is specified, all such boxed comments will be
 preceded by a blank line, unless such a comment is preceded by code.
 
 </P>
 <P>
-<A NAME="IDX44"></A>
 <A NAME="IDX45"></A>
 <A NAME="IDX46"></A>
 <A NAME="IDX47"></A>
@@ -579,49 +589,50 @@ preceded by a blank line, unless such a comment is preceded by code.
 <A NAME="IDX49"></A>
 <A NAME="IDX50"></A>
 <A NAME="IDX51"></A>
+<A NAME="IDX52"></A>
 Comments which are not boxed comments may be formatted, which means that
 the line is broken to fit within a right margin and left-filled with
 whitespace.  Single newlines are equivalent to a space, but blank lines
 (two or more newlines in a row) are taken to mean a paragraph break.
 Formatting of comments which begin after the first column is enabled
-with the <SAMP>`-fca'</SAMP> option.  To format those beginning in column one,
-specify <SAMP>`-fc1'</SAMP>.  Such formatting is disabled by default.
+with the @option{-fca} option.  To format those beginning in column one,
+specify @option{-fc1}.  Such formatting is disabled by default.
 
 </P>
 <P>
 The right margin for formatting defaults to 78, but may be changed with
-the <SAMP>`-lc'</SAMP> option.  If the margin specified does not allow the
+the @option{-lc} option.  If the margin specified does not allow the
 comment to be printed, the margin will be automatically extended for the
 duration of that comment.  The margin is not respected if the comment is
 not being formatted.
 
 </P>
 <P>
-<A NAME="IDX52"></A>
 <A NAME="IDX53"></A>
+<A NAME="IDX54"></A>
 If the comment begins a line (i.e., there is no program text to its
 left), it will be indented to the column it was found in unless the
 comment is within a block of code.  In that case, such a comment will be
 aligned with the indented code of that block (unless the comment began
-in the first column).  This alignment may be affected by the <SAMP>`-d'</SAMP>
+in the first column).  This alignment may be affected by the @option{-d}
 option, which specifies an amount by which such comments are moved to
-the <EM>left</EM>, or unindented.  For example, <SAMP>`-d2'</SAMP> places comments
+the <EM>left</EM>, or unindented.  For example, @option{-d2} places comments
 two spaces to the left of code.  By default, comments are aligned with
 code, unless they begin in the first column, in which case they are left
-there by default -- to get them aligned with the code, specify <SAMP>`-fc1'</SAMP>.
+there by default -- to get them aligned with the code, specify @option{-fc1}.
 
 </P>
 <P>
-<A NAME="IDX54"></A>
 <A NAME="IDX55"></A>
 <A NAME="IDX56"></A>
 <A NAME="IDX57"></A>
 <A NAME="IDX58"></A>
 <A NAME="IDX59"></A>
+<A NAME="IDX60"></A>
 Comments to the right of code will appear by default in column 33.
-This may be changed with one of three options.  <SAMP>`-c'</SAMP> will specify
-the column for comments following code, <SAMP>`-cd'</SAMP> specifies the
-column for comments following declarations, and <SAMP>`-cp'</SAMP> specifies
+This may be changed with one of three options.  @option{-c} will specify
+the column for comments following code, @option{-cd} specifies the
+column for comments following declarations, and @option{-cp} specifies
 the column for comments following preprocessor directives <CODE>#else</CODE>
 and <CODE>#endif</CODE>.
 
@@ -635,11 +646,11 @@ the output of that particular comment.
 
 </P>
 <P>
-<A NAME="IDX60"></A>
 <A NAME="IDX61"></A>
 <A NAME="IDX62"></A>
 <A NAME="IDX63"></A>
-The <SAMP>`-cdb'</SAMP> option places the comment delimiters on blank lines.
+<A NAME="IDX64"></A>
+The @option{-cdb} option places the comment delimiters on blank lines.
 Thus, a single line comment like <CODE>/* Loving hug */</CODE> can be
 transformed into:
 
@@ -652,13 +663,13 @@ transformed into:
 </PRE>
 
 <P>
-<A NAME="IDX64"></A>
 <A NAME="IDX65"></A>
 <A NAME="IDX66"></A>
 <A NAME="IDX67"></A>
+<A NAME="IDX68"></A>
 Stars can be placed at the beginning of multi-line comments with the
-<SAMP>`-sc'</SAMP> option.  Thus, the single-line comment above can be
-transformed (with <SAMP>`-cdb -sc'</SAMP>) into:
+@option{-sc} option.  Thus, the single-line comment above can be
+transformed (with @option{-cdb -sc}) into:
 
 </P>
 
@@ -673,15 +684,15 @@ transformed (with <SAMP>`-cdb -sc'</SAMP>) into:
 <H2><A NAME="SEC9" HREF="indent_toc.html#TOC9">Statements</A></H2>
 
 <P>
-<A NAME="IDX68"></A>
 <A NAME="IDX69"></A>
 <A NAME="IDX70"></A>
 <A NAME="IDX71"></A>
-The <SAMP>`-br'</SAMP> or <SAMP>`-bl'</SAMP> option specifies how to format braces.
+<A NAME="IDX72"></A>
+The @option{-br} or @option{-bl} option specifies how to format braces.
 
 </P>
 <P>
-The <SAMP>`-br'</SAMP> option formats statement braces like this:
+The @option{-br} option formats statement braces like this:
 
 </P>
 
@@ -692,7 +703,7 @@ if (x &#62; 0) {
 </PRE>
 
 <P>
-The <SAMP>`-bl'</SAMP> option formats them like this:
+The @option{-bl} option formats them like this:
 
 </P>
 
@@ -704,12 +715,12 @@ if (x &#62; 0)
 </PRE>
 
 <P>
-<A NAME="IDX72"></A>
 <A NAME="IDX73"></A>
-If you use the <SAMP>`-bl'</SAMP> option, you may also want to specify the
-<SAMP>`-bli'</SAMP> option.  This option specifies the number of spaces by
-which braces are indented.  <SAMP>`-bli2'</SAMP>, the default, gives the
-result shown above.  <SAMP>`-bli0'</SAMP> results in the following:
+<A NAME="IDX74"></A>
+If you use the @option{-bl} option, you may also want to specify the
+@option{-bli} option.  This option specifies the number of spaces by
+which braces are indented.  @option{-bli2}, the default, gives the
+result shown above.  @option{-bli0} results in the following:
 
 </P>
 
@@ -721,14 +732,14 @@ if (x &#62; 0)
 </PRE>
 
 <P>
-<A NAME="IDX74"></A>
 <A NAME="IDX75"></A>
 <A NAME="IDX76"></A>
 <A NAME="IDX77"></A>
-If you are using the <SAMP>`-br'</SAMP> option, you probably want to also use
-the <SAMP>`-ce'</SAMP> option.  This causes the <CODE>else</CODE> in an if-then-else
+<A NAME="IDX78"></A>
+If you are using the @option{-br} option, you probably want to also use
+the @option{-ce} option.  This causes the <CODE>else</CODE> in an if-then-else
 construct to cuddle up to the immediately preceding <SAMP>`}'</SAMP>.  For
-example, with <SAMP>`-br -ce'</SAMP> you get the following:
+example, with @option{-br -ce} you get the following:
 
 </P>
 
@@ -741,7 +752,7 @@ if (x &#62; 0) {
 </PRE>
 
 <P>
-With <SAMP>`-br -nce'</SAMP> that code would appear as
+With @option{-br -nce} that code would appear as
 
 </P>
 
@@ -755,10 +766,10 @@ else {
 </PRE>
 
 <P>
-<A NAME="IDX78"></A>
 <A NAME="IDX79"></A>
-The <SAMP>`-cli'</SAMP> option specifies the number of spaces that case labels
-should be indented to the right of the containing <SAMP>`switch'</SAMP>
+<A NAME="IDX80"></A>
+The @option{-cli} option specifies the number of spaces that case labels
+should be indented to the right of the containing <CODE>switch</CODE>
 statement.
 
 </P>
@@ -782,7 +793,7 @@ switch (i)
 </PRE>
 
 <P>
-Using the <SAMP>`-cli2'</SAMP> that would become:
+Using the @option{-cli2} that would become:
 
 </P>
 
@@ -793,7 +804,7 @@ switch (i)
       break;
     case 1:
       {
-	++i;
+        ++i;
       }
     default:
       break;
@@ -801,11 +812,11 @@ switch (i)
 </PRE>
 
 <P>
-<A NAME="IDX80"></A>
 <A NAME="IDX81"></A>
+<A NAME="IDX82"></A>
 The indentation of the braces below a case statement can be
-controlled with the <SAMP>`-cbi<VAR>n</VAR>'</SAMP> option.  For example,
-using <SAMP>`-cli2 -cbi0'</SAMP> results in:
+controlled with the @option{-cbi<VAR>n</VAR>} option.  For example,
+using @option{-cli2 -cbi0} results in:
 
 </P>
 
@@ -824,40 +835,40 @@ switch (i)
 </PRE>
 
 <P>
-<A NAME="IDX82"></A>
 <A NAME="IDX83"></A>
 <A NAME="IDX84"></A>
 <A NAME="IDX85"></A>
+<A NAME="IDX86"></A>
 If a semicolon is on the same line as a <CODE>for</CODE> or <CODE>while</CODE>
-statement, the <SAMP>`-ss'</SAMP> option will cause a space to be placed before
+statement, the @option{-ss} option will cause a space to be placed before
 the semicolon.  This emphasizes the semicolon, making it clear that the
 body of the <CODE>for</CODE> or <CODE>while</CODE> statement is an empty statement.
-<CODE>-nss</CODE> disables this feature.
+@option{-nss} disables this feature.
 
 </P>
 <P>
-<A NAME="IDX86"></A>
 <A NAME="IDX87"></A>
 <A NAME="IDX88"></A>
 <A NAME="IDX89"></A>
-The <SAMP>`-pcs'</SAMP> option causes a space to be placed between the name of
+<A NAME="IDX90"></A>
+The @option{-pcs} option causes a space to be placed between the name of
 the procedure being called and the <SAMP>`('</SAMP> (for example, <CODE>puts
-("Hi");</CODE>.  The <SAMP>`-npcs'</SAMP> option would give <CODE>puts("Hi");</CODE>).
+("Hi");</CODE>.  The @option{-npcs} option would give <CODE>puts("Hi");</CODE>).
 
 </P>
 <P>
-<A NAME="IDX90"></A>
 <A NAME="IDX91"></A>
 <A NAME="IDX92"></A>
 <A NAME="IDX93"></A>
-If the <SAMP>`-cs'</SAMP> option is specified, <CODE>indent</CODE> puts a space after
+<A NAME="IDX94"></A>
+If the @option{-cs} option is specified, @command{indent} puts a space after
 a cast operator.
 
 </P>
 <P>
-<A NAME="IDX94"></A>
 <A NAME="IDX95"></A>
-The <SAMP>`-bs'</SAMP> option ensures that there is a space between the
+<A NAME="IDX96"></A>
+The @option{-bs} option ensures that there is a space between the
 keyword <CODE>sizeof</CODE> and its argument.  In some versions, this is
 known as the <SAMP>`Bill_Shannon'</SAMP> option.
 
@@ -867,10 +878,10 @@ known as the <SAMP>`Bill_Shannon'</SAMP> option.
 <H2><A NAME="SEC10" HREF="indent_toc.html#TOC10">Declarations</A></H2>
 
 <P>
-<A NAME="IDX96"></A>
 <A NAME="IDX97"></A>
-By default <CODE>indent</CODE> will line up identifiers, in the column
-specified by the <SAMP>`-di'</SAMP> option.  For example, <SAMP>`-di16'</SAMP> makes
+<A NAME="IDX98"></A>
+By default @command{indent} will line up identifiers, in the column
+specified by the @option{-di} option.  For example, @option{-di16} makes
 things look like:
 
 </P>
@@ -881,9 +892,9 @@ char           *bar;
 </PRE>
 
 <P>
-Using a small value (such as one or two) for the <SAMP>`-di'</SAMP> option can
-be used to cause the indentifiers to be placed in the first available
-position, for example
+Using a small value (such as one or two) for the @option{-di} option can
+be used to cause the identifiers to be placed in the first available
+position; for example:
 
 </P>
 
@@ -893,9 +904,9 @@ char *bar;
 </PRE>
 
 <P>
-The value given to the <SAMP>`-di'</SAMP> option will still affect variables
+The value given to the @option{-di} option will still affect variables
 which are put on separate lines from their types, for example
-<SAMP>`-di2'</SAMP> will lead to
+@option{-di2} will lead to:
 
 </P>
 
@@ -905,11 +916,11 @@ int
 </PRE>
 
 <P>
-<A NAME="IDX98"></A>
 <A NAME="IDX99"></A>
 <A NAME="IDX100"></A>
 <A NAME="IDX101"></A>
-If the <SAMP>`-bc'</SAMP> option is specified, a newline is forced after each
+<A NAME="IDX102"></A>
+If the @option{-bc} option is specified, a newline is forced after each
 comma in a declaration.  For example,
 
 </P>
@@ -921,7 +932,7 @@ int a,
 </PRE>
 
 <P>
-With the <SAMP>`-nbc'</SAMP> option this would look like
+With the @option{-nbc} option this would look like
 
 </P>
 
@@ -930,23 +941,24 @@ int a, b, c;
 </PRE>
 
 <P>
-<A NAME="IDX102"></A>
 <A NAME="IDX103"></A>
 <A NAME="IDX104"></A>
 <A NAME="IDX105"></A>
 <A NAME="IDX106"></A>
-The <SAMP>`-psl'</SAMP> option causes the type of a procedure being defined to
+<A NAME="IDX107"></A>
+The @option{-psl} option causes the type of a procedure being defined to
 be placed on the line before the name of the procedure.  This style is
-required for the <CODE>etags</CODE> program to work correctly, as well as some
+required for the @command{etags} program to work correctly, as well as some
 of the <CODE>c-mode</CODE> functions of Emacs.
 
 </P>
 <P>
-<A NAME="IDX107"></A>
 <A NAME="IDX108"></A>
-You must use the <SAMP>`-T'</SAMP>
-option to tell <CODE>indent</CODE> the name of all the typenames in your
-program that are defined by <CODE>typedef</CODE>.  <SAMP>`-T'</SAMP> can be specified
+<A NAME="IDX109"></A>
+<A NAME="IDX110"></A>
+You must use the @option{-T}
+option to tell @command{indent} the name of all the typenames in your
+program that are defined by <CODE>typedef</CODE>.  @option{-T} can be specified
 more than once, and all names specified are used.  For example, if your
 program contains
 
@@ -958,13 +970,13 @@ typedef enum {red, blue, green} COLOR;
 </PRE>
 
 <P>
-you would use the options <SAMP>`-T CODE_ADDR -T COLOR'</SAMP>.
+you would use the options @option{-T CODE_ADDR -T COLOR}.
 
 </P>
 <P>
-The `-brs' or `-bls' option specifies how to format braces in struct
-declarations.
-The `-brs' option formats braces like this:
+The @option{-brs} or @option{-bls} option specifies how to format braces
+in struct declarations.  The @option{-brs} option formats braces like
+this:
 
 </P>
 
@@ -975,7 +987,7 @@ struct foo {
 </PRE>
 
 <P>
-The `-bls' option formats them like this:
+The @option{-bls} option formats them like this:
 
 </P>
 
@@ -991,28 +1003,28 @@ struct foo
 <H2><A NAME="SEC11" HREF="indent_toc.html#TOC11">Indentation</A></H2>
 
 <P>
-<A NAME="IDX109"></A>
-<A NAME="IDX110"></A>
 <A NAME="IDX111"></A>
 <A NAME="IDX112"></A>
 <A NAME="IDX113"></A>
 <A NAME="IDX114"></A>
 <A NAME="IDX115"></A>
 <A NAME="IDX116"></A>
+<A NAME="IDX117"></A>
+<A NAME="IDX118"></A>
 One issue in the formatting of code is how far each line should be
 indented from the left margin.  When the beginning of a statement such
 as <CODE>if</CODE> or <CODE>for</CODE> is encountered, the indentation level is
-increased by the value specified by the <SAMP>`-i'</SAMP> option.  For example,
-use <SAMP>`-i8'</SAMP> to specify an eight character indentation for each
+increased by the value specified by the @option{-i} option.  For example,
+use @option{-i8} to specify an eight character indentation for each
 level.  When a statement is broken across two lines, the second line is
-indented by a number of additional spaces specified by the <SAMP>`-ci'</SAMP>
-option.  <SAMP>`-ci'</SAMP> defaults to 0.  However, if the <SAMP>`-lp'</SAMP> option is
+indented by a number of additional spaces specified by the @option{-ci}
+option.  @option{-ci} defaults to 0.  However, if the @option{-lp} option is
 specified, and a line has a left parenthesis which is not closed on that
 line, then continuation lines will be lined up to start at the character
 position just after the left parenthesis.  This processing also applies
 to <SAMP>`['</SAMP> and applies to <SAMP>`{'</SAMP> when it occurs in initialization
 lists.  For example, a piece of continued code might look like this with
-<SAMP>`-nlp -ci3'</SAMP> in effect:
+@option{-nlp -ci3} in effect:
 
 </P>
 
@@ -1022,7 +1034,7 @@ lists.  For example, a piece of continued code might look like this with
 </PRE>
 
 <P>
-With <SAMP>`-lp'</SAMP> in effect the code looks somewhat clearer:
+With @option{-lp} in effect the code looks somewhat clearer:
 
 </P>
 
@@ -1032,9 +1044,9 @@ With <SAMP>`-lp'</SAMP> in effect the code looks somewhat clearer:
 </PRE>
 
 <P>
-<A NAME="IDX117"></A>
-<A NAME="IDX118"></A>
-When a statement is broken inbetween two or more paren pairs (...),
+<A NAME="IDX119"></A>
+<A NAME="IDX120"></A>
+When a statement is broken in between two or more paren pairs (...),
 each extra pair causes the indentation level extra indentation:
 
 </P>
@@ -1047,8 +1059,8 @@ if ((((i &#60; 2 &#38;&#38;
 </PRE>
 
 <P>
-The option `-ipN' can be used to set the extra offset per paren.
-For instance, `-ip0' would format the above as:
+The option @option{-ip<VAR>N</VAR>} can be used to set the extra offset per paren.
+For instance, @option{-ip0} would format the above as:
 
 </P>
 
@@ -1060,21 +1072,21 @@ if ((((i &#60; 2 &#38;&#38;
 </PRE>
 
 <P>
-<CODE>indent</CODE> assumes that tabs are placed at regular intervals of both
+@command{indent} assumes that tabs are placed at regular intervals of both
 input and output character streams.  These intervals are by default 8
-columns wide, but (as of version 1.2) may be changed by the <SAMP>`-ts'</SAMP>
+columns wide, but (as of version 1.2) may be changed by the @option{-ts}
 option.  Tabs are treated as the equivalent number of spaces.
 
 </P>
 <P>
-<A NAME="IDX119"></A>
-<A NAME="IDX120"></A>
 <A NAME="IDX121"></A>
 <A NAME="IDX122"></A>
+<A NAME="IDX123"></A>
+<A NAME="IDX124"></A>
 The indentation of type declarations in old-style function definitions
-is controlled by the <SAMP>`-ip'</SAMP> parameter.  This is a numeric parameter
+is controlled by the @option{-ip} parameter.  This is a numeric parameter
 specifying how many spaces to indent type declarations.  For example,
-the default <SAMP>`-ip5'</SAMP> makes definitions look like this:
+the default @option{-ip5} makes definitions look like this:
 
 </P>
 
@@ -1090,19 +1102,19 @@ create_world (x, y, scale)
 </PRE>
 
 <P>
-For compatibility with other versions of indent, the option <SAMP>`-nip'</SAMP>
-is provided, which is equivalent to <SAMP>`-ip0'</SAMP>.
+For compatibility with other versions of indent, the option @option{-nip}
+is provided, which is equivalent to @option{-ip0}.
 
 </P>
 <P>
-<A NAME="IDX123"></A>
-<A NAME="IDX124"></A>
 <A NAME="IDX125"></A>
 <A NAME="IDX126"></A>
+<A NAME="IDX127"></A>
+<A NAME="IDX128"></A>
 ANSI C allows white space to be placed on preprocessor command lines
 between the character <SAMP>`#'</SAMP> and the command name.  By default,
-<CODE>indent</CODE> removes this space, but specifying the <SAMP>`-lps'</SAMP> option
-directs <CODE>indent</CODE> to leave this space unmodified.
+@command{indent} removes this space, but specifying the @option{-lps} option
+directs @command{indent} to leave this space unmodified.
 
 </P>
 
@@ -1110,38 +1122,39 @@ directs <CODE>indent</CODE> to leave this space unmodified.
 <H2><A NAME="SEC12" HREF="indent_toc.html#TOC12">Breaking long lines</A></H2>
 
 <P>
-<A NAME="IDX127"></A>
-<A NAME="IDX128"></A>
-With the option <CODE>-l<VAR>n</VAR></CODE>, or <CODE>--line-length<VAR>n</VAR></CODE>, it is
+<A NAME="IDX129"></A>
+<A NAME="IDX130"></A>
+With the option @option{-l<VAR>n</VAR>}, or @option{--line-length<VAR>n</VAR>}, it is
 possible to specify the maximum length of a line of C code, not including
 possible comments that follow it.
 
 </P>
 <P>
-When lines become longer then the specified line length, <CODE>GNU indent</CODE>
+When lines become longer then the specified line length, GNU @command{indent}
 tries to break the line at a logical place.  This is new as of version 2.1
 however and not very intelligent or flexible yet.
 
 </P>
 <P>
-<A NAME="IDX129"></A>
-<A NAME="IDX130"></A>
 <A NAME="IDX131"></A>
 <A NAME="IDX132"></A>
 <A NAME="IDX133"></A>
 <A NAME="IDX134"></A>
 <A NAME="IDX135"></A>
 <A NAME="IDX136"></A>
+<A NAME="IDX137"></A>
+<A NAME="IDX138"></A>
 Currently there are two options that allows one to interfere with the
 algorithm that determines where to break a line.
 
 </P>
 <P>
-The <SAMP>`-bbo'</SAMP> option causes <CODE>GNU indent</CODE> to prefer to break long
-lines before the boolean operators <CODE>&#38;&#38;</CODE> and <CODE>||</CODE>.  The <SAMP>`-nbbo'</SAMP>
-option causes <CODE>GNU indent</CODE> not have that preference.  For example,
-the default option <SAMP>`-bbo'</SAMP> (together with <SAMP>`--line-length60'</SAMP> and
-<SAMP>`--ignore-newlines'</SAMP>) makes code look like this:
+The @option{-bbo} option causes GNU @command{indent} to prefer to break
+long lines before the boolean operators <CODE>&#38;&#38;</CODE> and <CODE>||</CODE>.  The
+@option{-nbbo} option causes GNU @command{indent} not have that
+preference.  For example, the default option @option{-bbo} (together
+with @option{--line-length60} and @option{--ignore-newlines}) makes code
+look like this:
 
 </P>
 
@@ -1153,7 +1166,7 @@ the default option <SAMP>`-bbo'</SAMP> (together with <SAMP>`--line-length60'</S
 </PRE>
 
 <P>
-Using the option <SAMP>`-nbbo'</SAMP> will make it look like this:
+Using the option @option{-nbbo} will make it look like this:
 
 </P>
 
@@ -1165,7 +1178,7 @@ Using the option <SAMP>`-nbbo'</SAMP> will make it look like this:
 </PRE>
 
 <P>
-The default <SAMP>`-hnl'</SAMP> however, honours newlines in the input file by
+The default @option{-hnl}, however, honours newlines in the input file by
 giving them the highest possible priority to break lines at.  For example,
 when the input file looks like this:
 
@@ -1178,11 +1191,11 @@ when the input file looks like this:
 </PRE>
 
 <P>
-then using the option <SAMP>`-hnl'</SAMP>, or <SAMP>`--honour-newlines'</SAMP>, together
-with the previously mentioned <SAMP>`-nbbo'</SAMP> and <SAMP>`--line-length60'</SAMP>, will
-cause the output not to be what is given in the last example but instead
-will prefer to break at the positions where the code was broken in the
-input file:
+then using the option @option{-hnl}, or @option{--honour-newlines},
+together with the previously mentioned @option{-nbbo} and
+@option{--line-length60}, will cause the output not to be what is given
+in the last example but instead will prefer to break at the positions
+where the code was broken in the input file:
 
 </P>
 
@@ -1195,9 +1208,9 @@ input file:
 
 <P>
 The idea behind this option is that lines which are too long, but are already
-broken up, will not be touched by <CODE>GNU indent</CODE>.  Really messy code
-should be run through <CODE>indent</CODE> at least once using the
-<SAMP>`--ignore-newlines'</SAMP> option though.
+broken up, will not be touched by GNU @command{indent}.  Really messy code
+should be run through @command{indent} at least once using the
+@option{--ignore-newlines} option though.
 
 </P>
 
@@ -1218,7 +1231,7 @@ the input line following the enabling control comment.
 
 </P>
 <P>
-More precisely, <CODE>indent</CODE> does not attempt to verify the closing
+More precisely, @command{indent} does not attempt to verify the closing
 delimiter (<CODE>*/</CODE>) for these C comments, and any whitespace on the
 line is totally transparent.
 
@@ -1229,7 +1242,7 @@ These control comments also function in their C++ formats, namely
 
 </P>
 <P>
-It should be noted that the internal state of <CODE>indent</CODE> remains
+It should be noted that the internal state of @command{indent} remains
 unchanged over the course of the unformatted section.  Thus, for
 example, turning off formatting in the middle of a function and
 continuing it after the end of the function may lead to bizarre
@@ -1238,11 +1251,11 @@ to be left unformatted.
 
 </P>
 <P>
-As a historical note, some earlier versions of <CODE>indent</CODE> produced
+As a historical note, some earlier versions of @command{indent} produced
 error messages beginning with <CODE>*INDENT**</CODE>.  These versions of
-<CODE>indent</CODE> were written to ignore any input text lines which began
+@command{indent} were written to ignore any input text lines which began
 with such error messages.  I have removed this incestuous feature from
-<CODE>GNU indent</CODE>.
+GNU @command{indent}.
 
 </P>
 
@@ -1250,28 +1263,28 @@ with such error messages.  I have removed this incestuous feature from
 <H2><A NAME="SEC14" HREF="indent_toc.html#TOC14">Miscellaneous options</A></H2>
 
 <P>
-<A NAME="IDX137"></A>
-To find out what version of <CODE>indent</CODE> you have, use the command
+<A NAME="IDX139"></A>
+To find out what version of @command{indent} you have, use the command
 <CODE>indent -version</CODE>.  This will report the version number of
-<CODE>indent</CODE>, without doing any of the normal processing.
+@command{indent}, without doing any of the normal processing.
 
 </P>
 <P>
-<A NAME="IDX138"></A>
-<A NAME="IDX139"></A>
 <A NAME="IDX140"></A>
 <A NAME="IDX141"></A>
-The <SAMP>`-v'</SAMP> option can be used to turn on verbose mode.  When in
-verbose mode, <CODE>indent</CODE> reports when it splits one line of input
+<A NAME="IDX142"></A>
+<A NAME="IDX143"></A>
+The @option{-v} option can be used to turn on verbose mode.  When in
+verbose mode, @command{indent} reports when it splits one line of input
 into two more more lines of output, and gives some size statistics at
 completion. 
 
 </P>
 <P>
-<A NAME="IDX142"></A>
-<A NAME="IDX143"></A>
 <A NAME="IDX144"></A>
-The <SAMP>`-pmt'</SAMP> option causes <CODE>indent</CODE> to preserve the access
+<A NAME="IDX145"></A>
+<A NAME="IDX146"></A>
+The @option{-pmt} option causes @command{indent} to preserve the access
 and modification times on the output files.  Using this option
 has the advantage that running indent on all source and header
 files in a project won't cause <CODE>make</CODE> to rebuild all targets.
@@ -1284,42 +1297,43 @@ POSIX <CODE>utime(2)</CODE> function.
 <H2><A NAME="SEC15" HREF="indent_toc.html#TOC15">Bugs</A></H2>
 
 <P>
-When <CODE>indent</CODE> is run twice on a file, with the same profile,
+When @command{indent} is run twice on a file, with the same profile,
 it should <EM>never</EM> change that file the second time.  With the
-current design of <CODE>indent</CODE> this can not be garanteed however
+current design of @command{indent}, this can not be guaranteed, however,
 and it has not been extensively tested.
 
 </P>
 <P>
-<CODE>Indent</CODE> does not understand C.  In some cases this leads to
+@command{indent} does not understand C.  In some cases this leads to
 the inability to join lines.  The result is that running a file
-through <CODE>indent</CODE> is <EM>irreversable</EM>, even if the used input
-file was the result of running <CODE>indent</CODE> with a given profile
+through @command{indent} is <EM>irreversible</EM>, even if the used input
+file was the result of running @command{indent} with a given profile
 (<TT>`.indent.pro'</TT>).
 
 </P>
 <P>
-While an attempt was made to get <CODE>indent</CODE> working for C++, is
-will not do a good job on any C++ source except the real simple.
+While an attempt was made to get @command{indent} working for C++, is
+will not do a good job on any C++ source except the very simple.
 
 </P>
 <P>
-<CODE>Indent</CODE> does not look at the given <SAMP>`--line-length'</SAMP> option
+@command{indent} does not look at the given @option{--line-length} option
 when writing comments to the output file.  This results often in comments
-being put far to the right.  In order to prohibit <CODE>indent</CODE> from
+being put far to the right.  In order to prohibit @command{indent} from
 joining a broken line that has a comment at the end, make sure that the
 comments start on the first line of the break.
 
 </P>
 <P>
-<CODE>Indent</CODE> does not count lines and comments (see the <SAMP>`-v'</SAMP> option)
-when <CODE>indent</CODE> is turned off with <CODE>/* *INDENT-OFF* */</CODE>.
+@command{indent} does not count lines and comments (see the @option{-v}
+option) when @command{indent} is turned off with 
+<CODE>/* *INDENT-OFF* */</CODE>.
 
 </P>
 <P>
-Comments of the form /*UPPERCASE*/ are not treated as comment but as an
+Comments of the form <CODE>/*UPPERCASE*/</CODE> are not treated as comment but as an
 identifier, causing them to be joined with the next line. This renders
-comments of this type useless unless they are embedded in the code to
+comments of this type useless, unless they are embedded in the code to
 begin with.
 
 </P>
@@ -1328,19 +1342,20 @@ begin with.
 <H2><A NAME="SEC16" HREF="indent_toc.html#TOC16">Copyright</A></H2>
 
 <P>
-The following copyright notice applies to the <CODE>indent</CODE> program.
+The following copyright notice applies to the @command{indent} program.
 The copyright and copying permissions for this manual appear near the
-beginning of indent.texinfo and indent.info, and near the end of indent.1.
+beginning of <TT>`indent.texinfo'</TT> and <TT>`indent.info'</TT>, and near the
+end of <TT>`indent.1'</TT>.
 
 </P>
 
 <PRE>
-Copyright (c) 1999 Carlo Wood.
-Copyright (c) 1995, 1996 Joseph Arceneaux.
-Copyright (c) 1989, 1992, 1993, 1994, 1995, 1996 Free Software Foundation
-Copyright (c) 1985 Sun Microsystems, Inc.
-Copyright (c) 1980 The Regents of the University of California.
-Copyright (c) 1976 Board of Trustees of the University of Illinois.
+Copyright (C) 1999 Carlo Wood.
+Copyright (C) 1995, 1996 Joseph Arceneaux.
+Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software Foundation
+Copyright (C) 1985 Sun Microsystems, Inc.
+Copyright (C) 1980 The Regents of the University of California.
+Copyright (C) 1976 Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms are permitted
@@ -1363,7 +1378,7 @@ PURPOSE.
 <H1><A NAME="SEC17" HREF="indent_toc.html#TOC17">Option Summary</A></H1>
 
 <P>
-Here is a list of all the options for <CODE>indent</CODE>, alphabetized by
+Here is a list of all the options for @command{indent}, alphabetized by
 short option.  It is followed by a cross key alphabetized by long option.
 
 </P>
@@ -1501,8 +1516,8 @@ See section <A HREF="indent.html#SEC9">Statements</A>.
 <DD>
 <DT><SAMP>`--else-endif-column<VAR>n</VAR>'</SAMP>
 <DD>
-Put comments to the right of <SAMP>`#else'</SAMP> and 
-<SAMP>`#endif'</SAMP> statements in column <VAR>n</VAR>.<BR>
+Put comments to the right of <CODE>#else</CODE> and 
+<CODE>#endif</CODE> statements in column <VAR>n</VAR>.<BR>
 See section <A HREF="indent.html#SEC8">Comments</A>.
 
 <DT><SAMP>`-cs'</SAMP>
@@ -1722,7 +1737,7 @@ See section <A HREF="indent.html#SEC5">Blank lines</A>.
 <DT><SAMP>`--dont-space-special-semicolon'</SAMP>
 <DD>
 Do not force a space before the semicolon after certain statements.
-Disables <SAMP>`-ss'</SAMP>.<BR>
+Disables @option{-ss}.<BR>
 See section <A HREF="indent.html#SEC9">Statements</A>.
 
 <DT><SAMP>`-nv'</SAMP>
@@ -1744,7 +1759,7 @@ See section <A HREF="indent.html#SEC4">Common styles</A>.
 <DT><SAMP>`--ignore-profile'</SAMP>
 <DD>
 Do not read <TT>`.indent.pro'</TT> files.<BR>
-See section <A HREF="indent.html#SEC2">Invoking <CODE>indent</CODE></A>.
+See section <A HREF="indent.html#SEC2">Invoking @command{indent}</A>.
 
 <DT><SAMP>`-pcs'</SAMP>
 <DD>
@@ -1810,11 +1825,11 @@ See section <A HREF="indent.html#SEC9">Statements</A>.
 <DT><SAMP>`--standard-output'</SAMP>
 <DD>
 Write to standard output.<BR>
-See section <A HREF="indent.html#SEC2">Invoking <CODE>indent</CODE></A>.
+See section <A HREF="indent.html#SEC2">Invoking @command{indent}</A>.
 
 <DT><SAMP>`-T'</SAMP>
 <DD>
-Tell <CODE>indent</CODE> the name of typenames.<BR>
+Tell @command{indent} the name of typenames.<BR>
 See section <A HREF="indent.html#SEC10">Declarations</A>.
 
 <DT><SAMP>`-ts<VAR>n</VAR>'</SAMP>
@@ -1833,7 +1848,7 @@ See section <A HREF="indent.html#SEC14">Miscellaneous options</A>.
 
 <DT><SAMP>`-version'</SAMP>
 <DD>
-Output the version number of <CODE>indent</CODE>.<BR>
+Output the version number of @command{indent}.<BR>
 See section <A HREF="indent.html#SEC14">Miscellaneous options</A>.
 </DL>
 
@@ -1922,11 +1937,11 @@ Jump to:
 -
 <A HREF="#kindex_.">.</A>
 -
+<A HREF="#kindex_@">@</A>
+-
 <A HREF="#kindex_b">b</A>
 -
 <A HREF="#kindex_c">c</A>
--
-<A HREF="#kindex_e">e</A>
 -
 <A HREF="#kindex_g">g</A>
 -
@@ -1946,164 +1961,165 @@ Jump to:
 <P>
 <H2><A NAME="kindex_-">-</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX95">--blank-after-sizeof</A>
-<LI><A HREF="indent.html#IDX28">--blank-lines-after-block-comments</A>
-<LI><A HREF="indent.html#IDX99">--blank-lines-after-commas</A>
-<LI><A HREF="indent.html#IDX36">--blank-lines-after-declarations</A>
-<LI><A HREF="indent.html#IDX40">--blank-lines-after-procedures</A>
-<LI><A HREF="indent.html#IDX73">--brace-indent<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX71">--braces-after-if-line</A>
-<LI><A HREF="indent.html#IDX69">--braces-on-if-line</A>
-<LI><A HREF="indent.html#IDX132">--break-after-boolean-operator</A>
-<LI><A HREF="indent.html#IDX130">--break-before-boolean-operator</A>
-<LI><A HREF="indent.html#IDX81">--case-brace-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX79">--case-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX61">--comment-delimiters-on-blank-lines</A>
-<LI><A HREF="indent.html#IDX55">--comment-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX112">--continuation-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX114">--continue-at-parentheses</A>
-<LI><A HREF="indent.html#IDX75">--cuddle-else</A>
-<LI><A HREF="indent.html#IDX57">--declaration-comment-column<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX97">--declaration-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX105">--dont-break-procedure-type</A>
-<LI><A HREF="indent.html#IDX77">--dont-cuddle-else</A>
-<LI><A HREF="indent.html#IDX47">--dont-format-comments</A>
-<LI><A HREF="indent.html#IDX51">--dont-format-first-column-comments</A>
-<LI><A HREF="indent.html#IDX116">--dont-line-up-parentheses</A>
-<LI><A HREF="indent.html#IDX85">--dont-space-special-semicolon</A>
-<LI><A HREF="indent.html#IDX67">--dont-star-comments</A>
-<LI><A HREF="indent.html#IDX59">--else-endif-column<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX45">--format-all-comments</A>
-<LI><A HREF="indent.html#IDX49">--format-first-column-comments</A>
-<LI><A HREF="indent.html#IDX18">--gnu-style</A>
-<LI><A HREF="indent.html#IDX134">--honour-newlines</A>
-<LI><A HREF="indent.html#IDX136">--ignore-newlines</A>
+<LI><A HREF="indent.html#IDX96">--blank-after-sizeof</A>
+<LI><A HREF="indent.html#IDX29">--blank-lines-after-block-comments</A>
+<LI><A HREF="indent.html#IDX100">--blank-lines-after-commas</A>
+<LI><A HREF="indent.html#IDX37">--blank-lines-after-declarations</A>
+<LI><A HREF="indent.html#IDX41">--blank-lines-after-procedures</A>
+<LI><A HREF="indent.html#IDX74">--brace-indent<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX72">--braces-after-if-line</A>
+<LI><A HREF="indent.html#IDX70">--braces-on-if-line</A>
+<LI><A HREF="indent.html#IDX134">--break-after-boolean-operator</A>
+<LI><A HREF="indent.html#IDX132">--break-before-boolean-operator</A>
+<LI><A HREF="indent.html#IDX82">--case-brace-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX80">--case-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX62">--comment-delimiters-on-blank-lines</A>
+<LI><A HREF="indent.html#IDX56">--comment-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX114">--continuation-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX116">--continue-at-parentheses</A>
+<LI><A HREF="indent.html#IDX76">--cuddle-else</A>
+<LI><A HREF="indent.html#IDX58">--declaration-comment-column<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX98">--declaration-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX106">--dont-break-procedure-type</A>
+<LI><A HREF="indent.html#IDX78">--dont-cuddle-else</A>
+<LI><A HREF="indent.html#IDX48">--dont-format-comments</A>
+<LI><A HREF="indent.html#IDX52">--dont-format-first-column-comments</A>
+<LI><A HREF="indent.html#IDX118">--dont-line-up-parentheses</A>
+<LI><A HREF="indent.html#IDX86">--dont-space-special-semicolon</A>
+<LI><A HREF="indent.html#IDX68">--dont-star-comments</A>
+<LI><A HREF="indent.html#IDX60">--else-endif-column<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX46">--format-all-comments</A>
+<LI><A HREF="indent.html#IDX50">--format-first-column-comments</A>
+<LI><A HREF="indent.html#IDX19">--gnu-style</A>
+<LI><A HREF="indent.html#IDX136">--honour-newlines</A>
+<LI><A HREF="indent.html#IDX138">--ignore-newlines</A>
 <LI><A HREF="indent.html#IDX15">--ignore-profile</A>
-<LI><A HREF="indent.html#IDX110">--indent-level<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX21">--k-and-r-style</A>
-<LI><A HREF="indent.html#IDX34">--leave-optional-blank-lines</A>
-<LI><A HREF="indent.html#IDX124">--leave-preprocessor-space</A>
-<LI><A HREF="indent.html#IDX53">--line-comments-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX128">--line-length<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX30">--no-blank-lines-after-block-comments</A>
-<LI><A HREF="indent.html#IDX101">--no-blank-lines-after-commas</A>
-<LI><A HREF="indent.html#IDX38">--no-blank-lines-after-declarations</A>
-<LI><A HREF="indent.html#IDX42">--no-blank-lines-after-procedures</A>
-<LI><A HREF="indent.html#IDX63">--no-comment-delimiters-on-blank-lines</A>
-<LI><A HREF="indent.html#IDX122">--no-parameter-indentation</A>
-<LI><A HREF="indent.html#IDX93">--no-space-after-casts</A>
-<LI><A HREF="indent.html#IDX89">--no-space-after-function-call-names</A>
-<LI><A HREF="indent.html#IDX141">--no-verbosity</A>
-<LI><A HREF="indent.html#IDX25">--original</A>
+<LI><A HREF="indent.html#IDX112">--indent-level<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX22">--k-and-r-style</A>
+<LI><A HREF="indent.html#IDX35">--leave-optional-blank-lines</A>
+<LI><A HREF="indent.html#IDX126">--leave-preprocessor-space</A>
+<LI><A HREF="indent.html#IDX54">--line-comments-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX130">--line-length<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX31">--no-blank-lines-after-block-comments</A>
+<LI><A HREF="indent.html#IDX102">--no-blank-lines-after-commas</A>
+<LI><A HREF="indent.html#IDX39">--no-blank-lines-after-declarations</A>
+<LI><A HREF="indent.html#IDX43">--no-blank-lines-after-procedures</A>
+<LI><A HREF="indent.html#IDX64">--no-comment-delimiters-on-blank-lines</A>
+<LI><A HREF="indent.html#IDX124">--no-parameter-indentation</A>
+<LI><A HREF="indent.html#IDX94">--no-space-after-casts</A>
+<LI><A HREF="indent.html#IDX90">--no-space-after-function-call-names</A>
+<LI><A HREF="indent.html#IDX143">--no-verbosity</A>
+<LI><A HREF="indent.html#IDX26">--original</A>
 <LI><A HREF="indent.html#IDX6">--output-file</A>
-<LI><A HREF="indent.html#IDX120">--parameter-indentation<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX143">--preserve-mtime</A>
-<LI><A HREF="indent.html#IDX103">--procnames-start-lines</A>
-<LI><A HREF="indent.html#IDX126">--remove-preprocessor-space</A>
-<LI><A HREF="indent.html#IDX91">--space-after-cast</A>
-<LI><A HREF="indent.html#IDX87">--space-after-procedure-calls</A>
-<LI><A HREF="indent.html#IDX83">--space-special-semicolon</A>
+<LI><A HREF="indent.html#IDX122">--parameter-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX145">--preserve-mtime</A>
+<LI><A HREF="indent.html#IDX104">--procnames-start-lines</A>
+<LI><A HREF="indent.html#IDX128">--remove-preprocessor-space</A>
+<LI><A HREF="indent.html#IDX92">--space-after-cast</A>
+<LI><A HREF="indent.html#IDX88">--space-after-procedure-calls</A>
+<LI><A HREF="indent.html#IDX84">--space-special-semicolon</A>
 <LI><A HREF="indent.html#IDX9">--standard-output</A>
-<LI><A HREF="indent.html#IDX65">--star-left-side-of-comments</A>
-<LI><A HREF="indent.html#IDX32">--swallow-optional-blank-lines</A>
-<LI><A HREF="indent.html#IDX118">--tab-size<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX139">--verbose</A>
-<LI><A HREF="indent.html#IDX35">-bad</A>
-<LI><A HREF="indent.html#IDX39">-bap</A>
-<LI><A HREF="indent.html#IDX27">-bbb</A>
-<LI><A HREF="indent.html#IDX129">-bbo</A>
-<LI><A HREF="indent.html#IDX98">-bc</A>
-<LI><A HREF="indent.html#IDX70">-bl</A>
-<LI><A HREF="indent.html#IDX72">-bli<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX68">-br</A>
-<LI><A HREF="indent.html#IDX94">-bs</A>
-<LI><A HREF="indent.html#IDX80">-cbi<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX60">-cdb</A>
-<LI><A HREF="indent.html#IDX56">-cd<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX74">-ce</A>
-<LI><A HREF="indent.html#IDX111">-ci<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX78">-cli<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX54">-c<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX58">-cp<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX90">-cs</A>
-<LI><A HREF="indent.html#IDX76">-dce</A>
-<LI><A HREF="indent.html#IDX96">-di<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX52">-d<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX48">-fc1</A>
-<LI><A HREF="indent.html#IDX44">-fca</A>
-<LI><A HREF="indent.html#IDX17">-gnu</A>
-<LI><A HREF="indent.html#IDX133">-hnl</A>
-<LI><A HREF="indent.html#IDX109">-i<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX119">-ip<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX20">-kr</A>
-<LI><A HREF="indent.html#IDX127">-l<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX113">-lp</A>
-<LI><A HREF="indent.html#IDX123">-lps</A>
-<LI><A HREF="indent.html#IDX37">-nbad</A>
-<LI><A HREF="indent.html#IDX41">-nbap</A>
-<LI><A HREF="indent.html#IDX29">-nbbb</A>
-<LI><A HREF="indent.html#IDX131">-nbbo</A>
-<LI><A HREF="indent.html#IDX100">-nbc</A>
-<LI><A HREF="indent.html#IDX62">-ncdb</A>
-<LI><A HREF="indent.html#IDX92">-ncs</A>
-<LI><A HREF="indent.html#IDX50">-nfc1</A>
-<LI><A HREF="indent.html#IDX46">-nfca</A>
-<LI><A HREF="indent.html#IDX135">-nhnl</A>
-<LI><A HREF="indent.html#IDX121">-nip</A>
-<LI><A HREF="indent.html#IDX115">-nlp</A>
-<LI><A HREF="indent.html#IDX125">-nlps</A>
-<LI><A HREF="indent.html#IDX88">-npcs</A>
-<LI><A HREF="indent.html#IDX144">-npmt</A>
+<LI><A HREF="indent.html#IDX66">--star-left-side-of-comments</A>
+<LI><A HREF="indent.html#IDX33">--swallow-optional-blank-lines</A>
+<LI><A HREF="indent.html#IDX120">--tab-size<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX141">--verbose</A>
+<LI><A HREF="indent.html#IDX36">-bad</A>
+<LI><A HREF="indent.html#IDX40">-bap</A>
+<LI><A HREF="indent.html#IDX28">-bbb</A>
+<LI><A HREF="indent.html#IDX131">-bbo</A>
+<LI><A HREF="indent.html#IDX99">-bc</A>
+<LI><A HREF="indent.html#IDX71">-bl</A>
+<LI><A HREF="indent.html#IDX73">-bli<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX69">-br</A>
+<LI><A HREF="indent.html#IDX95">-bs</A>
+<LI><A HREF="indent.html#IDX81">-cbi<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX61">-cdb</A>
+<LI><A HREF="indent.html#IDX57">-cd<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX75">-ce</A>
+<LI><A HREF="indent.html#IDX113">-ci<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX79">-cli<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX55">-c<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX59">-cp<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX91">-cs</A>
+<LI><A HREF="indent.html#IDX77">-dce</A>
+<LI><A HREF="indent.html#IDX97">-di<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX53">-d<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX49">-fc1</A>
+<LI><A HREF="indent.html#IDX45">-fca</A>
+<LI><A HREF="indent.html#IDX18">-gnu</A>
+<LI><A HREF="indent.html#IDX135">-hnl</A>
+<LI><A HREF="indent.html#IDX111">-i<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX121">-ip<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX21">-kr</A>
+<LI><A HREF="indent.html#IDX129">-l<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX115">-lp</A>
+<LI><A HREF="indent.html#IDX125">-lps</A>
+<LI><A HREF="indent.html#IDX38">-nbad</A>
+<LI><A HREF="indent.html#IDX42">-nbap</A>
+<LI><A HREF="indent.html#IDX30">-nbbb</A>
+<LI><A HREF="indent.html#IDX133">-nbbo</A>
+<LI><A HREF="indent.html#IDX101">-nbc</A>
+<LI><A HREF="indent.html#IDX63">-ncdb</A>
+<LI><A HREF="indent.html#IDX93">-ncs</A>
+<LI><A HREF="indent.html#IDX51">-nfc1</A>
+<LI><A HREF="indent.html#IDX47">-nfca</A>
+<LI><A HREF="indent.html#IDX137">-nhnl</A>
+<LI><A HREF="indent.html#IDX123">-nip</A>
+<LI><A HREF="indent.html#IDX117">-nlp</A>
+<LI><A HREF="indent.html#IDX127">-nlps</A>
+<LI><A HREF="indent.html#IDX89">-npcs</A>
+<LI><A HREF="indent.html#IDX146">-npmt</A>
 <LI><A HREF="indent.html#IDX14">-npro</A>
-<LI><A HREF="indent.html#IDX104">-npsl</A>
-<LI><A HREF="indent.html#IDX66">-nsc</A>
-<LI><A HREF="indent.html#IDX33">-nsob</A>
-<LI><A HREF="indent.html#IDX84">-nss</A>
-<LI><A HREF="indent.html#IDX140">-nv</A>
+<LI><A HREF="indent.html#IDX105">-npsl</A>
+<LI><A HREF="indent.html#IDX67">-nsc</A>
+<LI><A HREF="indent.html#IDX34">-nsob</A>
+<LI><A HREF="indent.html#IDX85">-nss</A>
+<LI><A HREF="indent.html#IDX142">-nv</A>
 <LI><A HREF="indent.html#IDX5">-o</A>
-<LI><A HREF="indent.html#IDX24">-orig</A>
-<LI><A HREF="indent.html#IDX86">-pcs</A>
-<LI><A HREF="indent.html#IDX142">-pmt</A>
-<LI><A HREF="indent.html#IDX102">-psl</A>
-<LI><A HREF="indent.html#IDX64">-sc</A>
-<LI><A HREF="indent.html#IDX31">-sob</A>
-<LI><A HREF="indent.html#IDX82">-ss</A>
+<LI><A HREF="indent.html#IDX25">-orig</A>
+<LI><A HREF="indent.html#IDX87">-pcs</A>
+<LI><A HREF="indent.html#IDX144">-pmt</A>
+<LI><A HREF="indent.html#IDX103">-psl</A>
+<LI><A HREF="indent.html#IDX65">-sc</A>
+<LI><A HREF="indent.html#IDX32">-sob</A>
+<LI><A HREF="indent.html#IDX83">-ss</A>
 <LI><A HREF="indent.html#IDX8">-st</A>
-<LI><A HREF="indent.html#IDX107">-T</A>
-<LI><A HREF="indent.html#IDX117">-ts<VAR>n</VAR></A>
-<LI><A HREF="indent.html#IDX138">-v</A>
-<LI><A HREF="indent.html#IDX137">-version</A>
+<LI><A HREF="indent.html#IDX108">-T</A>
+<LI><A HREF="indent.html#IDX119">-ts<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX140">-v</A>
+<LI><A HREF="indent.html#IDX139">-version</A>
 </DIR>
 <H2><A NAME="kindex_.">.</A></H2>
 <DIR>
 <LI><A HREF="indent.html#IDX12"><TT>`.indent.pro'</TT> file</A>
 </DIR>
+<H2><A NAME="kindex_@">@</A></H2>
+<DIR>
+<LI><A HREF="indent.html#IDX107">@command{etags} requires @option{-psl}</A>
+</DIR>
 <H2><A NAME="kindex_b">b</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX3">Beginning <CODE>indent</CODE></A>
-<LI><A HREF="indent.html#IDX22">Berkeley style</A>
-<LI><A HREF="indent.html#IDX26">Blank lines</A>
+<LI><A HREF="indent.html#IDX16">backup files</A>
+<LI><A HREF="indent.html#IDX3">Beginning @command{indent}</A>
+<LI><A HREF="indent.html#IDX23">Berkeley style</A>
+<LI><A HREF="indent.html#IDX27">Blank lines</A>
 </DIR>
 <H2><A NAME="kindex_c">c</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX43">Comments</A>
-</DIR>
-<H2><A NAME="kindex_e">e</A></H2>
-<DIR>
-<LI><A HREF="indent.html#IDX106"><CODE>etags</CODE> requires <SAMP>`-psl'</SAMP></A>
+<LI><A HREF="indent.html#IDX44">Comments</A>
 </DIR>
 <H2><A NAME="kindex_g">g</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX16">GNU style</A>
+<LI><A HREF="indent.html#IDX17">GNU style</A>
 </DIR>
 <H2><A NAME="kindex_i">i</A></H2>
 <DIR>
 <LI><A HREF="indent.html#IDX13">Initialization file</A>
-<LI><A HREF="indent.html#IDX1">Invoking <CODE>indent</CODE></A>
+<LI><A HREF="indent.html#IDX1">Invoking @command{indent}</A>
 </DIR>
 <H2><A NAME="kindex_k">k</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX19">Kernighan &#38; Ritchie style</A>
+<LI><A HREF="indent.html#IDX20">Kernighan &#38; Ritchie style</A>
 </DIR>
 <H2><A NAME="kindex_l">l</A></H2>
 <DIR>
@@ -2111,17 +2127,18 @@ Jump to:
 </DIR>
 <H2><A NAME="kindex_o">o</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX23">Original Berkeley style</A>
+<LI><A HREF="indent.html#IDX24">Original Berkeley style</A>
 <LI><A HREF="indent.html#IDX4">Output File Specification</A>
 </DIR>
 <H2><A NAME="kindex_s">s</A></H2>
 <DIR>
 <LI><A HREF="indent.html#IDX7">Standard Output</A>
-<LI><A HREF="indent.html#IDX2">Starting <CODE>indent</CODE></A>
+<LI><A HREF="indent.html#IDX2">Starting @command{indent}</A>
 </DIR>
 <H2><A NAME="kindex_t">t</A></H2>
 <DIR>
-<LI><A HREF="indent.html#IDX108">Typenames</A>
+<LI><A HREF="indent.html#IDX110">typedef</A>
+<LI><A HREF="indent.html#IDX109">Typenames</A>
 </DIR>
 <H2><A NAME="kindex_u">u</A></H2>
 <DIR>
@@ -2130,7 +2147,7 @@ Jump to:
 
 </P>
 <P><HR><P>
-This document was generated on 30 September 1999 using the
+This document was generated on 4 November 1999 using the
 <A HREF="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>
 translator version 1.52.</P>
 </BODY>

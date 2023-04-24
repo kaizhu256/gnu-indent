@@ -6,8 +6,8 @@ START-INFO-DIR-ENTRY
 * Indent: (indent).		C code formatter.
 END-INFO-DIR-ENTRY
 
-   This is Edition 2.2.3 of `The `indent' Manual', for Indent Version
-2.2.3, last updated 18 September 1999.
+   This is Edition 2.2.4 of `The `indent' Manual', for Indent Version
+2.2.4, last updated 4 November 1999.
 
    Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
 Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
@@ -26,8 +26,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 2.2.3, 18 September 1999, of `The `indent' Manual',
-for Indent Version 2.2.3.
+   This is Edition 2.2.4, 4 November 1999, of `The `indent' Manual',
+for Indent Version 2.2.4.
 
 * Menu:
 
@@ -74,6 +74,7 @@ Invoking `indent'
 
    As of version 1.3, the format of the `indent' command is:
 
+
      indent [OPTIONS] [INPUT-FILES]
      
      indent [OPTIONS] [SINGLE-INPUT-FILE] [-o OUTPUT-FILE]
@@ -101,6 +102,7 @@ read.
    As an example, each of the following commands will input the program
 `slithy_toves.c' and write its indented text to `slithy_toves.out':
 
+
      indent slithy_toves.c -o slithy_toves.out
      
      indent -st slithy_toves.c > slithy_toves.out
@@ -125,6 +127,7 @@ directory `test'.
 
    Equivalent invocations using long option names for this example would
 be:
+
 
      indent --braces-on-if-line --line-length185 test/metabolism.c
      
@@ -173,11 +176,15 @@ string `~' (tilde).  Thus, the backup file for `python.c' would be
 setting the environment variable `SIMPLE_BACKUP_SUFFIX' to your
 preferred suffix.
 
-   Numbered backup versions of a file `momewraths' look like
-`momewraths.c.~23~', where 23 is the version of this particular backup.
-When making a numbered backup of the file `src/momewrath.c', the
-backup file will be named `src/momewrath.c.~V~', where V is one greater
-than the highest version currently existing in the directory `src'.
+   Numbered backup versions of a file `momeraths.c' look like
+`momeraths.c.~23~', where 23 is the version of this particular backup.
+When making a numbered backup of the file `src/momeraths.c', the backup
+file will be named `src/momeraths.c.~V~', where V is one greater than
+the highest version currently existing in the directory `src'.  The
+environment variable `VERSION_WIDTH' controls the number of digits,
+using left zero padding when necessary.  For instance, setting this
+variable to "2" will lead to the backup file being named
+`momeraths.c.~04~'.
 
    The type of backup file made is controlled by the value of the
 environment variable `VERSION_CONTROL'.  If it is the string `simple',
@@ -210,9 +217,9 @@ specified options always override options implied by a background
 option.
 
    As of version 1.2, the default style of GNU `indent' is the GNU
-style.  Thus, it is no longer neccessary to specify the option `-gnu'
-to obtain this format, although doing so will not cause an error.
-Option settings which correspond to the GNU style are:
+style.  Thus, it is no longer necessary to specify the option `-gnu' to
+obtain this format, although doing so will not cause an error.  Option
+settings which correspond to the GNU style are:
 
      -nbad -bap -nbc -bbo -bl -bli2 -bls -ncdb -nce -cp1 -cs -di2
      -ndj -nfc1 -nfca -hnl -i2 -ip5 -lp -pcs -psl -nsc -nsob
@@ -239,7 +246,7 @@ right of the code), so for this style `indent' has arbitrarily chosen
 column 33.
 
    The style of the original Berkeley `indent' may be obtained by
-specifying `-orig' (or by specifyfying `--original', using the long
+specifying `-orig' (or by specifying `--original', using the long
 option name).  This style is equivalent to the following settings:
 
      -nbad -nbap -bbo -bc -br -brs -c33 -cd33 -cdb -ce -ci4 -cli0
@@ -370,14 +377,14 @@ Comments
 comments begin with the delimiter `//' and end at the newline.
 
    `indent' handles comments differently depending upon their context.
-`indent' attempts to distinguish amongst comments which follow
+`indent' attempts to distinguish between comments which follow
 statements, comments which follow declarations, comments following
 preprocessor directives, and comments which are not preceded by code of
 any sort, i.e., they begin the text of the line (although not
 neccessarily in column 1).
 
    `indent' further distinguishes between comments found outside of
-procecures and aggregates, and those found within them.  In particular,
+procedures and aggregates, and those found within them.  In particular,
 comments beginning a line found within a procedure will be indented to
 the column at which code is currently indented.  The exception to this a
 comment beginning in the leftmost column;  such a comment is output at
@@ -435,7 +442,7 @@ option, which specifies an amount by which such comments are moved to
 the _left_, or unindented.  For example, `-d2' places comments two
 spaces to the left of code.  By default, comments are aligned with
 code, unless they begin in the first column, in which case they are left
-there by default - to get them aligned with the code, specify `-fc1'.
+there by default -- to get them aligned with the code, specify `-fc1'.
 
    Comments to the right of code will appear by default in column 33.
 This may be changed with one of three options.  `-c' will specify the
@@ -541,7 +548,7 @@ The default gives code like:
            break;
          case 1:
            {
-     	++i;
+             ++i;
            }
          default:
            break;
@@ -594,15 +601,15 @@ like:
      char           *bar;
 
    Using a small value (such as one or two) for the `-di' option can be
-used to cause the indentifiers to be placed in the first available
-position, for example
+used to cause the identifiers to be placed in the first available
+position; for example:
 
      int foo;
      char *bar;
 
    The value given to the `-di' option will still affect variables
 which are put on separate lines from their types, for example `-di2'
-will lead to
+will lead to:
 
      int
        foo;
@@ -676,7 +683,7 @@ With `-lp' in effect the code looks somewhat clearer:
        p1 = first_procedure (second_procedure (p2, p3),
                              third_procedure (p4, p5));
 
-   When a statement is broken inbetween two or more paren pairs (...),
+   When a statement is broken in between two or more paren pairs (...),
 each extra pair causes the indentation level extra indentation:
 
      if ((((i < 2 &&
@@ -729,16 +736,16 @@ Breaking long lines
 specify the maximum length of a line of C code, not including possible
 comments that follow it.
 
-   When lines become longer then the specified line length, `GNU indent'
+   When lines become longer then the specified line length, GNU `indent'
 tries to break the line at a logical place.  This is new as of version
 2.1 however and not very intelligent or flexible yet.
 
    Currently there are two options that allows one to interfere with the
 algorithm that determines where to break a line.
 
-   The `-bbo' option causes `GNU indent' to prefer to break long lines
+   The `-bbo' option causes GNU `indent' to prefer to break long lines
 before the boolean operators `&&' and `||'.  The `-nbbo' option causes
-`GNU indent' not have that preference.  For example, the default option
+GNU `indent' not have that preference.  For example, the default option
 `-bbo' (together with `--line-length60' and `--ignore-newlines') makes
 code look like this:
 
@@ -754,7 +761,7 @@ code look like this:
             (mask[1] == '\0' &&
              ((mask[0] == '0') || (mask[0] == '*')))))
 
-   The default `-hnl' however, honours newlines in the input file by
+   The default `-hnl', however, honours newlines in the input file by
 giving them the highest possible priority to break lines at.  For
 example, when the input file looks like this:
 
@@ -762,8 +769,8 @@ example, when the input file looks like this:
            && ((mask[0] == '\0')
            || (mask[1] == '\0' && ((mask[0] == '0') || (mask[0] == '*')))))
 
-   then using the option `-hnl', or `--honour-newlines', together with
-the previously mentioned `-nbbo' and `--line-length60', will cause the
+then using the option `-hnl', or `--honour-newlines', together with the
+previously mentioned `-nbbo' and `--line-length60', will cause the
 output not to be what is given in the last example but instead will
 prefer to break at the positions where the code was broken in the input
 file:
@@ -774,7 +781,7 @@ file:
                    ((mask[0] == '0') || (mask[0] == '*')))))
 
    The idea behind this option is that lines which are too long, but
-are already broken up, will not be touched by `GNU indent'.  Really
+are already broken up, will not be touched by GNU `indent'.  Really
 messy code should be run through `indent' at least once using the
 `--ignore-newlines' option though.
 
@@ -812,7 +819,7 @@ to be left unformatted.
    As a historical note, some earlier versions of `indent' produced
 error messages beginning with `*INDENT**'.  These versions of `indent'
 were written to ignore any input text lines which began with such error
-messages.  I have removed this incestuous feature from `GNU indent'.
+messages.  I have removed this incestuous feature from GNU `indent'.
 
 
 File: indent.info,  Node: Miscellaneous options,  Next: Bugs,  Prev: Disabling Formatting,  Up: Indent Program
@@ -843,29 +850,29 @@ Bugs
 
    When `indent' is run twice on a file, with the same profile, it
 should _never_ change that file the second time.  With the current
-design of `indent' this can not be garanteed however and it has not
+design of `indent', this can not be guaranteed, however, and it has not
 been extensively tested.
 
-   `Indent' does not understand C.  In some cases this leads to the
+   `indent' does not understand C.  In some cases this leads to the
 inability to join lines.  The result is that running a file through
-`indent' is _irreversable_, even if the used input file was the result
+`indent' is _irreversible_, even if the used input file was the result
 of running `indent' with a given profile (`.indent.pro').
 
    While an attempt was made to get `indent' working for C++, is will
-not do a good job on any C++ source except the real simple.
+not do a good job on any C++ source except the very simple.
 
-   `Indent' does not look at the given `--line-length' option when
+   `indent' does not look at the given `--line-length' option when
 writing comments to the output file.  This results often in comments
 being put far to the right.  In order to prohibit `indent' from joining
 a broken line that has a comment at the end, make sure that the
 comments start on the first line of the break.
 
-   `Indent' does not count lines and comments (see the `-v' option)
+   `indent' does not count lines and comments (see the `-v' option)
 when `indent' is turned off with `/* *INDENT-OFF* */'.
 
-   Comments of the form /*UPPERCASE*/ are not treated as comment but as
-an identifier, causing them to be joined with the next line. This
-renders comments of this type useless unless they are embedded in the
+   Comments of the form `/*UPPERCASE*/' are not treated as comment but
+as an identifier, causing them to be joined with the next line. This
+renders comments of this type useless, unless they are embedded in the
 code to begin with.
 
 
@@ -876,15 +883,15 @@ Copyright
 
    The following copyright notice applies to the `indent' program.  The
 copyright and copying permissions for this manual appear near the
-beginning of indent.texinfo and indent.info, and near the end of
-indent.1.
+beginning of `indent.texinfo' and `indent.info', and near the end of
+`indent.1'.
 
-     Copyright (c) 1999 Carlo Wood.
-     Copyright (c) 1995, 1996 Joseph Arceneaux.
-     Copyright (c) 1989, 1992, 1993, 1994, 1995, 1996 Free Software Foundation
-     Copyright (c) 1985 Sun Microsystems, Inc.
-     Copyright (c) 1980 The Regents of the University of California.
-     Copyright (c) 1976 Board of Trustees of the University of Illinois.
+     Copyright (C) 1999 Carlo Wood.
+     Copyright (C) 1995, 1996 Joseph Arceneaux.
+     Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software Foundation
+     Copyright (C) 1985 Sun Microsystems, Inc.
+     Copyright (C) 1980 The Regents of the University of California.
+     Copyright (C) 1976 Board of Trustees of the University of Illinois.
      All rights reserved.
      
      Redistribution and use in source and binary forms are permitted
@@ -1467,29 +1474,31 @@ Index
 * Starting indent:                       Invoking indent.
 * Typenames:                             Declarations.
 * Using Standard Input:                  Invoking indent.
+* backup files:                          Backup files.
 * etags requires -psl:                   Declarations.
+* typedef:                               Declarations.
 
 
 
 Tag Table:
-Node: Top633
-Node: Indent Program1154
-Node: Invoking indent2237
-Node: Backup files5677
-Node: Common styles7538
-Node: Blank lines9733
-Node: -bad10825
-Node: -bap11472
-Node: Comments12333
-Node: Statements17116
-Node: Declarations19813
-Node: Indentation21586
-Node: Breaking long lines24328
-Node: Disabling Formatting26611
-Node: Miscellaneous options28358
-Node: Bugs29251
-Node: Copyright30663
-Node: Option Summary32198
-Node: Index43620
+Node: Top631
+Node: Indent Program1150
+Node: Invoking indent2233
+Node: Backup files5676
+Node: Common styles7755
+Node: Blank lines9948
+Node: -bad11040
+Node: -bap11687
+Node: Comments12548
+Node: Statements17332
+Node: Declarations20036
+Node: Indentation21810
+Node: Breaking long lines24553
+Node: Disabling Formatting26834
+Node: Miscellaneous options28581
+Node: Bugs29474
+Node: Copyright30893
+Node: Option Summary32434
+Node: Index43856
 
 End Tag Table

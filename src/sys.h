@@ -31,11 +31,13 @@
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
- * This file is subject to the terms of the GNU General Public License as
- * published by the Free Software Foundation.  A copy of this license is
- * included with this software distribution in the file COPYING.  If you
- * do not have a copy, you may obtain a copy by writing to the Free
- * Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -79,25 +81,6 @@
 #ifdef DEBUG
    extern int debug;
 #endif
-
-#ifdef __GNUC__
-   #define INLINE __inline__
-#else
-   #define INLINE
-#endif
-
-#ifdef VMS
-   #define ONE_DOT_PER_FILENAME 1
-   #define PROFILE_FORMAT "%s%s"
-   #define BACKUP_SUFFIX_STR    "_"
-   #define BACKUP_SUFFIX_CHAR   '_'
-   #define BACKUP_SUFFIX_FORMAT "%s._%d_"
-   #define INDENT_SYS_READ vms_read	/* Defined in code_io.c */
-
-   #if defined(VAXC) || defined(__DECC)
-      #include <unixio.h>
-   #endif
-#endif /* VMS */
 
 #if 'A' == 0xC1	/* Automatic detection of underlying EBCDIC codeset */
    #define CHARSET_EBCDIC

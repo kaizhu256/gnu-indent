@@ -1,7 +1,8 @@
 /** \file
+ * Copyright (c) 2015 Tim Hentenaar. All rights reserved.<br>
  * Copyright (c) 1999, 2000 Carlo Wood.  All rights reserved. <br>
  * Copyright (c) 1994, 1996, 1997 Joseph Arceneaux.  All rights reserved. <br>
- * Copyright (c) 1992, 2002, 2008 Free Software Foundation, Inc.  All rights reserved. <br>
+ * Copyright (c) 1992, 2002, 2008, 2014, 2015 Free Software Foundation, Inc.  All rights reserved. <br>
  *
  * Copyright (c) 1980 The Regents of the University of California. <br>
  * Copyright (c) 1976 Board of Trustees of the University of Illinois. All rights reserved.
@@ -32,9 +33,13 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Updates:
  * - 2002-08-05: Matthias <moh@itec.uni-klu.ac.at> and Eric Lloyd <ewlloyd@neta.com>
@@ -158,6 +163,8 @@ static BOOLEAN search_brace(
     BOOLEAN        * is_procname_definition,
     BOOLEAN        * pbreak_line)
 {
+    int cur_token;
+
     while (parser_state_tos->search_brace)
     {
         /* After scanning an if(), while (), etc., it might be necessary to
@@ -165,7 +172,20 @@ static BOOLEAN search_brace(
          * statement which follows.  Use save_com to do so.
          */
 
-        switch (*type_code)
+        /* The saved buffer has space at the beginning to hold a brace if
+         * needed and otherwise collects comments, separating them with newlines
+         * if there are more than one.
+         *
+         * The process stops if we find a left brace or the beginning of a statement.
+         *
+         * A left brace is moved before any comments in a -br situation.  Otherwise,
+         * it comes after comments.
+         *
+         * At the moment any form feeds before we get to braces or a statement are just
+         * dropped.
+         */
+        cur_token = *type_code;
+        switch (cur_token)
         {
         case newline:
             ++line_no;
@@ -187,28 +207,15 @@ static BOOLEAN search_brace(
 
             if (settings.btype_2 && (parser_state_tos->last_token != rbrace))
             {
-                /* Kludge to get my newline back */
-                if ((parser_state_tos->last_token == sp_else) &&
-                    (save_com.end > &save_com.ptr[4]) &&
-                    (save_com.end[-2] == '*') &&
-                    (save_com.end[-1] == '/') &&
-                    (save_com.ptr[2] == '/') &&
-                    (save_com.ptr[3] == '*'))
-                {
-                    char *p;
-
-                    for (p = &save_com.ptr[4];
-                         *p != '\n' && p < &save_com.end[-2]; ++p)
-                    {
-                    }
-
-                    if (*p != '\n')
-                    {
-                        *save_com.end++ = EOL;
-                    }
-                }
-
-                /* Put the brace at the beginning of the saved buffer */
+                /* We are asking the brace to jump ahead of the comment.  In 
+                 * the event that it was between two comments, the regression
+                 * examples want to insert a newline to put the comments on 
+                 * separate lines.  If it is followed by something not a 
+                 * comment, we don't want to add a newline.
+                 *
+                 * To make that work, we'll put the brace up front and let the
+                 * process continue to pick up another comment or not.
+                 */
 
                 save_com.ptr[0] = '{';
                 save_com.len = 1;
@@ -224,11 +231,11 @@ static BOOLEAN search_brace(
                 *save_com.end++ = EOL;
                 *save_com.end++ = '{';
                 save_com.len += 2;
+
+                /* Go to common code to get out of this loop.  */
+
+                sw_buffer();
             }
-
-            /* Go to common code to get out of this loop.  */
-
-            sw_buffer();
             break;
                     
         case comment:
@@ -281,8 +288,8 @@ static BOOLEAN search_brace(
 
                         if (had_eof)
                         {
-                            ERROR (_("EOF encountered in comment"), 0, 0);
-                            return indent_punt;                               /* RETURN */
+                            ERROR(_("EOF encountered in comment"), NULL, NULL);
+                            return indent_punt;
                         }
                     }
 
@@ -303,7 +310,8 @@ static BOOLEAN search_brace(
                 break;
             }
 
-            /* Just some statement. */
+            /* Just some statement */
+            /* Falls through */
 
         default:
             /* Some statement.  Unless it's special, arrange
@@ -312,7 +320,9 @@ static BOOLEAN search_brace(
             if (((*type_code == sp_paren) && (*token == 'i') &&    /* "if" statement */
                  *last_else) ||
                 ((*type_code == sp_else)  &&     /* "else" statement */
-                 (e_code != s_code) && (e_code[-1] == '}')))       /* The "else" follows '}' */
+                 (e_code != s_code) && (e_code[-1] == '}') &&      /* The "else" follows '}' */
+                 (save_com.end == save_com.ptr)))                  /* And we haven't found an 
+                                                                    * intervening comment. */
             {
                 *force_nl = false;
             }
@@ -342,7 +352,7 @@ static BOOLEAN search_brace(
                 save_com.len++;
                 if (settings.verbose && !*flushed_nl)
                 {
-                    WARNING (_("Line broken"), 0, 0);
+                    WARNING(_("Line broken"), NULL, NULL);
                 }
 
                 *flushed_nl = false;
@@ -373,22 +383,43 @@ static BOOLEAN search_brace(
 
         if (*type_code != code_eof)
         {
-            int just_saw_nl = false;
+            /* Read the next token */
+            *type_code = lexi();
 
-            if (*type_code == newline)
+            /* Dump the line, if we just saw a newline, and:
+             *
+             * 1. The current token is a newline. - AND -
+             * 2. The comment buffer is empty. - AND -
+             * 3. The next token is a newline or comment. - AND -
+             * 4. The previous token was a rbrace.
+             *
+             * This is needed to avoid indent eating newlines between
+             * blocks like so:
+             *
+             * if (...) {
+             *
+             * }
+             *
+             * /comment here/
+             * if (...)
+             *
+             * However, if there's a comment in the comment buffer, and the
+             * next token is a newline, we'll just append a newline to the end
+             * of the comment in the buffer, so that we don't lose it when
+             * the comment is written out.
+             */
+            if (cur_token == newline &&
+                (*type_code == newline || *type_code == comment) &&
+                parser_state_tos->last_token == rbrace)
             {
-                just_saw_nl = true;
-            }
-
-            *type_code = lexi ();
-
-            if ( ( (*type_code == newline) && (just_saw_nl == true)) ||
-                 ( (*type_code == comment) && parser_state_tos->last_saw_nl &&
-                   (parser_state_tos->last_token != sp_else)))
-            {
-                dump_line(true, &paren_target, pbreak_line);
-                *flushed_nl = true;
-            }
+                if (!save_com.len) {
+                    dump_line(true, &paren_target, pbreak_line);
+                    *flushed_nl = true;
+                } else if (*type_code == newline) {
+                    *save_com.end++ = EOL;
+                    save_com.len++;
+                }
+           }
 
             *is_procname_definition = ((parser_state_tos->procname[0] != '\0') &&
                                        parser_state_tos->in_parameter_declaration);
@@ -502,6 +533,18 @@ static exit_values_ty indent_main_loop(
 
         flushed_nl = false;
 
+        /* Don't force a newline after an unbraced if, else, etc. */
+        if (settings.allow_single_line_conditionals &&
+            (parser_state_tos->last_token == rparen ||
+            parser_state_tos->last_token == sp_else))
+            force_nl = false;
+
+        /* Don't force a newline after '}' in a block initializer */
+        if (parser_state_tos->block_init           &&
+            parser_state_tos->last_token == rbrace &&
+            *token == ',')
+            force_nl = false;
+
         if (!search_brace(&type_code, &force_nl, &flushed_nl, &last_else,
                           &is_procname_definition, pbreak_line))
         {
@@ -519,7 +562,7 @@ static exit_values_ty indent_main_loop(
 
             if (parser_state_tos->tos > 1)      /* check for balanced braces */
             {
-                ERROR (_("Unexpected end of file"), 0, 0);
+                ERROR(_("Unexpected end of file"), NULL, NULL);
                 file_exit_value = indent_error;
             }
 
@@ -553,7 +596,7 @@ static exit_values_ty indent_main_loop(
             {
                 if (settings.verbose && !flushed_nl)
                 {
-                    WARNING (_("Line broken 2"), 0, 0);
+                    WARNING(_("Line broken 2"), NULL, NULL);
                 }
 
                 flushed_nl = false;
@@ -826,10 +869,9 @@ static exit_values_ty process_args (
                     if (input_files > max_input_files)
                     {
                         max_input_files = 2 * max_input_files;
-                        in_file_names =
-                                (char **) xrealloc ((char *) in_file_names,
-                                                    (max_input_files *
-                                                     sizeof (char *)));
+                        in_file_names = xrealloc(in_file_names,
+                                                 (max_input_files *
+                                                  sizeof(char *)));
                     }
                 }
 
@@ -916,9 +958,9 @@ static exit_values_ty indent_multiple_files(void)
  *
  */
 
-
 static exit_values_ty indent_single_file(BOOLEAN using_stdin)
 {
+    int            is_stdin    = false;
     exit_values_ty exit_status = total_success;
     struct stat    file_stats;
 
@@ -928,6 +970,7 @@ static exit_values_ty indent_single_file(BOOLEAN using_stdin)
         in_file_names[0] = "Standard input";
         in_name = in_file_names[0];
         current_input = read_stdin ();
+        is_stdin = true;
     }
     else
     {
@@ -967,7 +1010,13 @@ static exit_values_ty indent_single_file(BOOLEAN using_stdin)
     {
         close_output(NULL, out_name);
     }
-    
+
+    if (current_input) {
+        if (!is_stdin && current_input->name)
+            xfree(current_input->name);
+        xfree(current_input->data);
+    }
+
     return exit_status;
 }
 
@@ -1004,12 +1053,13 @@ int main(
     int     argc,
     char ** argv)
 {
+    char *tmp;
     char *profile_pathname = 0;
     BOOLEAN using_stdin = false;
     exit_values_ty exit_status;
 
-#if defined (HAVE_SETLOCALE) && defined (HAVE_LC_MESSAGES) && defined (HAVE_LCCTYPES)
-    setlocale(LC_MESSAGES, "");
+#if defined (HAVE_SETLOCALE)
+    setlocale(LC_ALL, "");
 #endif
     bindtextdomain(PACKAGE, LOCALEDIR);
     textdomain(PACKAGE);
@@ -1022,6 +1072,9 @@ int main(
     wildexp(&argc, &argv);
 #endif /* defined (_WIN32) && !defined (__CYGWIN__) */
 
+	/* Initialize settings */
+	memset(&settings, 0, sizeof(settings));
+
 #ifdef DEBUG
     if (debug)
     {
@@ -1029,12 +1082,27 @@ int main(
     }
 #endif
 
+    /* 'size_t', 'wchar_t' and 'ptrdiff_t' are guarenteed to be
+     * available in ANSI C.
+     *
+     * These pointers will be freed in cleanup_user_specials().
+     */
+    tmp = xmalloc(7);
+    memcpy(tmp, "size_t", 7);
+    addkey(tmp, rw_decl);
+    tmp = xmalloc(8);
+    memcpy(tmp, "wchar_t", 8);
+    addkey(tmp, rw_decl);
+    tmp = xmalloc(10);
+    memcpy(tmp, "ptrdiff_t", 10);
+    addkey(tmp, rw_decl);
+
     init_parser ();
     initialize_backups ();
     exit_status = total_success;
 
     input_files = 0;
-    in_file_names = (char **) xmalloc(max_input_files * sizeof (char *));
+    in_file_names = xmalloc(max_input_files * sizeof(char *));
 
     set_defaults();
 
@@ -1053,6 +1121,11 @@ int main(
 
         exit_status = indent_all(using_stdin);
     }
-    
-    return (exit_status);
+
+    if (profile_pathname)
+        xfree(profile_pathname);
+    xfree(in_file_names);
+    uninit_parser();
+    cleanup_user_specials();
+    return exit_status;
 }

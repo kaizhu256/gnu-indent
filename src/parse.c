@@ -34,11 +34,13 @@
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
- * This file is subject to the terms of the GNU General Public License as
- * published by the Free Software Foundation.  A copy of this license is
- * included with this software distribution in the file COPYING.  If you
- * do not have a copy, you may obtain a copy by writing to the Free
- * Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -60,29 +62,51 @@ parser_state_ty *parser_state_tos = NULL;
 
 extern void init_parser(void)
 {
-    parser_state_tos = (parser_state_ty *) xmalloc (sizeof (parser_state_ty));
+    parser_state_tos = xmalloc(sizeof (parser_state_ty));
 
     /* GDB_HOOK_parser_state_tos */
     parser_state_tos->p_stack_size  = INITIAL_STACK_SIZE;
-    parser_state_tos->p_stack       = (codes_ty *) xmalloc (INITIAL_STACK_SIZE * sizeof (codes_ty));
-    parser_state_tos->il            = (int *) xmalloc (INITIAL_STACK_SIZE * sizeof (int));
-    parser_state_tos->cstk          = (int *) xmalloc (INITIAL_STACK_SIZE * sizeof (int));
+    parser_state_tos->p_stack       = xmalloc(INITIAL_STACK_SIZE * sizeof (codes_ty));
+    parser_state_tos->il            = xmalloc(INITIAL_STACK_SIZE * sizeof (int));
+    parser_state_tos->cstk          = xmalloc(INITIAL_STACK_SIZE * sizeof (int));
     parser_state_tos->paren_indents_size = 8;
-    parser_state_tos->paren_indents = (short *) xmalloc (parser_state_tos->paren_indents_size * sizeof (short));
+    parser_state_tos->paren_indents = xmalloc(parser_state_tos->paren_indents_size * sizeof (short));
 
     /* Although these are supposed to grow if we reach the end,
      * I can find no place in the code which does this. */
-
-    combuf = (char *) xmalloc (INITIAL_BUFFER_SIZE);
-    labbuf = (char *) xmalloc (INITIAL_BUFFER_SIZE);
-    codebuf = (char *) xmalloc (INITIAL_BUFFER_SIZE);
+    combuf = xmalloc(INITIAL_BUFFER_SIZE);
+    labbuf = xmalloc(INITIAL_BUFFER_SIZE);
+    codebuf = xmalloc(INITIAL_BUFFER_SIZE);
 
     save_com.size = INITIAL_BUFFER_SIZE;
-    save_com.end = save_com.ptr = xmalloc (save_com.size);
+    save_com.end = save_com.ptr = xmalloc(save_com.size);
     save_com.len = save_com.column = 0;
 
     di_stack_alloc = 2;
-    di_stack = (int *) xmalloc (di_stack_alloc * sizeof (*di_stack));
+    di_stack = xmalloc(di_stack_alloc * sizeof (*di_stack));
+}
+
+/**
+ * Free all memory allocated in init_parser().
+ */
+extern void uninit_parser(void)
+{
+    if (!parser_state_tos)
+    {
+        return;
+    }
+
+    xfree(parser_state_tos->p_stack);
+    xfree(parser_state_tos->il);
+    xfree(parser_state_tos->cstk);
+    xfree(parser_state_tos->paren_indents);
+    xfree(parser_state_tos);
+    xfree(save_com.ptr);
+    xfree(combuf);
+    xfree(labbuf);
+    xfree(codebuf);
+    xfree(di_stack);
+    parser_state_tos = NULL;
 }
 
 /**
@@ -134,6 +158,7 @@ extern void reset_parser(void)
     parser_state_tos->dec_nest         = 0;
     parser_state_tos->can_break        = bb_none;
     parser_state_tos->saw_double_colon = false;
+    parser_state_tos->is_func_ptr_decl = false;
 
     parser_state_tos->il[0]            = 0;
     parser_state_tos->cstk[0]          = 0;
@@ -178,12 +203,14 @@ extern int inc_pstack(void)
     {
         parser_state_tos->p_stack_size *= 2;
         parser_state_tos->p_stack =
-                (codes_ty *) xrealloc ((char *) parser_state_tos->p_stack,
-                                       parser_state_tos->p_stack_size * sizeof (codes_ty));
+                xrealloc(parser_state_tos->p_stack,
+                         parser_state_tos->p_stack_size * sizeof(codes_ty));
         parser_state_tos->il =
-                (int *) xrealloc ((char *) parser_state_tos->il, parser_state_tos->p_stack_size * sizeof (int));
+                xrealloc(parser_state_tos->il,
+                          parser_state_tos->p_stack_size * sizeof(int));
         parser_state_tos->cstk =
-                (int *) xrealloc ((char *) parser_state_tos->cstk, parser_state_tos->p_stack_size * sizeof (int));
+                xrealloc(parser_state_tos->cstk,
+                         parser_state_tos->p_stack_size * sizeof(int));
     }
 
     parser_state_tos->cstk[parser_state_tos->tos] = parser_state_tos->cstk[parser_state_tos->tos - 1];
@@ -205,7 +232,7 @@ extern void debug_init(void)
 {
     int size = ((int) number_of_codes) * sizeof (char *);
 
-    debug_symbol_strings = (char **) xmalloc (size);
+    debug_symbol_strings = xmalloc (size);
 
     debug_symbol_strings[code_eof]      = "code_eof";
     debug_symbol_strings[newline]       = "newline";
@@ -333,6 +360,7 @@ extern exit_values_ty parse (
             {
                 parser_state_tos->i_l_follow = parser_state_tos->il[parser_state_tos->tos];
             }
+            /* falls through */
 
         case dolit:             /* 'do' */
         case forstmt:           /* for (...) */
@@ -444,7 +472,7 @@ extern exit_values_ty parse (
 
             if (parser_state_tos->p_stack[parser_state_tos->tos] != ifhead)
             {
-                ERROR (_("Unmatched 'else'"), 0, 0);
+                ERROR(_("Unmatched 'else'"), NULL, NULL);
             }
             else
             {
@@ -462,7 +490,7 @@ extern exit_values_ty parse (
 
         case rbrace:            /* scanned a } */
             /* stack should have <lbrace> <stmt> or <lbrace> <stmtl> */
-            if (parser_state_tos->p_stack[parser_state_tos->tos - 1] == lbrace)
+            if ((parser_state_tos->tos > 0) && (parser_state_tos->p_stack[parser_state_tos->tos - 1] == lbrace))
             {
                 parser_state_tos->i_l_follow = parser_state_tos->il[--parser_state_tos->tos];
                 parser_state_tos->ind_level  = parser_state_tos->i_l_follow;
@@ -470,7 +498,7 @@ extern exit_values_ty parse (
             }
             else
             {
-                ERROR (_("Stmt nesting error."), 0, 0);
+                ERROR(_("Stmt nesting error."), NULL, NULL);
             }
             break;
 
@@ -522,13 +550,14 @@ extern exit_values_ty parse (
     {
         printf ("\n");
 
-        printf (_("ParseStack [%d]:\n"), (int) parser_state_tos->p_stack_size);
+        printf ("ParseStack [%d]:\n", (int) parser_state_tos->p_stack_size);
 
         for (i = 1; i <= parser_state_tos->tos; ++i)
         {
-            printf (_("  stack[%d] =>   stack: %d   ind_level: %d\n"),
-                    (int) i, (int) parser_state_tos->p_stack[i],
-                    (int) parser_state_tos->il[i]);
+            printf ("  stack[%d] =>  stack: %d [%-10s]  ind_level: %d\n",
+                    (int)i, (int)parser_state_tos->p_stack[i],
+                    debug_symbol_strings[parser_state_tos->p_stack[i]],
+                    (int)parser_state_tos->il[i]);
         }
 
         printf ("\n");
@@ -583,6 +612,7 @@ extern void reduce(void)
         switch (parser_state_tos->p_stack[parser_state_tos->tos])
         {
             case stmt:
+                if (parser_state_tos->tos == 0) return;
                 switch (parser_state_tos->p_stack[parser_state_tos->tos - 1])
                 {
                     case stmt:

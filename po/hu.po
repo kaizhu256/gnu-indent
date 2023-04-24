@@ -1,299 +1,297 @@
 # Hungarian translate of the indent
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# G·bor Istv·n <stive@mezobereny.hu>, 2002.
-# TÌm·r Andr·s <timar@fsf.hu>, 2003.
+# This file is distributed under the same license as the indent package.
 #
+# G√°bor Istv√°n <stive@mezobereny.hu>, 2002.
+# T√≠m√°r Andr√°s <timar@fsf.hu>, 2003.
+# Bal√°zs √ör <urbalazs@gmail.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: indent 2.2.8\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 17:27+0100\n"
-"PO-Revision-Date: 2003-04-17 14:46+0200\n"
-"Last-Translator: Andras Timar <timar_a@freemail.hu>\n"
+"Project-Id-Version: indent 2.2.10\n"
+"Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
+"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"PO-Revision-Date: 2018-02-11 15:37+0000\n"
+"Last-Translator: Marczis Istv√°n <marczisi@yahoo.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.19-dev\n"
 
-#: src/args.c:611
-#, fuzzy
+#: src/args.c:673
 msgid ""
 "usage: indent file [-o outfile ] [ options ]\n"
 "       indent file1 file2 ... fileN [ options ]\n"
-msgstr "       indent f·jl1 f·jl2 ... f·jlN [ kapcsolÛk ]\n"
+msgstr ""
+"haszn√°lat: indent f√°jl [-o kimeneti f√°jl ] [ opci√≥k ]\n"
+"       indent f√°jl1 f√°jl2 ... f√°jlN [ opci√≥k ]\n"
 
-#: src/args.c:677
-#, fuzzy, c-format
+#: src/args.c:740
+#, c-format
 msgid "%s: missing argument to parameter %s\n"
-msgstr "indent: a %s paramÈter argumentuma hi·nyzik\n"
+msgstr "%s: a(z) %s param√©ter argumentuma hi√°nyzik\n"
 
-#: src/args.c:802
-#, fuzzy, c-format
+#: src/args.c:864
+#, c-format
 msgid "%s: unknown option \"%s\"\n"
-msgstr "indent: ismeretlen kapcsolÛ \"%s\"\n"
+msgstr "%s: ismeretlen kapcsol√≥: ‚Äû%s‚Äù\n"
 
-#: src/args.c:812
+#: src/args.c:877
 #, c-format
 msgid "option: %s\n"
-msgstr "kapcsolÛ:%s\n"
+msgstr "kapcsol√≥:%s\n"
 
-#: src/args.c:828
+#: src/args.c:892
 #, c-format
 msgid "GNU indent %s\n"
 msgstr "GNU indent %s\n"
 
-#: src/args.c:913
-#, fuzzy, c-format
+#: src/args.c:959
+#, c-format
 msgid "%s: option ``%s'' requires a numeric parameter\n"
-msgstr "indent: a ``%s'' kapcsolÛ sz·mparamÈtert igÈnyel\n"
+msgstr "%s: a(z) ‚Äû%s‚Äù kapcsol√≥ sz√°mparam√©tert ig√©nyel\n"
 
-#: src/args.c:921
-#, fuzzy, c-format
+#: src/args.c:966
+#, c-format
 msgid "set_option: internal error: p_type %d\n"
-msgstr "indent: set_option: belsı hiba: p_type %d\n"
+msgstr "set_option: bels≈ë hiba: p_type %d\n"
 
-#: src/args.c:977
+#: src/args.c:1022
 msgid "Profile contains an unterminated comment"
-msgstr "A profil nem lez·rt megjegyzÈst tartalmaz"
+msgstr "A profil nem lez√°rt megjegyz√©st tartalmaz"
 
-#: src/args.c:1015
+#: src/args.c:1060
 msgid "Profile contains unpalatable characters"
-msgstr "A profil oda nem illı karaktert tartalmaz"
+msgstr "A profil oda nem ill≈ë karaktert tartalmaz"
 
-#: src/args.c:1183
+#: src/args.c:1228
 #, c-format
 msgid "File named by environment variable %s does not exist or is not readable"
 msgstr ""
+"A(z) %s k√∂rnyezeti v√°ltoz√≥ szerint elnevezett f√°jl nem l√©tezik vagy nem "
+"olvashat√≥"
 
-#: src/backup.c:466
+#: src/backup.c:463
 #, c-format
 msgid "indent:  Strange version-control value\n"
-msgstr "indent:  Furcsa verziÛkˆvetÈs-ÈrtÈk\n"
+msgstr "indent:  Furcsa verzi√≥k√∂vet√©s-√©rt√©k\n"
 
-#: src/backup.c:467
-#, c-format
+#: src/backup.c:464
+#, fuzzy, c-format
 msgid "indent:  Using numbered-existing\n"
-msgstr "indent:  Sz·mozott-lÈtezı haszn·lata\n"
+msgstr "indent:  Sz√°mozott-l√©tez≈ë haszn√°lata\n"
 
-#: src/backup.c:498
+#: src/backup.c:495
 #, c-format
 msgid "indent: Can't make backup filename of %s\n"
-msgstr "indent: %s f·jlrÛl nem lehet biztons·gi mentÈst kÈszÌteni\n"
+msgstr "indent: %s f√°jlr√≥l nem lehet biztons√°gi ment√©st k√©sz√≠teni\n"
 
-#: src/backup.c:506
+#: src/backup.c:503
 #, c-format
 msgid "Can't open backup file %s"
-msgstr "Nem lehet megnyitni a %s biztons·gi mentÈs f·jlt"
+msgstr "Nem lehet megnyitni a(z) %s biztons√°gi ment√©s f√°jlt"
 
-#: src/backup.c:513
+#: src/backup.c:510
 #, c-format
 msgid "Can't write to backup file %s"
-msgstr "Nem lehet Ìrni a %s biztons·gi mentÈs f·jlba"
+msgstr "Nem lehet √≠rni a(z) %s biztons√°gi ment√©s f√°jlba"
 
-#: src/backup.c:526
+#: src/backup.c:523
 #, c-format
 msgid "Can't preserve modification time on backup file %s"
-msgstr "Nem lehet megırizni a %s biztons·gi mentÈs f·jl mÛdosÌt·s·nak idejÈt"
+msgstr ""
+"Nem lehet meg≈ërizni a(z) %s biztons√°gi ment√©s f√°jl m√≥dos√≠t√°s√°nak idej√©t"
 
-#: src/globs.c:49 src/globs.c:74
+#: src/globs.c:46 src/globs.c:68
 #, c-format
 msgid "indent: Virtual memory exhausted.\n"
-msgstr "indent: Virtu·lis memÛria elfogyott.\n"
+msgstr "indent: Virtu√°lis mem√≥ria elfogyott.\n"
 
-#: src/globs.c:93
+#: src/globs.c:103
 #, c-format
 msgid "indent: %s:%d: %s:"
 msgstr "indent: %s:%d: %s:"
 
-#: src/globs.c:109
+#: src/globs.c:130
 #, c-format
 msgid "indent: Fatal Error: "
-msgstr "indent: VÈgzetes hiba: "
+msgstr "indent: V√©gzetes hiba: "
 
-#: src/globs.c:119
+#: src/globs.c:140
 #, c-format
 msgid "indent: System Error: "
 msgstr "indent: Rendszerhiba "
 
-#: src/globs.h:27
+#: src/globs.h:26
 msgid "Warning"
-msgstr "FigyelmeztetÈs"
+msgstr "Figyelmeztet√©s"
 
-#: src/globs.h:31
+#: src/globs.h:30
 msgid "Error"
 msgstr "Hiba"
 
-#: src/indent.c:284
+#: src/indent.c:291
 msgid "EOF encountered in comment"
-msgstr "EOF (f·jl vÈge) a megjegyzÈsben"
+msgstr "EOF (f√°jl v√©gjel) a megjegyz√©sben"
 
-#: src/indent.c:345
+#: src/indent.c:355
 msgid "Line broken"
-msgstr "Tˆrˆtt sor"
+msgstr "T√∂r√∂tt sor"
 
-#: src/indent.c:522
+#: src/indent.c:565
 msgid "Unexpected end of file"
-msgstr "V·ratlan f·jlvÈg"
+msgstr "V√°ratlan f√°jlv√©g"
 
-#: src/indent.c:528
+#: src/indent.c:571
 #, c-format
 msgid "There were %d non-blank output lines and %d comments\n"
-msgstr "%d nem ¸res sor Ès %d megjegyzÈs volt\n"
+msgstr "%d nem √ºres sor √©s %d megjegyz√©s volt\n"
 
-#: src/indent.c:532
+#: src/indent.c:575
 #, c-format
 msgid "(Lines with comments)/(Lines with code): %6.3f\n"
-msgstr "(MegjegyzÈssorok)/(KÛdsorok):%6.3f\n"
+msgstr "(Megjegyz√©ssorok)/(K√≥dsorok):%6.3f\n"
 
-#: src/indent.c:556
+#: src/indent.c:599
 msgid "Line broken 2"
-msgstr "Tˆrˆtt sor 2"
-
-#: src/indent.c:778
-#, c-format
-msgid "indent: only one output file (2nd was %s)\n"
-msgstr "indent: csak egy kimeneti f·jl van (a m·sodik %s volt)\n"
-
-#: src/indent.c:787 src/indent.c:813
-#, c-format
-msgid "indent: only one input file when output file is specified\n"
-msgstr ""
-"indent: csak egy bemeneti f·jl lehet, amikor a kimenet meg van hat·rozva\n"
-
-#: src/indent.c:801 src/indent.c:848
-#, c-format
-msgid "indent: can't have filenames when specifying standard input\n"
-msgstr ""
-"indent: nem lehet megadni f·jlnevet amikor a standard bemenet van "
-"meghat·rozva\n"
+msgstr "T√∂r√∂tt sor 2"
 
 #: src/indent.c:821
 #, c-format
-msgid "indent: only one input file when stdout is used\n"
-msgstr "indent: csak egy bemeneti f·jl lehet, amikor az stdout van haszn·lva\n"
+msgid "indent: only one output file (2nd was %s)\n"
+msgstr "indent: csak egy kimeneti f√°jl van (a m√°sodik %s volt)\n"
 
-#: src/indent.c:857
-msgid "command line"
+#: src/indent.c:830 src/indent.c:856
+#, c-format
+msgid "indent: only one input file when output file is specified\n"
 msgstr ""
+"indent: csak egy bemeneti f√°jl lehet, amikor a kimenet meg van hat√°rozva\n"
 
-#: src/indent.c:1049
+#: src/indent.c:844 src/indent.c:890
+#, c-format
+msgid "indent: can't have filenames when specifying standard input\n"
+msgstr ""
+"indent: nem lehet megadni f√°jlnevet amikor a standard bemenet van "
+"meghat√°rozva\n"
+
+#: src/indent.c:864
+#, c-format
+msgid "indent: only one input file when stdout is used\n"
+msgstr "indent: csak egy bemeneti f√°jl lehet, amikor az stdout van haszn√°lva\n"
+
+#: src/indent.c:899
+msgid "command line"
+msgstr "parancssor"
+
+#: src/indent.c:1117
 #, c-format
 msgid "Read profile %s\n"
-msgstr "A %s profil olvas·sa\n"
+msgstr "A(z) %s profil olvas√°sa\n"
 
-#: src/code_io.c:169
-msgid "Internal buffering error"
-msgstr "Belsı pufferhiba"
-
-#: src/code_io.c:262
+#: src/code_io.c:217
 #, c-format
 msgid "Can't open input file %s"
-msgstr "Nem lehet megnyitni a %s bemeneti f·jlt"
+msgstr "Nem lehet megnyitni a(z) %s bemeneti f√°jlt"
 
-#: src/code_io.c:267
+#: src/code_io.c:222
 #, c-format
 msgid "Can't stat input file %s"
-msgstr "Nem lehet a statolni a %s bemeneti f·jlt"
+msgstr "Nem lehet a min≈ës√≠teni a(z) %s bemeneti f√°jlt"
 
-#: src/code_io.c:272
-#, fuzzy, c-format
+#: src/code_io.c:227
+#, c-format
 msgid "Zero-length file %s"
-msgstr "FigyelmeztetÈs: %s f·jl nulla hossz˙s·g˙"
+msgstr "Figyelmeztet√©s: a(z) %s f√°jl nulla hossz√∫s√°g√∫"
 
-#: src/code_io.c:280
+#: src/code_io.c:235 src/code_io.c:249
 #, c-format
 msgid "File %s is too big to read"
-msgstr "A %s f·jl t˙l hossz˙ az olvas·shoz"
+msgstr "A(z) %s f√°jl t√∫l hossz√∫ az olvas√°shoz"
 
-#: src/code_io.c:288
+#: src/code_io.c:243
 #, c-format
 msgid "System problem reading file %s"
-msgstr "RendszerproblÈma a %s f·jl olvas·sa kˆzben"
+msgstr "Rendszerprobl√©ma a(z) %s f√°jl olvas√°sa k√∂zben"
 
-#: src/code_io.c:312
+#: src/code_io.c:285
 #, c-format
 msgid "Error reading input file %s"
-msgstr "Hiba a %s bemeneti f·jl olvas·sa kˆzben"
+msgstr "Hiba a(z) %s bemeneti f√°jl olvas√°sa k√∂zben"
 
-#: src/code_io.c:317
-#, fuzzy, c-format
-msgid "Error closing input file %s"
-msgstr "Hiba a %s bemeneti f·jl lez·r·sakor"
-
-#: src/code_io.c:507
-#, fuzzy, c-format
-msgid "File %s contains NULL-characters: cannot proceed\n"
-msgstr "FigyelmeztetÈs: A %s f·jl NULL karaktereket tartalmaz\n"
-
-#: src/lexi.c:786
-msgid "Unterminated character constant"
-msgstr "Lez·ratlan karakter·llandÛ"
-
-#: src/lexi.c:787
-msgid "Unterminated string constant"
-msgstr "Lez·ratlan karakterl·nc-·llandÛ"
-
-#: src/lexi.c:1044
+#: src/code_io.c:293
 #, c-format
-msgid "old style assignment ambiguity in \"=%c\".  Assuming \"= %c\"\n"
-msgstr ""
-"rÈgi stÌlus˙ kÈtÈrtelm˚ hozz·rendelÈs \"=%c\".  \"= %c\" feltÈtelezve\n"
+msgid "Error closing input file %s"
+msgstr "Hiba a(z) %s bemeneti f√°jl lez√°r√°sakor"
 
-#: src/output.c:1315
+#: src/code_io.c:482
+#, c-format
+msgid "File %s contains NULL-characters: cannot proceed\n"
+msgstr "A(z) %s  NULL karaktereket tartalmaz:nem folytathat√≥\n"
+
+#: src/lexi.c:834
+msgid "Unterminated character constant"
+msgstr "Lez√°ratlan karakter√°lland√≥"
+
+#: src/lexi.c:835 src/lexi.c:854
+msgid "Unterminated string constant"
+msgstr "Lez√°ratlan karakterl√°nc-√°lland√≥"
+
+#: src/lexi.c:1113
+#, c-format
+msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
+msgstr ""
+"r√©gi st√≠lus√∫ k√©t√©rtelm≈± hozz√°rendel√©s \"=%s\".  \"= %s\" felt√©telezve\n"
+
+#: src/output.c:1339
 #, c-format
 msgid "indent: can't create %s\n"
-msgstr "indent: nem lehet lÈtrehozni a %s\n"
+msgstr "indent: %s l√©trehoz√°sa nem lehets√©ges\n"
 
-#: src/output.c:1354
+#: src/output.c:1377
 #, c-format
 msgid "Can't close output file %s"
-msgstr "Nem lehet a %s kimeneti f·jlt lez·rni"
+msgstr "Nem lehet a(z) %s kimeneti f√°jlt lez√°rni"
 
-#: src/output.c:1367
+#: src/output.c:1390
 #, c-format
 msgid "Can't preserve modification time on output file %s"
-msgstr "Nem lehet a %s kimeneti f·jl mÛdosÌt·si idejÈt megırizni"
+msgstr "Nem lehet a(z) %s kimeneti f√°jl m√≥dos√≠t√°si idej√©t meg≈ërizni"
 
-#: src/parse.c:447
+#: src/parse.c:475
 msgid "Unmatched 'else'"
-msgstr "P·r nÈlk¸li 'else'"
+msgstr "P√°r n√©lk√ºli ‚Äûelse‚Äù"
 
-#: src/parse.c:473
+#: src/parse.c:501
 msgid "Stmt nesting error."
-msgstr "Stmt be·gyaz·si hiba."
+msgstr "Stmt be√°gyaz√°si hiba."
 
-#: src/parse.c:515
+#: src/parse.c:543
 msgid "Unknown code to parser"
-msgstr "Ismeretlen kÛd a feldolgozÛban"
+msgstr "Ismeretlen k√≥d a feldolgoz√≥ban"
 
-#: src/parse.c:525
-#, c-format
-msgid "ParseStack [%d]:\n"
-msgstr "ParseStack [%d]:\n"
-
-#: src/parse.c:529
-#, c-format
-msgid "  stack[%d] =>   stack: %d   ind_level: %d\n"
-msgstr "  verem[%d] =>   verem: %d   ind_level: %d\n"
-
-#: src/wildexp.c:126
+#: src/wildexp.c:128
 msgid "CANNOT FIND '@' FILE!"
-msgstr "NINCS MEG A '@' F¡JL!"
+msgstr "NINCS MEG A ‚Äû@‚Äù F√ÅJL!"
+
+#~ msgid "Internal buffering error"
+#~ msgstr "Bels≈ë pufferhiba"
 
 #~ msgid "Ran out of memory"
-#~ msgstr "A memÛria elfogyott"
+#~ msgstr "A mem√≥ria elfogyott"
 
 #~ msgid "Extra %c"
 #~ msgstr "Extra %c"
 
 #~ msgid "Unmatched #else"
-#~ msgstr "P·r nÈlk¸li #else"
+#~ msgstr "P√°r n√©lk√ºli #else"
 
 #~ msgid "Unmatched #elif"
-#~ msgstr "P·r nÈlk¸li #elif"
+#~ msgstr "P√°r n√©lk√ºli #elif"
 
 #~ msgid "Unmatched #endif"
-#~ msgstr "P·r nÈlk¸li #endif"
+#~ msgstr "P√°r n√©lk√ºli #endif"
 
 #~ msgid "usage: indent file [-o outfile ] [ options ]\n"
-#~ msgstr "haszn·lat: indent f·jl [-o kimenet ] [ kapcsolÛk ]\n"
+#~ msgstr "haszn√°lat: indent f√°jl [-o kimenet ] [ kapcsol√≥k ]\n"

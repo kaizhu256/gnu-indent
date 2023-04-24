@@ -34,17 +34,14 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * This file is subject to the terms of the GNU General Public License as
- * published by the Free Software Foundation.  A copy of this license is
- * included with this software distribution in the file COPYING.  If you
- * do not have a copy, you may obtain a copy by writing to the Free
- * Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * This software is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. */
-
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /* GNU/Emacs style backups --
  * This behaviour is controlled by two environment variables,
  * VERSION_CONTROL and SIMPLE_BACKUP_SUFFIX.
@@ -197,7 +194,7 @@ static char * simple_backup_name (
 {
     char *backup_name;
 
-    backup_name = xmalloc (strlen (pathname) + strlen (simple_backup_suffix) + 2);
+    backup_name = xmalloc(strlen (pathname) + strlen (simple_backup_suffix) + 2);
     sprintf (backup_name, "%s%s", pathname, simple_backup_suffix);
     return backup_name;
 }
@@ -255,7 +252,7 @@ static int highest_version (
     else
     {
        int             this_version;
-       int             file_name_length = strlen(filename);
+       unsigned int    file_name_length = strlen(filename);
 
        highestVersion = 0;
 
@@ -308,11 +305,11 @@ static int max_version (
         char *dirname;
 
         filename = p + 1;
-        dirname = xmalloc (dirlen + 1);
+        dirname = xmalloc(dirlen + 1);
         strncpy (dirname, pathname, (dirlen));
         dirname[dirlen] = '\0';
         version = highest_version (filename, dirname);
-        free (dirname);
+        xfree(dirname);
     }
     else
     {
@@ -357,7 +354,7 @@ static char * generate_backup_filename (
           else
           {
              last_numbered_version++;
-             backup_name = xmalloc (strlen (pathname) + 16);
+             backup_name = xmalloc(strlen (pathname) + 16);
 
              if (backup_name)
              {
@@ -523,11 +520,12 @@ void make_backup(
 
           if (utime (backup_filename, &buf) != 0)
           {
-             WARNING (_("Can't preserve modification time on backup file %s"), backup_filename, 0);
+             WARNING(_("Can't preserve modification time on backup file %s"),
+                     backup_filename, NULL);
           }
        }
 #endif
 
-       free (backup_filename);
+       xfree(backup_filename);
     }
 }

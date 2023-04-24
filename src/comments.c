@@ -7,15 +7,15 @@
  * of the License, or (at your option) any later version.
  *
  * This file is subject to the terms of the GNU General Public License as
- * published by the Free Software Foundation.  A copy of this license is
- * included with this software distribution in the file COPYING.  If you
- * do not have a copy, you may obtain a copy by writing to the Free
- * Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+ * published by the Free Software Foundation.  
  *
- * This software is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <string.h>
@@ -32,11 +32,11 @@ RCSTAG_CC ("$Id$");
 
 /** Check the limits of the comment buffer, and expand as neccessary. */
 
-#define CHECK_COM_SIZE \
-        if (e_com >= l_com) \
+#define CHECK_COM_SIZE(X) \
+        if (e_com >= l_com - (X)) \
           { \
-            int nsize = l_com - s_com + 400; \
-            combuf = (char *) xrealloc (combuf, nsize); \
+            size_t nsize = l_com - s_com + 400 + (X); \
+            combuf = xrealloc (combuf, nsize); \
             e_com = combuf + (e_com - s_com) + 1; \
             l_com = combuf + nsize - 5; \
             s_com = combuf + 1; \
@@ -58,6 +58,9 @@ RCSTAG_CC ("$Id$");
  *
  * `format_col1_comments'           ("fc1"):  Format comments which
  *     begin in column 1.
+ *
+ * `fix_nested_comments'            ("fnc"):  Fix comments which
+ *     have nested opening sequences
  *
  * `unindent_displace'              ("d"):  The hanging indentation for
  *     comments which do not appear to the right of code.
@@ -161,7 +164,16 @@ extern void print_comment(
       line_preamble_length = 0;
       visible_preamble = 0;
 
-      start_column = current_column () - 2;
+      /* If this comment is in the save buffer, trust it's start_column. */
+      if ((buf_ptr >= save_com.ptr) && (buf_ptr <= save_com.ptr + save_com.len))
+      {
+          start_column = save_com.start_column;
+      }
+      else
+      {
+          start_column = current_column () - 2;
+      }
+
       found_column = start_column;
       parser_state_tos->box_com = 1;
       parser_state_tos->com_col = found_column;
@@ -183,12 +195,25 @@ extern void print_comment(
                ++line_no;
             }
 
+            CHECK_COM_SIZE(1);
             *e_com++ = *buf_ptr++;
-            CHECK_COM_SIZE;
          } while ((*buf_ptr != '*') && (buf_ptr < buf_end));
+
+         /* Make sure we don't go past the end of the buffer */
+         if (buf_ptr > buf_end)
+             buf_ptr = buf_end;
 
         /* We have reached the end of the comment, and it's all on
          * this line. */
+
+         if (settings.fix_nested_comments)
+         {
+            if ((*buf_ptr == '*') && (*(buf_ptr - 1) == '/'))
+            {
+               *(e_com - 1) = ' ';
+               *e_com = '*';
+            }
+         }
 
          if ((*buf_ptr == '*') && (*(buf_ptr + 1) == '/'))
          {
@@ -348,7 +373,7 @@ extern void print_comment(
         /* If the too-long code is a pre-processor command,
            start the comment 1 space afterwards, otherwise
            start at the next tab mark. */
-         if (else_or_endif)
+         if (else_or_endif || settings.dont_tab_align_comments)
          {
             start_column++;
             else_or_endif = false;
@@ -446,7 +471,7 @@ extern void print_comment(
 
       while (!had_eof)
       {
-         CHECK_COM_SIZE;
+         CHECK_COM_SIZE(1);
 
          switch (*buf_ptr)
          {
@@ -485,6 +510,7 @@ extern void print_comment(
                int tab_width = (settings.tabsize - ((column + found_column -
                                                      start_column - 1) % settings.tabsize));
                column += tab_width;
+               CHECK_COM_SIZE(tab_width);
                while (tab_width--)
                {
                   *e_com++ = ' ';
@@ -624,6 +650,7 @@ cplus_exit:
                   }
 
                  /* Now insert the ending delimiter */
+                 CHECK_COM_SIZE(3);
                   *e_com++ = '*';
                   *e_com++ = '/';
                   *e_com = '\0';
@@ -671,8 +698,9 @@ cplus_exit:
                }
             }
 
-           /* If it was not the end of the comment, drop through
-            * and insert the star on the line. */
+           /* If it was not the end of the comment */
+           /* intentionally fall through */
+           /* and insert the star on the line. */
 
          default:
            /* Some textual character. */
@@ -829,8 +857,9 @@ begin_line:
       * user specified -sc.
       */
 
-      if (line_preamble)
+      if (line_preamble && line_preamble_length > 0)
       {
+         CHECK_COM_SIZE(line_preamble_length);
          (void) memcpy (e_com, line_preamble, line_preamble_length);
          e_com += line_preamble_length;
          column = start_column + line_preamble_length;
@@ -854,7 +883,8 @@ begin_line:
             save_length--;
          }
 
-         (void) memcpy (e_com, save_ptr, save_length);
+         CHECK_COM_SIZE(save_length);
+         (void) memmove (e_com, save_ptr, save_length);
          text_on_line = e_com;
          e_com += save_length;
 

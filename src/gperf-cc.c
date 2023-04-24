@@ -1,5 +1,5 @@
-/* C code produced by gperf version 3.0.2 */
-/* Command-line: gperf -D -c -l -p -t -T -g -j1 -o -K rwd -N is_reserved_cc -H hash_cc indent-cc.gperf  */
+/* ANSI-C code produced by gperf version 3.1 */
+/* Command-line: gperf -D -c -l -p -t -T -g -j1 -o -K rwd -L ANSI-C -N is_reserved_cc -H hash_cc indent-cc.gperf  */
 /* Computed positions: -k'1,3' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
@@ -26,7 +26,7 @@
       && ('w' == 119) && ('x' == 120) && ('y' == 121) && ('z' == 122) \
       && ('{' == 123) && ('|' == 124) && ('}' == 125) && ('~' == 126))
 /* The character set is not based on ISO-646.  */
-error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gnu-gperf@gnu.org>."
+#error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gperf@gnu.org>."
 #endif
 
 
@@ -37,7 +37,7 @@ error "gperf generated tables don't work with this execution character set. Plea
 #define MAX_HASH_VALUE 57
 /* maximum key range = 55, duplicates = 0 */
 
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(__clang__)
 __inline
 #else
 #ifdef __cplusplus
@@ -45,9 +45,7 @@ inline
 #endif
 #endif
 static unsigned int
-hash_cc (str, len)
-     register const char *str;
-     register unsigned int len;
+hash_cc (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
@@ -78,7 +76,7 @@ hash_cc (str, len)
       58, 58, 58, 58, 58, 58, 58, 58, 58, 58,
       58, 58, 58, 58, 58, 58
     };
-  register int hval = len;
+  register unsigned int hval = len;
 
   switch (hval)
     {
@@ -93,13 +91,8 @@ hash_cc (str, len)
   return hval;
 }
 
-#ifdef __GNUC__
-__inline
-#endif
 templ_ty *
-is_reserved_cc (str, len)
-     register const char *str;
-     register unsigned int len;
+is_reserved_cc (register const char *str, register size_t len)
 {
   static unsigned char lengthtable[] =
     {
@@ -208,7 +201,7 @@ is_reserved_cc (str, len)
       {"default", rw_case,}
     };
 
-  static short lookup[] =
+  static signed char lookup[] =
     {
       -1, -1, -1,  0,  1, -1, -1,  2,  3,  4,  5,  6,  7,  8,
        9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -219,20 +212,20 @@ is_reserved_cc (str, len)
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
     {
-      register int key = hash_cc (str, len);
+      register unsigned int key = hash_cc (str, len);
 
-      if (key <= MAX_HASH_VALUE && key >= 0)
+      if (key <= MAX_HASH_VALUE)
         {
-          register int index = lookup[key];
+          register int idx = lookup[key];
 
-          if (index >= 0)
+          if (idx >= 0)
             {
-              if (len == lengthtable[index])
+              if (len == lengthtable[idx])
                 {
-                  register const char *s = wordlist[index].rwd;
+                  register const char *s = wordlist[idx].rwd;
 
                   if (*str == *s && !memcmp (str + 1, s + 1, len - 1))
-                    return &wordlist[index];
+                    return &wordlist[idx];
                 }
             }
         }

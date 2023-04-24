@@ -1,7 +1,9 @@
 /** \file
+ * Copyright (c) 2015 Tim Hentenaar. All rights reserved.<br>
+ * Copyright (c) 2013 Łukasz Stelmach.  All rights reserved.<br>
  * Copyright (c) 1999 Carlo Wood.  All rights reserved.<br>
  * Copyright (c) 1994 Joseph Arceneaux.  All rights reserved.<br>
- * Copyright (c) 1992, 2002, 2008 Free Software Foundation, Inc.  All rights reserved.<br>
+ * Copyright (c) 1992, 2002, 2008, 2014, 2015 Free Software Foundation, Inc.  All rights reserved.<br>
  *
  * Copyright (c) 1985 Sun Microsystems, Inc. <br>
  * Copyright (c) 1980 The Regents of the University of California. <br>
@@ -31,9 +33,13 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * History:
  * - 2002-11-10 Cristalle Azundris Sabon <cristalle@azundris.com>
@@ -59,14 +65,6 @@ RCSTAG_H (indent, "$Id$");
 #endif
 
 #include "lexi.h"
-
-/**
- * Round up P to be a multiple of SIZE.
- */
-
-#ifndef ROUND_UP
-#define ROUND_UP(p, size) (((unsigned long) (p) + (size) - 1) & ~((size) - 1))
-#endif
 
 /** Values that `indent' can return for exit status.
  *
@@ -106,7 +104,7 @@ typedef unsigned char BOOLEAN;
 typedef struct file_buffer
 {
   char *name;
-  unsigned long size;
+  size_t size;
   char *data;
 } file_buffer_ty;
 
@@ -135,10 +133,10 @@ typedef enum bb_code
   bb_ident,
   bb_attribute,
   bb_struct_delim,
-  bb_operator2,			/* member selection (bb_struct_delim `.' or `->') */
-  bb_operator4,			/* member selection (bb_struct_delim `.*' or `->*') */
-  bb_operator5,			/* multiply, divide or modulo */
-  bb_operator6,			/* add or subtract */
+  bb_operator2,                 /* member selection (bb_struct_delim `.' or `->') */
+  bb_operator4,                 /* member selection (bb_struct_delim `.*' or `->*') */
+  bb_operator5,                 /* multiply, divide or modulo */
+  bb_operator6,                 /* add or subtract */
   bb_doublecolon,
   bb_cast
 } bb_code_ty;
@@ -268,6 +266,7 @@ typedef struct user_options_st
     int lineup_to_parens;    /*!<  if true, continued code within parens will be lined up to the open paren */
     int honour_newlines;     /*!<  True when positions at which we read a newline in the input file, should get
                               * a high priority to break long lines at. */
+    int fix_nested_comments; /*!<  If nested comments are to be fixed */
     int format_comments; /*!<  If any comments are to be reformatted */
     int format_col1_comments; /*!<  If comments which start in column 1 are to be magically reformatted */
     int extra_expression_indent;     /*!<  True if continuation lines from the expression part of "if(e)",
@@ -318,6 +317,12 @@ typedef struct user_options_st
     int brace_indent; /*!< number of spaces to indent braces from the suround if, while, etc. in -bl
                        * (bype_2 == 0) code */
     int expect_output_file;  /*!< Means "-o" was specified. */
+    int pointer_align_right; /*!< true: "char *a", false: "char* a" */
+    int gettext_strings;     /*!< true: _("...") is a string, false: it's a function */ 
+    int allow_single_line_conditionals; /*!< Don't indent the body of an unbraced if, else, etc. */
+    int align_with_spaces; /*!< Align with spaces if indenting with tabs. */
+    int spaces_around_initializers; /*!< Place spaces after { and before } in initializers. */
+    int dont_tab_align_comments; /*!< Don't align comments to the nearest tabstop. */
 } user_options_ty;
 
 extern user_options_ty settings;
@@ -325,7 +330,6 @@ extern user_options_ty settings;
 /** True if there is an embedded comment on this code line */
 extern int embedded_comment_on_line;
 
-extern int else_or_endif;
 extern int di_stack_alloc;
 extern int *di_stack;
 
@@ -398,7 +402,8 @@ typedef struct parser_state
     int                   sizeof_mask; /*!<  indicates which close parens close off
                                         * sizeof''s */
     int                   block_init;  /*!<  set to 1 if inside a block initialization
-                                        * set to 2 if inside an enum declaration */
+                                        * set to 2 if inside an enum declaration
+                                        * and 3 for C99 compound literals. */
     int block_init_level;         /*!<  The level of brace nesting in an
                                    * initialization (0 in an enum decl) */
     int last_nl;                  /*!<  this is true if the last thing scanned was
@@ -407,6 +412,8 @@ typedef struct parser_state
                                    * scanned was a newline */
     int saw_double_colon;         /*!<  set when we see a ::, reset at first semi-
                                    * colon or left brace */
+    int is_func_ptr_decl;         /*!<  set when we see a decl, followed by lparen
+                                   * and '*'. */
     int broken_at_non_nl;         /*!<  true when a line was broken at a place
                                    * where there was no newline in the input file */
     int in_or_st;                 /*!<  Will be true iff there has been a

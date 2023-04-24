@@ -1,8 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(GNU Indent, 2.2.11, bug-indent@gnu.org)
+AC_INIT(GNU Indent, 2.2.12, bug-indent@gnu.org)
 AC_CONFIG_SRCDIR(src/indent.c)
 AC_CONFIG_AUX_DIR(config)
-AM_INIT_AUTOMAKE(indent, 2.2.11)
+AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(config.h)
 
 AM_MAINTAINER_MODE
@@ -11,6 +11,7 @@ dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
+AX_CC_FOR_BUILD
 
 AC_AIX
 AC_MINIX
@@ -29,13 +30,11 @@ AC_C_CONST
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG(DVIPS, dvips, $ac_aux_dir_abs/missing dvips)
-AC_PATH_PROG(TEXI2PDF, texi2pdf, $ac_aux_dir_abs/missing texi2pdf)
-AC_PATH_PROG(TEXI2HTML, texi2html, $ac_aux_dir_abs/missing texi2html)
 
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_OUTPUT has also some parts.)
 AM_GNU_GETTEXT
-AM_GNU_GETTEXT_VERSION(0.11.5)
+AM_GNU_GETTEXT_VERSION([0.18.3])
 
 AH_TEMPLATE(HAVE_LC_MESSAGES)
 AH_TEMPLATE(ENABLE_NLS)

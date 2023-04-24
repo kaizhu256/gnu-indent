@@ -1,285 +1,281 @@
+# This file is distributed under the same license as the indent package.
 # Estonian translations for indent.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Toomas Soome <tsoome@ut.ee>, 2001.
+# Toomas Soome <Toomas.Soome@microlink.ee>, 2010.
+# Kristjan RÃƒâ‚¬ts <kristjanrats@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: indent 2.2.8\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 17:27+0100\n"
-"PO-Revision-Date: 2002-10-25 10:14+03:00\n"
-"Last-Translator: Toomas Soome <Toomas.Soome@microlink.ee>\n"
-"Language-Team: Estonian <et@li.org>\n"
+"Project-Id-Version: GNU indent 2.2.12\n"
+"Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
+"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"PO-Revision-Date: 2015-11-09 09:28+0000\n"
+"Last-Translator: Kristjan RÃ¤ts <kristjanrats@gmail.com>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/indent/"
+"translations/et/>\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.5-dev\n"
 
-#: src/args.c:611
-#, fuzzy
+#: src/args.c:673
 msgid ""
 "usage: indent file [-o outfile ] [ options ]\n"
 "       indent file1 file2 ... fileN [ options ]\n"
-msgstr "        indent fail1 fail2 ... failN [ võtmed ]\n"
+msgstr ""
+"kasutamine: indent fail [-o vÃ¤ljundfail ] [ vÃµtmed ]\n"
+"            indent fail1 fail2 ... failN [ vÃµtmed ]\n"
 
-#: src/args.c:677
-#, fuzzy, c-format
+#: src/args.c:740
+#, c-format
 msgid "%s: missing argument to parameter %s\n"
-msgstr "indent: parameetril %s puudub argument\n"
+msgstr "%s: parameetril %s puudub argument\n"
 
-#: src/args.c:802
-#, fuzzy, c-format
+#: src/args.c:864
+#, c-format
 msgid "%s: unknown option \"%s\"\n"
-msgstr "indent: tundmatu võti \"%s\"\n"
+msgstr "%s: tundmatu vÃµti \"%s\"\n"
 
-#: src/args.c:812
+#: src/args.c:877
 #, c-format
 msgid "option: %s\n"
-msgstr "võti: %s\n"
+msgstr "vÃµti: %s\n"
 
-#: src/args.c:828
+#: src/args.c:892
 #, c-format
 msgid "GNU indent %s\n"
 msgstr "GNU indent %s\n"
 
-#: src/args.c:913
-#, fuzzy, c-format
+#: src/args.c:959
+#, c-format
 msgid "%s: option ``%s'' requires a numeric parameter\n"
-msgstr "indent: võti ``%s'' nõuab numbrilist argumenti\n"
+msgstr "%s: vÃµti ``%s'' nÃµuab numbrilist argumenti\n"
 
-#: src/args.c:921
-#, fuzzy, c-format
+#: src/args.c:966
+#, c-format
 msgid "set_option: internal error: p_type %d\n"
-msgstr "indent: set_option: sisemine viga: p_type %d\n"
+msgstr "set_option: sisemine viga: p_type %d\n"
 
-#: src/args.c:977
+#: src/args.c:1022
 msgid "Profile contains an unterminated comment"
-msgstr "Profiil sisaldab lõpetamata kommentaari"
+msgstr "Profiil sisaldab lÃµpetamata kommentaari"
 
-#: src/args.c:1015
+#: src/args.c:1060
 msgid "Profile contains unpalatable characters"
-msgstr "Profiil sisaldab ebasobivaid sümboleid"
+msgstr "Profiil sisaldab ebasobivaid sÃ¼mboleid"
 
-#: src/args.c:1183
+#: src/args.c:1228
 #, c-format
 msgid "File named by environment variable %s does not exist or is not readable"
-msgstr ""
+msgstr "Keskkonnamuutuja %s poolt viidatud faili pole vÃµi ei ole loetav"
 
-#: src/backup.c:466
+#: src/backup.c:463
 #, c-format
 msgid "indent:  Strange version-control value\n"
-msgstr "indent: Veider versioonihalduse väärtus\n"
+msgstr "indent: Veider versioonihalduse vÃ¤Ã¤rtus\n"
 
-#: src/backup.c:467
+#: src/backup.c:464
 #, c-format
 msgid "indent:  Using numbered-existing\n"
 msgstr "indent: Kasutan nummerdatud olemasolevat\n"
 
-#: src/backup.c:498
+#: src/backup.c:495
 #, c-format
 msgid "indent: Can't make backup filename of %s\n"
-msgstr "indent: Ei õnnestu luua %s varukoopia failinime\n"
+msgstr "indent: Ei Ãµnnestu luua %s varukoopia failinime\n"
 
-#: src/backup.c:506
+#: src/backup.c:503
 #, c-format
 msgid "Can't open backup file %s"
-msgstr "Ei õnnestu avada varukoopia faili %s"
+msgstr "Ei Ãµnnestu avada varukoopia faili %s"
 
-#: src/backup.c:513
+#: src/backup.c:510
 #, c-format
 msgid "Can't write to backup file %s"
-msgstr "Ei õnnestu kirjutada varukoopia faili %s"
+msgstr "Ei Ãµnnestu kirjutada varukoopia faili %s"
 
-#: src/backup.c:526
+#: src/backup.c:523
 #, c-format
 msgid "Can't preserve modification time on backup file %s"
-msgstr "Ei õnnestu säilitada varukoopia faili %s muutmise aega"
+msgstr "Ei Ãµnnestu sÃ¤ilitada varukoopia faili %s muutmise aega"
 
-#: src/globs.c:49 src/globs.c:74
+#: src/globs.c:46 src/globs.c:68
 #, c-format
 msgid "indent: Virtual memory exhausted.\n"
-msgstr "indent: Mälu on otsas.\n"
+msgstr "indent: MÃ¤lu on otsas.\n"
 
-#: src/globs.c:93
+#: src/globs.c:103
 #, c-format
 msgid "indent: %s:%d: %s:"
 msgstr "indent: %s:%d: %s:"
 
-#: src/globs.c:109
+#: src/globs.c:130
 #, c-format
 msgid "indent: Fatal Error: "
 msgstr "indent: Fataalne viga: "
 
-#: src/globs.c:119
+#: src/globs.c:140
 #, c-format
 msgid "indent: System Error: "
-msgstr "indent: Süsteemi viga: "
+msgstr "indent: SÃ¼steemi viga: "
 
-#: src/globs.h:27
+#: src/globs.h:26
 msgid "Warning"
 msgstr "Hoiatus"
 
-#: src/globs.h:31
+#: src/globs.h:30
 msgid "Error"
 msgstr "Viga"
 
-#: src/indent.c:284
+#: src/indent.c:291
 msgid "EOF encountered in comment"
 msgstr "EOF kommentaaris"
 
-#: src/indent.c:345
+#: src/indent.c:355
 msgid "Line broken"
 msgstr "Katkine rida"
 
-#: src/indent.c:522
+#: src/indent.c:565
 msgid "Unexpected end of file"
-msgstr "Ootamatu faililõpp"
+msgstr "Ootamatu faililÃµpp"
 
-#: src/indent.c:528
+#: src/indent.c:571
 #, c-format
 msgid "There were %d non-blank output lines and %d comments\n"
-msgstr "Saime %d mitte-tühja väljundrida ja %d kommentaari\n"
+msgstr "Saime %d mitte-tÃ¼hja vÃ¤ljundrida ja %d kommentaari\n"
 
-#: src/indent.c:532
+#: src/indent.c:575
 #, c-format
 msgid "(Lines with comments)/(Lines with code): %6.3f\n"
 msgstr "(Kommentaaridega ridu)/(Koodiridu): %6.3f\n"
 
-#: src/indent.c:556
+#: src/indent.c:599
 msgid "Line broken 2"
 msgstr "Katkine rida 2"
 
-#: src/indent.c:778
+#: src/indent.c:821
 #, c-format
 msgid "indent: only one output file (2nd was %s)\n"
-msgstr "indent: ainult üks väljundfail (teine oli %s)\n"
+msgstr "indent: ainult Ã¼ks vÃ¤ljundfail (teine oli %s)\n"
 
-#: src/indent.c:787 src/indent.c:813
+#: src/indent.c:830 src/indent.c:856
 #, c-format
 msgid "indent: only one input file when output file is specified\n"
 msgstr ""
-"indent: kui väljundfail on määratud, saab kasutada ainult üht sisendfaili\n"
+"indent: kui vÃ¤ljundfail on mÃ¤Ã¤ratud, saab kasutada ainult Ã¼ht sisendfaili\n"
 
-#: src/indent.c:801 src/indent.c:848
+#: src/indent.c:844 src/indent.c:890
 #, c-format
 msgid "indent: can't have filenames when specifying standard input\n"
 msgstr ""
 "indent: failinimesid ei saa kasutada, kui kasutatakse standardsisendit\n"
 
-#: src/indent.c:821
+#: src/indent.c:864
 #, c-format
 msgid "indent: only one input file when stdout is used\n"
 msgstr ""
-"indent: kui kasutame standardväljundit, saab kasutada ainult üht failinimie\n"
+"indent: kui kasutame standardvÃ¤ljundit, saab kasutada ainult Ã¼ht failinimie\n"
 
-#: src/indent.c:857
+#: src/indent.c:899
 msgid "command line"
-msgstr ""
+msgstr "kÃ¤surida"
 
-#: src/indent.c:1049
+#: src/indent.c:1117
 #, c-format
 msgid "Read profile %s\n"
 msgstr "Lugesin profiili %s\n"
 
-#: src/code_io.c:169
-msgid "Internal buffering error"
-msgstr "Sisemine puhverduse viga"
-
-#: src/code_io.c:262
+#: src/code_io.c:217
 #, c-format
 msgid "Can't open input file %s"
-msgstr "Ei õnnestu avada sisendfaili %s"
+msgstr "Ei Ãµnnestu avada sisendfaili %s"
 
-#: src/code_io.c:267
+#: src/code_io.c:222
 #, c-format
 msgid "Can't stat input file %s"
-msgstr "Ei õnnestu lugeda sisendfaili %s atribuute"
+msgstr "Ei Ãµnnestu lugeda sisendfaili %s atribuute"
 
-#: src/code_io.c:272
-#, fuzzy, c-format
+#: src/code_io.c:227
+#, c-format
 msgid "Zero-length file %s"
-msgstr "Hoiatus: null-pikkusega fail %s"
+msgstr "TÃ¼hi fail %s"
 
-#: src/code_io.c:280
+#: src/code_io.c:235 src/code_io.c:249
 #, c-format
 msgid "File %s is too big to read"
 msgstr "Fail %s on lugemiseks liiga suur"
 
-#: src/code_io.c:288
+#: src/code_io.c:243
 #, c-format
 msgid "System problem reading file %s"
-msgstr "Süsteemi tõrge faili %s lugemisel"
+msgstr "SÃ¼steemi tÃµrge faili %s lugemisel"
 
-#: src/code_io.c:312
+#: src/code_io.c:285
 #, c-format
 msgid "Error reading input file %s"
 msgstr "Viga sisendfaili %s lugemisel"
 
-#: src/code_io.c:317
-#, fuzzy, c-format
+#: src/code_io.c:293
+#, c-format
 msgid "Error closing input file %s"
 msgstr "Viga sisendfaili %s sulgemisel"
 
-#: src/code_io.c:507
-#, fuzzy, c-format
-msgid "File %s contains NULL-characters: cannot proceed\n"
-msgstr "Hoiatus: Fail %s sisaldab NULL sümboleid\n"
-
-#: src/lexi.c:786
-msgid "Unterminated character constant"
-msgstr "Lõpetamata sümbol konstant"
-
-#: src/lexi.c:787
-msgid "Unterminated string constant"
-msgstr "Lõpetamata sõne konstant"
-
-#: src/lexi.c:1044
+#: src/code_io.c:482
 #, c-format
-msgid "old style assignment ambiguity in \"=%c\".  Assuming \"= %c\"\n"
-msgstr "vanas stiilis omistamine \"=%c\". Eeldan \"= %c\"\n"
+msgid "File %s contains NULL-characters: cannot proceed\n"
+msgstr "Failis %s on NULL sÃ¼mboleid: ei saa jÃ¤tkata\n"
 
-#: src/output.c:1315
+#: src/lexi.c:834
+msgid "Unterminated character constant"
+msgstr "LÃµpetamata sÃ¼mbol konstant"
+
+#: src/lexi.c:835 src/lexi.c:854
+msgid "Unterminated string constant"
+msgstr "LÃµpetamata sÃµne konstant"
+
+#: src/lexi.c:1113
+#, c-format
+msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
+msgstr "vanas stiilis mitmeti mÃµistetav omistamine  \"=%s\". Oletan \"= %s\"\n"
+
+#: src/output.c:1339
 #, c-format
 msgid "indent: can't create %s\n"
 msgstr "indent: %s ei saa luua\n"
 
-#: src/output.c:1354
+#: src/output.c:1377
 #, c-format
 msgid "Can't close output file %s"
-msgstr "Ei õnnestu sulgeda väljundfaili %s"
+msgstr "Ei Ãµnnestu sulgeda vÃ¤ljundfaili %s"
 
-#: src/output.c:1367
+#: src/output.c:1390
 #, c-format
 msgid "Can't preserve modification time on output file %s"
-msgstr "Ei õnnestu säilitada väljundfaili %s muutmise aega"
+msgstr "Ei Ãµnnestu sÃ¤ilitada vÃ¤ljundfaili %s muutmise aega"
 
-#: src/parse.c:447
+#: src/parse.c:475
 msgid "Unmatched 'else'"
 msgstr "Puudub 'else'"
 
-#: src/parse.c:473
+#: src/parse.c:501
 msgid "Stmt nesting error."
 msgstr "Viga avaldises."
 
-#: src/parse.c:515
+#: src/parse.c:543
 msgid "Unknown code to parser"
 msgstr "Parser sai tundmatu koodi"
 
-#: src/parse.c:525
-#, c-format
-msgid "ParseStack [%d]:\n"
-msgstr "ParseStack [%d]:\n"
-
-#: src/parse.c:529
-#, c-format
-msgid "  stack[%d] =>   stack: %d   ind_level: %d\n"
-msgstr "  stack[%d] =>   stack: %d   ind_level: %d\n"
-
-#: src/wildexp.c:126
+#: src/wildexp.c:128
 msgid "CANNOT FIND '@' FILE!"
 msgstr "EI LEIA '@' FAILI!"
 
+#~ msgid "Internal buffering error"
+#~ msgstr "Sisemine puhverduse viga"
+
 #~ msgid "Ran out of memory"
-#~ msgstr "Mälu on otsas"
+#~ msgstr "MÃ¤lu on otsas"
 
 #~ msgid "Extra %c"
 #~ msgstr "Liigne %c"
@@ -292,6 +288,3 @@ msgstr "EI LEIA '@' FAILI!"
 
 #~ msgid "Unmatched #endif"
 #~ msgstr "Puudub #endif"
-
-#~ msgid "usage: indent file [-o outfile ] [ options ]\n"
-#~ msgstr "kasuta: indent fail [-o väljundfail ] [ võtmed ]\n"

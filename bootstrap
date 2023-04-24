@@ -2,12 +2,8 @@
 # get the latest translations
 
 echo
-echo "#### get the latest translations"
-rsync -Lrtvz  translationproject.org::tp/latest/indent/  po
-
-echo
-echo "#### making README"
-touch README
+echo "#### making README.md"
+touch README.md
 
 echo
 echo "#### Running autopoint"

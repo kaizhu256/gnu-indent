@@ -1,3 +1,20 @@
+Release notes for GNU indent version 2.2.12, Sep 2018
+
+ * This release drops support for VMS and Watcom.
+ * New options:
+   * -pal / --pointer-align-left and -par / --pointer-align-right
+   * -fnc / --fix-nested-comment
+   * -gts / --gettext-strings
+   * -slc / --single-line-conditionals
+   * -as / --align-with-spaces
+   * -ut / --use-tabs
+   * -nut / --no-tabs
+   * -sar / --spaces-around-initializers
+   * -ntac / --dont-tab-align-comments
+  * -linux preset now includes -nbs.
+  * -kr preset now includes -par.
+  * Indent now recognises C99 and C11 keywords, and also typeof.
+
 Release notes for GNU indent version 2.2.9, Aug 2002
 
  * Matthias <moh@itec.uni-klu.ac.at> and Eric Lloyd <ewlloyd@neta.com>

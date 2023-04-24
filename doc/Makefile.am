@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in.
 
-info_TEXINFOS = indent.texinfo
+info_TEXINFOS = indent.texi
 
 docdir = $(prefix)/doc/@PACKAGE@
 dvidir = $(docdir)
@@ -27,22 +27,16 @@ html: html-$(HTMLSTYLE)
 install-html: install-html-$(HTMLSTYLE)
 uninstall-html: uninstall-html-$(HTMLSTYLE)
 
-TEXI2HTML = @TEXI2HTML@
-
 # BUILT_SOURCES = @PACKAGE@.1 @PACKAGE@.html @PACKAGE@_toc.html
 html-monolithic: @PACKAGE@.html
 html-split: @PACKAGE@_toc.html
 
 @PACKAGE@.html: version.texi $(@PACKAGE@_TEXINFOS)
-	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi`
+	$(MAKEINFO) --html --ifinfo --number-sections --no-split `if test -f @PACKAGE@.texi; then echo @PACKAGE@.texi; else echo $(srcdir)/@PACKAGE@.texi; fi`
 
 @PACKAGE@_toc.html: version.texi $(@PACKAGE@_TEXINFOS)
-	case "$(TEXI2HTML)" in \
-	  *"/missing texi2html") \
-	     $(TEXI2HTML) -expand info -number -nomenu -split section `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi` || exit 0 ;; \
-	  *) $(RM) @PACKAGE@_*.html ; \
-	     $(TEXI2HTML) -expand info -number -nomenu -split section `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi` ;; \
-	esac
+	$(RM) @PACKAGE@_*.html
+	$(MAKEINFO) --html --ifinfo --number-sections --no-headers --split=section `if test -f @PACKAGE@.texi; then echo @PACKAGE@.texi; else echo $(srcdir)/@PACKAGE@.texi; fi`
 
 install-html-monolithic: @PACKAGE@.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
@@ -65,12 +59,11 @@ uninstall-html-split:
 
 # Documentation in Portable Document Format.
 
-TEXI2PDF = @TEXI2PDF@
 SUFFIXES = .pdf
 
 .texinfo.pdf:
 	TEXINPUTS=.:$$TEXINPUTS \
-	MAKEINFO='$(MAKEINFO) -I $(srcdir)' $(TEXI2PDF) $<
+	$(MAKEINFO) -I $(srcdir) --pdf $<
 
 pdf: @PACKAGE@.pdf
 

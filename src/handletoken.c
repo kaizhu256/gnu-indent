@@ -1,7 +1,11 @@
 /** \file
+ * handletoken.c  GNU indent, processing of tokens returned by the parser.
+ *
+ * Copyright (c) 2015 Tim Hentenaar. All rights reserved.<br>
+ * Copyright (c) 2013 Łukasz Stelmach.  All rights reserved.<br>
  * Copyright (c) 1999, 2000 Carlo Wood.  All rights reserved. <br>
  * Copyright (c) 1994, 1996, 1997 Joseph Arceneaux.  All rights reserved. <br>
- * Copyright (c) 1992, 2002, 2008 Free Software Foundation, Inc.  All rights reserved. <br>
+ * Copyright (c) 1992, 2002, 2008, 2014 Free Software Foundation, Inc.  All rights reserved. <br>
  *
  * Copyright (c) 1980 The Regents of the University of California. <br>
  * Copyright (c) 1976 Board of Trustees of the University of Illinois. All rights reserved.
@@ -32,9 +36,13 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  *
  * Updates:
  * - 2002-08-05: Matthias <moh@itec.uni-klu.ac.at> and Eric Lloyd <ewlloyd@neta.com>
@@ -47,6 +55,7 @@
  * - 28 Sep 2003 Geoffrey Lee <glee@bogus.example.com>
  *             Fixed Bug#205692: indent: [patch] fix garble shown in locale(fwd)
  * - 2008-03-08 DI Re-baselined on the more acceptable (license-wise) OpenBSD release 3.4.
+ *              
  */
 
 #include "sys.h"
@@ -67,15 +76,35 @@
 RCSTAG_CC ("$GNU$");
 
 /**
+ * Expand a buffer to hold more chars, aligned on a
+ * 1 KB boundary.
+ */
+extern void need_chars(buf_ty * bp, size_t needed)
+{
+    size_t current_size = (size_t)(bp->end - bp->ptr);
+
+    if (current_size + needed >= (size_t)bp->size)
+    {
+        bp->size = ((current_size + needed) & (size_t)~1023);
+        bp->ptr = xrealloc(bp->ptr, bp->size);
+        if (bp->ptr == NULL)
+        {
+            fatal (_("Ran out of memory"), 0);
+        }
+
+        bp->end = bp->ptr + current_size;
+    }
+}
+
+/**
  *
  */
-
 extern void check_code_size(void)
 {
     if (e_code >= l_code)                               
     {                                                   
         int nsize = l_code - s_code + 400;               
-        codebuf   = (char *) xrealloc (codebuf, nsize);  
+        codebuf   = xrealloc(codebuf, nsize);  
         e_code    = codebuf + (e_code - s_code) + 1; 
         l_code    = codebuf + nsize - 5; 
         s_code    = codebuf + 1; 
@@ -91,7 +120,7 @@ static void check_lab_size(void)
     if (e_lab >= l_lab)
     {
         int nsize  = l_lab - s_lab + 400;               
-        labbuf = (char *) xrealloc (labbuf, nsize); 
+        labbuf = xrealloc(labbuf, nsize); 
         e_lab  = labbuf + (e_lab - s_lab) + 1;        
         l_lab  = labbuf + nsize - 5;                
         s_lab  = labbuf + 1;                        
@@ -313,12 +342,18 @@ static void handle_token_lparen(
     {
         parser_state_tos->paren_indents_size *= 2;
         parser_state_tos->paren_indents =
-                (short *) xrealloc ((char *) parser_state_tos->paren_indents,
-                                    parser_state_tos->paren_indents_size *
-                                    sizeof (short));
+                xrealloc(parser_state_tos->paren_indents,
+                         parser_state_tos->paren_indents_size * sizeof(short));
     }
 
     parser_state_tos->paren_depth++;
+
+	/* In the case of nested function pointer declarations, let's ensure
+	 * we output a ' ' between the decl word and the lparen, but NOT
+	 * between the following rparen and lparen.
+	 */
+    if (parser_state_tos->is_func_ptr_decl && !settings.proc_calls_space)
+        parser_state_tos->want_blank = (*(token - 1) != ')' && *(token - 1) != ' ');
 
     if (parser_state_tos->want_blank &&
         (*token != '[') &&
@@ -335,6 +370,13 @@ static void handle_token_lparen(
     {
         set_buf_break (bb_proc_call, paren_target);
     }
+
+	/* Remember if this looks like a function pointer decl. */
+	if (*(token + 1) == '*' &&
+	    parser_state_tos->last_rw == rw_decl &&
+	    (parser_state_tos->last_token == decl ||
+	     parser_state_tos->last_token == unary_op))
+	        parser_state_tos->is_func_ptr_decl = true;
 
     if (parser_state_tos->in_decl && !parser_state_tos->block_init)
     {
@@ -413,7 +455,10 @@ static void handle_token_lparen(
     }
 
     /* The '(' that starts a cast can never be preceded by an
-     * indentifier or decl.  */
+     * indentifier or decl.  There is an exception immediately
+     * following a return.  To prevent that influence from going
+     * too far, it is reset by a following ident in lexi.c. 
+     */
 
     if ((parser_state_tos->last_token == decl) ||
         ((parser_state_tos->last_token == ident) &&
@@ -441,10 +486,10 @@ static void handle_token_rparen(
    exit_values_ty * file_exit_value,
    BOOLEAN        * pbreak_line)
 {
-            
+    char tmpchar[2], *tmp;
+
     parser_state_tos->paren_depth--;
     
-#if 1
     /* For declarations, if user wants close of fn decls broken, force that
      * now. 
      */
@@ -464,7 +509,6 @@ static void handle_token_rparen(
         parser_state_tos->paren_indents[parser_state_tos->p_l_follow - 1] = paren_target;
         parser_state_tos->ind_stmt = 0;
     }
-#endif
 
     if (parser_state_tos->
         cast_mask & (1 << parser_state_tos->
@@ -482,6 +526,12 @@ static void handle_token_rparen(
             parser_state_tos->want_blank = false;
             parser_state_tos->can_break = bb_cast;
         }
+
+        /* Check for a C99 compound literal */
+        tmp = token + 1;
+        while (isspace(*tmp)) tmp++;
+        if (*tmp == '{')
+            parser_state_tos->block_init = 3;
     }
     else if (parser_state_tos->in_decl &&
              !parser_state_tos->block_init &&
@@ -500,8 +550,8 @@ static void handle_token_rparen(
     if (--parser_state_tos->p_l_follow < 0)
     {
         parser_state_tos->p_l_follow = 0;
-        WARNING (_("Extra %c"),
-                 (unsigned long) *((unsigned char *) token), 0);
+        tmpchar[0] = *token; tmpchar[1] = '\0';
+        WARNING(_("Extra %s"), tmpchar, NULL);
     }
 
     /* if the paren starts the line, then indent it */
@@ -528,6 +578,16 @@ static void handle_token_rparen(
 
     *(e_code++) = token[0];
 
+    /* Something is setting want_blank to false whereas we need to emit
+     * a space if we have a single-line conditional, so make sure we
+     * indicate that we want a space before the next identifier.
+     */
+    if (settings.allow_single_line_conditionals && *(token - 1) == ')'
+        && *(token + 2) != '{' && !parser_state_tos->paren_depth)
+    {
+        parser_state_tos->want_blank = true;
+    }
+
     /* check for end of if (...), or some such */
 
     if (*sp_sw && (parser_state_tos->p_l_follow == 0))
@@ -544,7 +604,7 @@ static void handle_token_rparen(
         }
 
         *sp_sw = false;
-        *force_nl = true;    /* must force newline after if */
+        *force_nl = !settings.allow_single_line_conditionals;
         parser_state_tos->last_u_d = true;  /* inform lexi that a
                                              * following operator is
                                              * unary */
@@ -575,11 +635,15 @@ static void handle_token_unary_op(
 {
     char           * t_ptr;
     
-    if (parser_state_tos->want_blank)
+    if (parser_state_tos->want_blank &&
+        !(parser_state_tos->in_decl &&
+          !settings.pointer_align_right &&
+          *token == '*'))
     {
         set_buf_break (bb_unary_op, paren_target);
         *(e_code++) = ' ';
         *e_code = '\0';     /* null terminate code sect */
+        parser_state_tos->want_blank = false;
     }
     else if (can_break)
     {
@@ -616,6 +680,7 @@ static void handle_token_unary_op(
 
             if ((parser_state_tos->last_token == unary_op) &&
                 (e_code > s_code) &&
+                 *res != '!' &&
                 (*(e_code - 1) == *res))
             {
                 *(e_code++) = ' ';
@@ -626,6 +691,15 @@ static void handle_token_unary_op(
         {
             check_code_size();
             *(e_code++) = *t_ptr;
+        }
+
+        if (parser_state_tos->want_blank &&
+            !(parser_state_tos->in_decl &&
+              settings.pointer_align_right &&
+              *token == '*'))
+        {
+            set_buf_break (bb_unary_op, paren_target);
+            *(e_code++) = ' ';
         }
 
         *e_code = '\0';     /* null terminate code sect */
@@ -910,6 +984,7 @@ static void handle_token_semicolon(
     parser_state_tos->block_init = 0;
     parser_state_tos->block_init_level = 0;
     parser_state_tos->just_saw_decl--;
+    parser_state_tos->is_func_ptr_decl = false;
 
     if (parser_state_tos->in_decl &&
         (s_code == e_code) && !buf_break_used &&
@@ -974,6 +1049,12 @@ static void handle_token_lbrace(
    BOOLEAN        * pbreak_line)
 {
     parser_state_tos->saw_double_colon = false;
+
+    /* If the last token was a binary_op (probably =) then we're
+     * likely starting an initializer or initializer list.
+     */
+    if (parser_state_tos->last_token == binary_op)
+        parser_state_tos->block_init = 1;
 
     if (!parser_state_tos->block_init)
     {
@@ -1084,13 +1165,11 @@ static void handle_token_lbrace(
     if (parser_state_tos->in_decl && parser_state_tos->in_or_st)
     {
         /* This is a structure declaration.  */
-
         if (parser_state_tos->dec_nest >= di_stack_alloc)
         {
             di_stack_alloc *= 2;
-            di_stack =
-                    (int *) xrealloc ((char *) di_stack,
-                                      di_stack_alloc * sizeof (*di_stack));
+            di_stack = xrealloc(di_stack,
+                                di_stack_alloc * sizeof(*di_stack));
         }
 
         di_stack[parser_state_tos->dec_nest++] = *dec_ind;
@@ -1150,15 +1229,16 @@ static void handle_token_lbrace(
         {
             parser_state_tos->paren_indents_size *= 2;
             parser_state_tos->paren_indents =
-                    (short *) xrealloc ((char *) parser_state_tos->
-                                        paren_indents,
-                                        parser_state_tos->paren_indents_size *
-                                        sizeof (short));
+                    xrealloc(parser_state_tos->paren_indents,
+                             parser_state_tos->paren_indents_size *
+                             sizeof(short));
         }
 
         ++parser_state_tos->paren_depth;
         parser_state_tos->paren_indents[parser_state_tos->p_l_follow -
                                         1] = e_code - s_code;
+        if (settings.spaces_around_initializers)
+            parser_state_tos->want_blank = true;
     }
     else if (parser_state_tos->block_init &&
              (parser_state_tos->block_init_level == 1))
@@ -1183,6 +1263,8 @@ static void handle_token_rbrace(
     exit_values_ty * file_exit_value,
     BOOLEAN        * pbreak_line)
 {
+    char tmpchar[2];
+
     /* semicolons can be omitted in declarations */
     if (((parser_state_tos->p_stack[parser_state_tos->tos] == decl) &&
          !parser_state_tos->block_init) ||
@@ -1198,8 +1280,9 @@ static void handle_token_rbrace(
     parser_state_tos->just_saw_decl = 0;
     parser_state_tos->ind_stmt = false;
     parser_state_tos->in_stmt  = false;
+    parser_state_tos->block_init_level--;
 
-    if ((parser_state_tos->block_init_level-- == 1)
+    if ((parser_state_tos->block_init_level == 0)
         && (s_code != e_code))
     {
         /* Found closing brace of declaration initialisation, with
@@ -1219,6 +1302,13 @@ static void handle_token_rbrace(
             *(e_code++) = ' ';
         }
     }
+    else if (parser_state_tos->block_init_level == 1
+             && settings.spaces_around_initializers)
+    {
+             /* Put a space before the '}' */
+            set_buf_break (bb_rbrace, paren_target);
+            *(e_code++) = ' ';
+    }
 
     *(e_code++) = '}';
     parser_state_tos->want_blank = true;
@@ -1233,8 +1323,9 @@ static void handle_token_rbrace(
         if (--parser_state_tos->p_l_follow < 0)
         {
             parser_state_tos->p_l_follow = 0;
-            WARNING (_("Extra %c"),
-                     (unsigned long) *((unsigned char *) token), 0);
+            tmpchar[0] = *token;
+            tmpchar[1] = '\0';
+            WARNING(_("Extra %s"), tmpchar, NULL);
         }
     }
     else if (parser_state_tos->dec_nest > 0)
@@ -1355,7 +1446,7 @@ static void handle_token_nparen(
         {
             if (settings.verbose)
             {
-                WARNING (_("Line broken"), 0, 0);
+                WARNING(_("Line broken"), NULL, NULL);
             }
             
             dump_line (true, &paren_target, pbreak_line);       /* make sure this starts a line */
@@ -1381,7 +1472,7 @@ static void handle_token_nparen(
             
             if (settings.verbose)
             {
-                WARNING (_("Line broken"), 0, 0);
+                WARNING(_("Line broken"), NULL, NULL);
             }
             
             dump_line (true, &paren_target, pbreak_line);
@@ -1454,17 +1545,7 @@ static void handle_token_decl(
         parser_state_tos->saw_double_colon &&
         !strncmp (token, "const", 5))
     {
-        char           * t_ptr;
         set_buf_break (bb_const_qualifier, paren_target);
-        *(e_code++) = ' ';
-
-        for (t_ptr = token; t_ptr < token_end; ++t_ptr)
-        {
-            check_code_size();
-            *(e_code++) = *t_ptr;
-        }
-
-        *e_code = '\0';     /* null terminate code sect */
     }
     else
     {
@@ -1923,45 +2004,30 @@ static void handle_token_preesc(
 
             parser_state_ty *new;
 
-            new = (parser_state_ty *)
-                    xmalloc (sizeof (parser_state_ty));
-            (void) memcpy (new, parser_state_tos,
-                           sizeof (parser_state_ty));
+            new = xmalloc(sizeof(parser_state_ty));
+            memcpy(new, parser_state_tos, sizeof(parser_state_ty));
 
             /* We need to copy the dynamically allocated arrays in the
              * struct parser_state too.  */
 
-            new->p_stack =
-                    (codes_ty *) xmalloc (parser_state_tos->p_stack_size *
-                                          sizeof (codes_ty));
+            new->p_stack = xmalloc(parser_state_tos->p_stack_size *
+                                   sizeof(codes_ty));
+            memcpy(new->p_stack, parser_state_tos->p_stack,
+                   (parser_state_tos->p_stack_size * sizeof(codes_ty)));
 
-            (void) memcpy (new->p_stack, parser_state_tos->p_stack,
-                           (parser_state_tos->p_stack_size *
-                            sizeof (codes_ty)));
+            new->il = xmalloc(parser_state_tos->p_stack_size *
+                              sizeof (int));
+            memcpy(new->il, parser_state_tos->il,
+                   parser_state_tos->p_stack_size * sizeof(int));
 
-            new->il =
-                    (int *) xmalloc (parser_state_tos->p_stack_size *
-                                     sizeof (int));
+            new->cstk = xmalloc(parser_state_tos->p_stack_size * sizeof(int));
+            memcpy(new->cstk, parser_state_tos->cstk,
+                   parser_state_tos->p_stack_size * sizeof(int));
 
-            (void) memcpy (new->il, parser_state_tos->il,
-                           parser_state_tos->p_stack_size *
-                           sizeof (int));
-
-            new->cstk =
-                    (int *) xmalloc (parser_state_tos->p_stack_size *
-                                     sizeof (int));
-
-            (void) memcpy (new->cstk, parser_state_tos->cstk,
-                           parser_state_tos->p_stack_size *
-                           sizeof (int));
-
-            new->paren_indents =
-                    (short *) xmalloc (parser_state_tos->paren_indents_size *
-                                       sizeof (short));
-            (void) memcpy (new->paren_indents,
-                           parser_state_tos->paren_indents,
-                           (parser_state_tos->paren_indents_size *
-                            sizeof (short)));
+            new->paren_indents = xmalloc(parser_state_tos->paren_indents_size *
+                                         sizeof (short));
+            memcpy(new->paren_indents,parser_state_tos->paren_indents,
+                   (parser_state_tos->paren_indents_size * sizeof(short)));
 
             new->next = parser_state_tos;
             parser_state_tos = new;
@@ -2050,11 +2116,11 @@ static void handle_token_preesc(
             parser_state_ty *second = parser_state_tos->next;
 
             parser_state_tos->next = second->next;
-            free (second->p_stack);
-            free (second->il);
-            free (second->cstk);
-            free (second->paren_indents);
-            free (second);
+            xfree(second->p_stack);
+            xfree(second->il);
+            xfree(second->cstk);
+            xfree(second->paren_indents);
+            xfree(second);
         }
         else
         {
@@ -2141,7 +2207,7 @@ static void handle_token_attribute(void)
     }
 
     parser_state_tos->in_decl = false;
-    parser_state_tos->want_blank = true;
+    parser_state_tos->want_blank = settings.blank_after_sizeof;
 }
 
 /**

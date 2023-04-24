@@ -6,38 +6,42 @@ noinst_HEADERS = indent.h args.h backup.h comments.h lexi.h parse.h globs.h code
 indent_LDADD =  $(INTLLIBS)
 EXTRA_DIST = @PACKAGE@.gperf @PACKAGE@-cc.gperf wildexp.c gperf.c gperf-cc.c \
 	     @PACKAGE@.dsp \
-	     config.h.vc++ \
-	     config.h.vms
+	     config.h.vc++
 
 
 BUILT_SOURCES = gperf.c gperf-cc.c
-INCLUDES = -I. -I$(srcdir) -I$(top_srcdir)/intl
+AM_CPPFLAGS = -I. -I$(srcdir) -I$(top_srcdir)/intl
 DEFS = @DEFS@ -DLOCALEDIR=\"${localedir}\"
 LIBS = @LIBINTL@ @LIBS@
 
 
 MAINTAINERCLEANFILES= Makefile.in libgettext.h
 
+AM_CFLAGS  = -Wall -W -Werror -Wredundant-decls -Wshadow -Wstrict-prototypes
+AM_CFLAGS += -Wmissing-prototypes -Wnested-externs -Wmissing-declarations
+AM_CFLAGS += -Wcomment -Wbad-function-cast -Wcast-align
+
 ## Use -g when in maintainer mode
 if MAINTAINER_MODE
-AM_CFLAGS= -g -Wall -I.
-else
-AM_CFLAGS= -I.
+AM_CFLAGS += -g
 endif
-
 
 gperf.c: indent.gperf
-	gperf -D -c -l -p -t -T -g -j1 -o -K rwd -N is_reserved indent.gperf > gperf.c
+	@gperf -D -c -l -p -t -T -g -j1 -o -K rwd\
+	       -L ANSI-C -N is_reserved indent.gperf > gperf.c
+	@sed -i -e 's/index/idx/g'\
+	        -e 's/ifdef __GNUC__/if defined(__GNUC__) \&\& \!defined(__clang__)/'\
+	         gperf.c
 
 gperf-cc.c: indent-cc.gperf
-	gperf -D -c -l -p -t -T -g -j1 -o -K rwd -N is_reserved_cc -H hash_cc indent-cc.gperf > gperf-cc.c
+	@gperf -D -c -l -p -t -T -g -j1 -o -K rwd\
+	       -L ANSI-C -N is_reserved_cc -H hash_cc\
+	       indent-cc.gperf > gperf-cc.c
+	@sed -i -e 's/index/idx/g'\
+	        -e 's/ifdef __GNUC__/if defined(__GNUC__) \&\& \!defined(__clang__)/'\
+	         gperf-cc.c
 
 if MAINTAINER_MODE
-
-config.h.vc++ config.h.vms @PACKAGE@.lsm :%: Makefile %.in
+config.h.vc++ @PACKAGE@.lsm :%: Makefile %.in
 	sed -e 's%!VERSION!%@VERSION@%g' $@.in > $@
-
-@PACKAGE@.dsp: @PACKAGE@.dsp.in
-	cat $< | perl -e 'while (<>) {chomp; print "$$_\015\012"; }'  > $@
 endif
-

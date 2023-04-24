@@ -15,7 +15,7 @@ if test -x $INDENT; then
     ls -ld ./output
     exit 1
   fi
-  echo -n "Regression testing "
+  printf "Regression testing "
   $INDENT --version
   echo
 else
@@ -35,7 +35,9 @@ EXAMPLES="do.c else.c for.c func-def.c lshift.c ncs.c \
 
 BUGS="case-label.c one-line-1.c one-line-2.c one-line-3.c \
         one-line-4.c struct-decl.c sizeof-in-while.c line-break-comment.c \
-        macro.c enum.c elif.c nested.c wrapped-string.c minus_predecrement.c"
+        macro.c enum.c elif.c nested.c wrapped-string.c minus_predecrement.c \
+        bug-gnu-33364.c float-constant-suffix.c block-comments.c \
+        no-forced-nl-in-block-init.c hexadecimal_float.c"
 
 INDENTSRC="args.c backup.h backup.c dirent_def.h globs.c indent.h \
         indent.c indent_globs.h io.c lexi.c memcpy.c parse.c pr_comment.c \
@@ -43,7 +45,7 @@ INDENTSRC="args.c backup.h backup.c dirent_def.h globs.c indent.h \
 
 mkdir output
 
-echo -n "Generating indent et al with default settings..."
+printf "Generating indent et al with default settings..."
 
 for i in $EXAMPLES $INDENTSRC $BUGS
 do
@@ -53,7 +55,7 @@ echo "Done."
 
 
 # Cases testing certain options
-echo -n "Generating special option examples..."
+printf "Generating special option examples..."
 
 SPECIALS="typedef-bug.c bug-hp.c bug-di.c newlined-parms.c indent.pro.c \
         comments1.c comments1-fca.c ncs-on-return.c cs-on-return.c sob.c continue.c continue-lp.c \
@@ -65,7 +67,9 @@ SPECIALS="typedef-bug.c bug-hp.c bug-di.c newlined-parms.c indent.pro.c \
         else-comment-br-ce.c const.c case.c case-br.c scope.c scope-br.c \
         comment-break.c cdb.c bbreak.c bad-break.c pre.c pre_lps.c pre_nlps.c dont-line-up-parentheses.c \
         bad-comment.c unknown-type.c unknown-type-npsl.c bug-npsl.c bug-psl.c do-cdw.c \
-        label.c goto-1.c goto-2.c line-count.c decl_block.c"
+        label.c goto-1.c goto-2.c line-count.c decl_block.c pointer-pal.c else-comment-2-br.c else-comment-2-bl.c \
+        else-comment-2-br-ce.c preserve-newline-after-right-brace.c gettext-strings.c single-line-conditionals.c \
+        align-with-spaces.c no-space-after-fp-name.c spaces-around-initializers.c dont-tab-align-comments.c c99-compound-literal.c"
 
 ARGS="-bad"
 $INDENT -npro $ARGS input/bad-break.c -o output/bad-break.c
@@ -166,6 +170,18 @@ ARGS=""
 $INDENT -npro -bl     input/else-comment.c -o output/else-comment-bl.c
 $INDENT -npro -br     input/else-comment.c -o output/else-comment-br.c
 $INDENT -npro -br -ce input/else-comment.c -o output/else-comment-br-ce.c
+$INDENT -npro -bl     input/else-comment-2.c -o output/else-comment-2-bl.c
+$INDENT -npro -br     input/else-comment-2.c -o output/else-comment-2-br.c
+$INDENT -npro -br -ce input/else-comment-2.c -o output/else-comment-2-br-ce.c
+$INDENT -npro -br -ce input/preserve-newline-after-right-brace.c -o output/preserve-newline-after-right-brace.c
+
+ARGS=""
+$INDENT -npro -slc input/single-line-conditionals.c -o output/single-line-conditionals.c
+$INDENT -npro -br -ut -i8 -l70 -ts8 -as input/align-with-spaces.c -o output/align-with-spaces.c
+$INDENT -npro -npcs input/fp.c -o output/no-space-after-fp-name.c
+$INDENT -npro -sar input/spaces-around-initializers.c -o output/spaces-around-initializers.c
+$INDENT -npro -c0 -ntac input/dont-tab-align-comments.c -o output/dont-tab-align-comments.c
+$INDENT -npro -Tchrename_t input/c99-compound-literal.c -o output/c99-compound-literal.c
 
 ARGS="-kr -cp0 -l132 -lps -br -psl"
 $INDENT -npro $ARGS input/const.c -o output/const.c
@@ -203,6 +219,12 @@ $INDENT -npro input/goto.c $ARGS -o output/goto-2.c
 ARGS="-bad"
 $INDENT -npro input/decl_block.c $ARGS -o output/decl_block.c
 
+ARGS="-pal"
+$INDENT -npro input/pointer-pal.c $ARGS -o output/pointer-pal.c
+
+ARGS="-gts"
+$INDENT -npro input/gettext-strings.c $ARGS -o output/gettext-strings.c
+
 echo "Done."
 
 ERR=output/errors
@@ -213,7 +235,7 @@ echo "Diffing generated code against standard..."
 
 for i in $EXAMPLES $INDENTSRC $SPECIALS $BUGS
 do
-  echo -n ...$i...
+  printf ...$i...
 
   if [ ! -f standard/$i ]
   then
@@ -239,7 +261,7 @@ echo "Diffing generated code against standard...Done."
 
 # Testing indent (x) == indent (indent (x))
 echo
-echo -n "Testing meta-indent..."
+printf "Testing meta-indent..."
 
 ARGS="-bacc -nbad -nbap -nbc -br -cdb -nce -ci4 -cli4 -cs -nfc1 \
 -fca -i4 -ip0 -l78 -lp -npcs -psl -sc -ss -ts4"
@@ -255,7 +277,7 @@ fi
 
 for j in 1 2 3 4 5
 do
-  echo -n " $j"
+  printf " $j"
   $INDENT -npro $ARGS output/meta-indent.c -o output/meta-indent.c-o
 
   diff --initial-tab output/meta-indent.c-o standard/meta-indent.c  > output/meta-diffs-$j
@@ -388,11 +410,11 @@ for i in boxed.c-* outer.c-* newlines.c-* cplus.c-* tabs.c-* cplus-one.c class-f
         on-off-1.c on-off-2.c \
         method.c right-margin-comment.c
 do
-  echo -n ...$i...
+  printf ...$i...
   diff --initial-tab ../standard/$i $i > $i-diffs 2>&1
   if [ -s $i-diffs ]
   then
-    echo -n ERROR: $i failed | tee -a $ERR
+    printf ERROR: $i failed | tee -a $ERR
     echo >> $ERR
   else
     rm $i-diffs $i
@@ -405,23 +427,39 @@ echo Testing new comment stuff...Done.
 
 echo Testing bad code handling....
 
+# print_comment() was reading past the end of the buffer...
+echo -ne '/*' | $INDENT -npro -st > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+    echo "ERROR: print_comment reads past the end of the buffer." | tee -a $ERR
+    echo >> $ERR
+fi
+
+# Heap corruption by writing past the end of combuf
+$INDENT -npro -st > /dev/null 2>&1 < input/combuf-heap-corruption
+if [ $? -ne 0 ]
+then
+    echo "ERROR: heap corruption in comments.c" | tee -a $ERR
+    echo >> $ERR
+fi
+
 # This ends in a error from indent but it shouldn't coredump.
-$INDENT input/bug206785.c -o output/bug206785.c 2>output/bug206785.err
+$INDENT -npro input/bug206785.c -o output/bug206785.c 2>output/bug206785.err
 
 if [ $? -ne 2 ]
 then
-    echo -n ERROR: bad return status from indent. | tee -a $ERR
+    printf ERROR: bad return status from indent. | tee -a $ERR
     echo >> $ERR
 fi
 cd output
 
 for i in bug206785.c bug206785.err
 do
-  echo -n ...$i...
+  printf ...$i...
   diff --initial-tab ../standard/$i $i > $i-diffs 2>&1
   if [ -s $i-diffs ]
   then
-    echo -n ERROR: $i failed | tee -a $ERR
+    printf ERROR: $i failed | tee -a $ERR
     echo >> $ERR
   else
     rm $i-diffs
@@ -441,6 +479,7 @@ then
   cat  $ERR   
   echo '****  Errors occured: ./output not removed'
   echo
+  exit 1
 else
   cd ..
     ls -l output

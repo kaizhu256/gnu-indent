@@ -1,8 +1,9 @@
 /** \file
+ * Copyright (c) 2015 Tim Hentenaar. All Rights Reserved.<br>
  * Copyright (c) 2002 D.Ingamells
  * Copyright (c) 1999, 2000 Carlo Wood.  All rights reserved. <br>
  * Copyright (c) 1994, 1996, 1997 Joseph Arceneaux.  All rights reserved. <br>
- * Copyright (c) 1992, 2002, 2008 Free Software Foundation, Inc.  All rights reserved. <br>
+ * Copyright (c) 1992, 2002, 2008, 2015 Free Software Foundation, Inc.  All rights reserved. <br>
  *
  * Copyright (c) 1980 The Regents of the University of California. <br>
  * Copyright (c) 1976 Board of Trustees of the University of Illinois. All rights reserved.
@@ -38,11 +39,13 @@
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
- * This file is subject to the terms of the GNU General Public License as
- * published by the Free Software Foundation.  A copy of this license is
- * included with this software distribution in the file COPYING.  If you
- * do not have a copy, you may obtain a copy by writing to the Free
- * Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * File:    output.c
  * Purpose: Interface to the output file for the indent tool.
@@ -74,10 +77,6 @@ RCSTAG_CC ("$Id$");
 static FILE            * output       = NULL;
 static BOOLEAN           inhibited    = 0;
 static buf_break_st_ty * buf_break_list = NULL;
-
-/** Priority mask bits */
-static const int boolean_operator = 1;
-
 buf_break_st_ty * buf_break = NULL;
 
 int             out_lines      = 0;     /*!< used in output.c indent.c */
@@ -329,7 +328,7 @@ void set_buf_break (
 
     /* Store the position of `e_code' as the place to break this line. */
 
-    bb = (buf_break_st_ty *) xmalloc (sizeof (buf_break_st_ty));
+    bb = xmalloc(sizeof(buf_break_st_ty));
     bb->offset = e_code - s_code;
     bb->level = level;
     bb->target_col = target_col;
@@ -458,7 +457,7 @@ void set_buf_break (
                 buf_break_st_ty *obb = bb;
 
                 bb = bb->prev;
-                free (obb);
+                xfree(obb);
             }
 
             buf_break->prev = NULL;
@@ -480,7 +479,7 @@ void clear_buf_break_list (
         buf_break_st_ty *obb = bb;
 
         bb = bb->prev;
-        free (obb);
+        xfree(obb);
     }
 
     buf_break = buf_break_list = NULL;
@@ -541,18 +540,16 @@ static void set_next_buf_break (
             }
         }
 
-        free (buf_break);
+        xfree(buf_break);
+        if (!bb) goto ret;
 
         /* Set buf_break to first break in the list */
-
         buf_break = bb;
 
         /* GDB_HOOK_buf_break */
-
         buf_break->prev = NULL;
 
         /* Find a better break of the existing breaks */
-
         for (bb = buf_break; bb; bb = bb->next)
         {
             if (bb->col > settings.max_col)
@@ -570,13 +567,16 @@ static void set_next_buf_break (
                     buf_break_st_ty *obb = bb;
 
                     bb = bb->prev;
-                    free (obb);
+                    xfree(obb);
                 }
                 bb = buf_break;
                 buf_break->prev = NULL;
             }
         }
     }
+
+ret:
+	return;
 }
 
 /**
@@ -588,33 +588,62 @@ static void set_next_buf_break (
  *
  * History:
  */
-
-static int pad_output(
-    int currentColumn,
-    int target_column)
+static int pad_output(int cur_col, int target_column)
 {
-    if (currentColumn < target_column)
+    int offset = 0;
+    int align_target = target_column;
+    int tos = parser_state_tos->tos;
+
+    if (cur_col < target_column)
     {
         if (settings.use_tabs && (settings.tabsize > 1))
         {
-            int offset = settings.tabsize - (currentColumn - 1) % settings.tabsize;
+            if (settings.align_with_spaces)
+            {
+                if (align_target >= parser_state_tos->ind_level)
+                    align_target = parser_state_tos->ind_level;
 
-            while (currentColumn + offset <= target_column)
+                /* If we're within an if/for/while, only use tabs
+                 * to indent to the same level as the parent
+                 * statement.
+                 */
+                if (parser_state_tos->last_rw == rw_sp_paren &&
+                    parser_state_tos->p_stack[tos] == stmt   &&
+                    *s_code && tos > 0)
+                {
+                    do {
+                        if (parser_state_tos->p_stack[tos] == ifstmt ||
+                            parser_state_tos->p_stack[tos] == forstmt ||
+                            parser_state_tos->p_stack[tos] == whilestmt)
+                            break;
+                    } while (--tos);
+                    if (tos) align_target = parser_state_tos->il[tos];
+                } else if (parser_state_tos->p_stack[tos] == ifstmt ||
+                           parser_state_tos->p_stack[tos] == forstmt ||
+                           parser_state_tos->p_stack[tos] == whilestmt)
+                    align_target = parser_state_tos->il[tos];
+
+                offset = (align_target - cur_col + 1) / settings.tabsize;
+                align_target = cur_col + (offset * settings.tabsize);
+            }
+
+            offset = settings.tabsize - (cur_col - 1) % settings.tabsize;
+            while (cur_col + offset <= align_target)
             {
                 putc(TAB, output);
-                currentColumn += offset;
+                cur_col += offset;
                 offset = settings.tabsize;
             }
         }
 
-        while (currentColumn < target_column)
+        while (cur_col < target_column)
         {
             putc(' ', output);
-            currentColumn++;
+            cur_col++;
         }
     }
 
-    return currentColumn;
+    return cur_col;
 }
 
 /**
@@ -833,11 +862,6 @@ static void dump_line_code(
       else
       {
          target_col = compute_code_target (paren_targ);
-      }
-
-      if (paren_level > 0)
-      {
-         target_col += parser_state_tos->paren_indents[parser_state_tos->p_l_follow + paren_level- 1];
       }
 
      /* If a line ends in an lparen character, the following line should
@@ -1312,8 +1336,7 @@ void open_output(
                                           *  (but see the trunc function) */
         if (output == NULL)
         {
-            fprintf (stderr, _("indent: can't create %s\n"), filename);
-            exit (indent_fatal);
+            fatal(_("indent: can't create %s\n"), filename);
         }
     }
 }
@@ -1356,7 +1379,7 @@ extern void close_output(
         else
         {
 #ifdef PRESERVE_MTIME
-            if (file_stats != NULL)
+            if (file_stats != NULL && filename)
             {
                 struct utimbuf buf;
 

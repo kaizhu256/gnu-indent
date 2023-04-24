@@ -1,289 +1,286 @@
 # Galician translation of indent.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Jacobo TarrÌo Barreiro <jtarrio@iname.com>, 2000.
+# This file is distributed under the same license as the indent package.
+#
+# Jacobo Tarr√≠o Barreiro <jtarrio@iname.com>, 2000.
+# Leandro Regueiro <leandro.regueiro@gmail.com>, 2012.
+#
+# Proxecto Trasno - Adaptaci√≥n do software libre √° lingua galega:  Se desexas
+# colaborar connosco, podes atopar m√°is informaci√≥n en http://www.trasno.net
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: indent 2.2.7\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-31 17:27+0100\n"
-"PO-Revision-Date: 2002-01-03 18:05+0100\n"
-"Last-Translator: Jacobo TarrÌo Barreiro <jtarrio@iname.com>\n"
-"Language-Team: Galician <gpul-traduccion@ceu.fi.udc.es>\n"
+"Project-Id-Version: indent 2.2.10\n"
+"Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
+"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"PO-Revision-Date: 2012-11-10 13:39+0200\n"
+"Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/args.c:611
-#, fuzzy
+#: src/args.c:673
 msgid ""
 "usage: indent file [-o outfile ] [ options ]\n"
 "       indent file1 file2 ... fileN [ options ]\n"
-msgstr "     indent ficheiro1 ficheiro2 ... ficheiroN [ opciÛns ]\n"
+msgstr ""
+"uso: indent ficheiro [-o ficheirosa√≠da ] [ opci√≥ns ]\n"
+"     indent ficheiro1 ficheiro2 ... ficheiroN [ opci√≥ns ]\n"
 
-#: src/args.c:677
-#, fuzzy, c-format
+#: src/args.c:740
+#, c-format
 msgid "%s: missing argument to parameter %s\n"
-msgstr "indent: falta un argumento do par·metro %s\n"
+msgstr "%s: falta un argumento do par√°metro %s\n"
 
-#: src/args.c:802
-#, fuzzy, c-format
+#: src/args.c:864
+#, c-format
 msgid "%s: unknown option \"%s\"\n"
-msgstr "indent: opciÛn descoÒecida \"%s\"\n"
+msgstr "%s: opci√≥n desco√±ecida ¬´%s¬ª\n"
 
-#: src/args.c:812
+#: src/args.c:877
 #, c-format
 msgid "option: %s\n"
-msgstr "opciÛn: %s\n"
+msgstr "opci√≥n: %s\n"
 
-#: src/args.c:828
+#: src/args.c:892
 #, c-format
 msgid "GNU indent %s\n"
 msgstr "GNU indent %s\n"
 
-#: src/args.c:913
-#, fuzzy, c-format
+#: src/args.c:959
+#, c-format
 msgid "%s: option ``%s'' requires a numeric parameter\n"
-msgstr "indent: a opciÛn ``%s'' precisa un par·metro numÈrico\n"
+msgstr "%s: a opci√≥n ¬´%s¬ª require un par√°metro num√©rico\n"
 
-#: src/args.c:921
-#, fuzzy, c-format
+#: src/args.c:966
+#, c-format
 msgid "set_option: internal error: p_type %d\n"
-msgstr "indent: set_option: erro interno: p_type %d\n"
+msgstr "set_option: erro interno: p_type %d\n"
 
-#: src/args.c:977
-#, fuzzy
+#: src/args.c:1022
 msgid "Profile contains an unterminated comment"
-msgstr "O perfil contÈn caracteres inaceptables"
+msgstr "O perfil cont√©n un comentario sen rematar"
 
-#: src/args.c:1015
+#: src/args.c:1060
 msgid "Profile contains unpalatable characters"
-msgstr "O perfil contÈn caracteres inaceptables"
+msgstr "O perfil cont√©n caracteres inacept√°beis"
 
-#: src/args.c:1183
+#: src/args.c:1228
 #, c-format
 msgid "File named by environment variable %s does not exist or is not readable"
 msgstr ""
+"O ficheiro nomeado pola vari√°bel de ambiente %s non existe ou non √© lex√≠bel"
 
-#: src/backup.c:466
+#: src/backup.c:463
 #, c-format
 msgid "indent:  Strange version-control value\n"
-msgstr "indent:  Valor do control de versiÛns estrano\n"
+msgstr "indent:  valor do control de versi√≥ns estra√±o\n"
 
-#: src/backup.c:467
+#: src/backup.c:464
 #, c-format
 msgid "indent:  Using numbered-existing\n"
-msgstr "indent:  Usando numeradas-se-existen\n"
+msgstr "indent:  ssando numeradas-se-existen\n"
 
-#: src/backup.c:498
+#: src/backup.c:495
 #, c-format
 msgid "indent: Can't make backup filename of %s\n"
-msgstr "indent: Non se pode compoÒe-lo nome da copia de seguridade de %s\n"
+msgstr "indent: non √© pos√≠bel compo√±er o nome da copia de seguridade de %s\n"
 
-#: src/backup.c:506
+#: src/backup.c:503
 #, c-format
 msgid "Can't open backup file %s"
-msgstr "Non se pode abri-lo ficheiro de copia de seguridade %s"
+msgstr "Non √© pos√≠bel abrir o ficheiro de copia de seguridade %s"
 
-#: src/backup.c:513
+#: src/backup.c:510
 #, c-format
 msgid "Can't write to backup file %s"
-msgstr "Non se pode escribir no ficheiro de copia de seguridade %s"
+msgstr "Non √© pos√≠bel escribir no ficheiro de copia de seguridade %s"
 
-#: src/backup.c:526
+#: src/backup.c:523
 #, c-format
 msgid "Can't preserve modification time on backup file %s"
 msgstr ""
-"Non se pode conserva-lo tempo de modificaciÛn no ficheiro de copia de "
+"Non √© pos√≠bel conservar o tempo de modificaci√≥n no ficheiro de copia de "
 "seguridade %s"
 
-#: src/globs.c:49 src/globs.c:74
+#: src/globs.c:46 src/globs.c:68
 #, c-format
 msgid "indent: Virtual memory exhausted.\n"
-msgstr "indent: Memoria virtual esgotada.\n"
+msgstr "indent: memoria virtual esgotada.\n"
 
-#: src/globs.c:93
+#: src/globs.c:103
 #, c-format
 msgid "indent: %s:%d: %s:"
 msgstr "indent: %s:%d: %s: "
 
-#: src/globs.c:109
+#: src/globs.c:130
 #, c-format
 msgid "indent: Fatal Error: "
-msgstr "indent: Erro Grave: "
+msgstr "indent: erro grave: "
 
-#: src/globs.c:119
+#: src/globs.c:140
 #, c-format
 msgid "indent: System Error: "
-msgstr "indent: Erro do Sistema: "
+msgstr "indent: erro do Sistema: "
 
-#: src/globs.h:27
+#: src/globs.h:26
 msgid "Warning"
 msgstr "Aviso"
 
-#: src/globs.h:31
+#: src/globs.h:30
 msgid "Error"
 msgstr "Erro"
 
-#: src/indent.c:284
+#: src/indent.c:291
 msgid "EOF encountered in comment"
-msgstr "Chegouse · fin do ficheiro nun comentario"
+msgstr "Chegouse ao final do ficheiro nun comentario"
 
-#: src/indent.c:345
+#: src/indent.c:355
 msgid "Line broken"
-msgstr "LiÒa cortada"
+msgstr "Li√±a cortada"
 
-#: src/indent.c:522
+#: src/indent.c:565
 msgid "Unexpected end of file"
-msgstr "Fin de ficheiro inesperada"
+msgstr "Final inesperado de ficheiro"
 
-#: src/indent.c:528
+#: src/indent.c:571
 #, c-format
 msgid "There were %d non-blank output lines and %d comments\n"
-msgstr "Houbo %d liÒas de saÌda non baleiras e %d comentarios\n"
+msgstr "Houbo %d li√±as de sa√≠da non baleiras e %d comentarios\n"
 
-#: src/indent.c:532
+#: src/indent.c:575
 #, c-format
 msgid "(Lines with comments)/(Lines with code): %6.3f\n"
-msgstr "(LiÒas con comentarios)/(LiÒas con cÛdigo): %6.3f\n"
+msgstr "(Li√±as con comentarios)/(Li√±as con c√≥digo): %6.3f\n"
 
-#: src/indent.c:556
+#: src/indent.c:599
 msgid "Line broken 2"
-msgstr "LiÒa cortada 2"
+msgstr "Li√±a cortada 2"
 
-#: src/indent.c:778
+#: src/indent.c:821
 #, c-format
 msgid "indent: only one output file (2nd was %s)\n"
-msgstr "indent: sÛ un ficheiro de saÌda (o segundo era %s)\n"
+msgstr "indent: s√≥ un ficheiro de sa√≠da (o segundo era %s)\n"
 
-#: src/indent.c:787 src/indent.c:813
+#: src/indent.c:830 src/indent.c:856
 #, c-format
 msgid "indent: only one input file when output file is specified\n"
 msgstr ""
-"indent: sÛ un ficheiro de entrada cando se especifica un ficheiro de saida\n"
+"indent: s√≥ un ficheiro de entrada cando se especifica un ficheiro de saida\n"
 
-#: src/indent.c:801 src/indent.c:848
+#: src/indent.c:844 src/indent.c:890
 #, c-format
 msgid "indent: can't have filenames when specifying standard input\n"
 msgstr ""
 "indent: non se poden ter nomes de ficheiro cando se especifica a entrada "
-"est·ndar\n"
+"est√°ndar\n"
 
-#: src/indent.c:821
+#: src/indent.c:864
 #, c-format
 msgid "indent: only one input file when stdout is used\n"
 msgstr ""
-"indent: sÛ se debe indicar un ficheiro de entrada cando se usa stdout\n"
+"indent: s√≥ se debe indicar un ficheiro de entrada cando se usa stdout\n"
 
-#: src/indent.c:857
+#: src/indent.c:899
 msgid "command line"
-msgstr ""
+msgstr "li√±a de ordes"
 
-#: src/indent.c:1049
+#: src/indent.c:1117
 #, c-format
 msgid "Read profile %s\n"
-msgstr "Le-lo perfil %s\n"
+msgstr "Ler o perfil %s\n"
 
-#: src/code_io.c:169
-msgid "Internal buffering error"
-msgstr "Erro interno nos buffers"
-
-#: src/code_io.c:262
+#: src/code_io.c:217
 #, c-format
 msgid "Can't open input file %s"
-msgstr "Non se pode abri-lo ficheiro de entrada %s"
+msgstr "Non foi pos√≠bel abrir o ficheiro de entrada %s"
 
-#: src/code_io.c:267
+#: src/code_io.c:222
 #, c-format
 msgid "Can't stat input file %s"
-msgstr "Non se pode obter informaciÛn do ficheiro de entrada %s"
+msgstr "Non foi pos√≠bel obter informaci√≥n do ficheiro de entrada %s"
 
-#: src/code_io.c:272
+#: src/code_io.c:227
 #, fuzzy, c-format
 msgid "Zero-length file %s"
-msgstr "Aviso: Ficheiro de lonxitude cero %s"
+msgstr "Aviso: ficheiro de lonxitude cero %s"
 
-#: src/code_io.c:280
+#: src/code_io.c:235 src/code_io.c:249
 #, c-format
 msgid "File %s is too big to read"
-msgstr "O ficheiro %s È grande de m·is para o ler"
+msgstr "O ficheiro %s √© grande de m√°is para o ler"
 
-#: src/code_io.c:288
+#: src/code_io.c:243
 #, c-format
 msgid "System problem reading file %s"
-msgstr "Problema no sistema ao le-lo ficheiro %s"
+msgstr "Produciuse un problema no sistema ao ler o ficheiro %s"
 
-#: src/code_io.c:312
+#: src/code_io.c:285
 #, c-format
 msgid "Error reading input file %s"
-msgstr "Erro ao le-lo ficheiro de entrada %s"
+msgstr "Produciuse un erro ao ler o ficheiro de entrada %s"
 
-#: src/code_io.c:317
+#: src/code_io.c:293
 #, fuzzy, c-format
 msgid "Error closing input file %s"
-msgstr "Erro ao pecha-lo ficheiro de entrada %s"
+msgstr "Produciuse un erro ao pechar o ficheiro de entrada %s"
 
-#: src/code_io.c:507
+#: src/code_io.c:482
 #, fuzzy, c-format
 msgid "File %s contains NULL-characters: cannot proceed\n"
-msgstr "Aviso: O ficheiro %s contÈn caracteres nulos\n"
+msgstr "Aviso: o ficheiro %s cont√©n caracteres nulos\n"
 
-#: src/lexi.c:786
+#: src/lexi.c:834
 msgid "Unterminated character constant"
-msgstr "Constante de car·cter sen rematar"
+msgstr "Constante de car√°cter sen rematar"
 
-#: src/lexi.c:787
+#: src/lexi.c:835 src/lexi.c:854
 msgid "Unterminated string constant"
 msgstr "Constante de cadea sen rematar"
 
-#: src/lexi.c:1044
+#: src/lexi.c:1113
 #, c-format
-msgid "old style assignment ambiguity in \"=%c\".  Assuming \"= %c\"\n"
+msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr ""
-"ambig¸idade na asignaciÛn ao vello estilo en \"=%c\".  SupoÒendo \"= %c\"\n"
+"ambig√ºidade na asignaci√≥n ao vello estilo en ¬´=%s¬ª.  Supo√±endo ¬´= %s¬ª\n"
 
-#: src/output.c:1315
+#: src/output.c:1339
 #, c-format
 msgid "indent: can't create %s\n"
-msgstr "indent: non podo crear %s\n"
+msgstr "indent: non foi pos√≠bel crear %s\n"
 
-#: src/output.c:1354
+#: src/output.c:1377
 #, c-format
 msgid "Can't close output file %s"
-msgstr "Non se puido pecha-lo ficheiro de saÌda %s"
+msgstr "Non foi pos√≠bel pechar o ficheiro de sa√≠da %s"
 
-#: src/output.c:1367
+#: src/output.c:1390
 #, c-format
 msgid "Can't preserve modification time on output file %s"
-msgstr "Non se pode conserva-lo tempo de modificaciÛn no ficheiro de saÌda %s"
-
-#: src/parse.c:447
-msgid "Unmatched 'else'"
-msgstr "'else' sen o seu 'if'"
-
-#: src/parse.c:473
-msgid "Stmt nesting error."
-msgstr "Erro de aniÒamento de instrucciÛns."
-
-#: src/parse.c:515
-msgid "Unknown code to parser"
-msgstr "CÛdigo descoÒecido para o analizador"
-
-#: src/parse.c:525
-#, fuzzy, c-format
-msgid "ParseStack [%d]:\n"
 msgstr ""
-"\n"
-"ParseStack [%d]:\n"
+"Non foi pos√≠bel conservar o tempo de modificaci√≥n no ficheiro de sa√≠da %s"
 
-#: src/parse.c:529
-#, c-format
-msgid "  stack[%d] =>   stack: %d   ind_level: %d\n"
-msgstr "  stack[%d] =>   stack: %d   ind_level: %d\n"
+#: src/parse.c:475
+msgid "Unmatched 'else'"
+msgstr "¬´else¬ª sen o seu ¬´if¬ª"
 
-#: src/wildexp.c:126
+#: src/parse.c:501
+msgid "Stmt nesting error."
+msgstr "Erro de ani√±amento de instruci√≥ns."
+
+#: src/parse.c:543
+msgid "Unknown code to parser"
+msgstr "C√≥digo desco√±ecido para o analizador"
+
+#: src/wildexp.c:128
 msgid "CANNOT FIND '@' FILE!"
-msgstr "°NON SE PUIDO ATOPA-LO FICHEIRO '@'!"
+msgstr "NON FOI POS√çBEL ATOPAR O FICHEIRO ¬´@¬ª!"
+
+#~ msgid "Internal buffering error"
+#~ msgstr "Erro interno nos b√∫fers"
 
 #~ msgid "Ran out of memory"
 #~ msgstr "Esgotouse a memoria"
@@ -301,31 +298,31 @@ msgstr "°NON SE PUIDO ATOPA-LO FICHEIRO '@'!"
 #~ msgstr "#endif sen o seu #if"
 
 #~ msgid "usage: indent file [-o outfile ] [ options ]\n"
-#~ msgstr "uso: indent ficheiro [-o ficheiro-saÌda ] [ opciÛns ]\n"
+#~ msgstr "uso: indent ficheiro [-o ficheiro-sa√≠da ] [ opci√≥ns ]\n"
 
 #~ msgid "Stuff missing from end of file."
 #~ msgstr "Faltan cousas na fin do ficheiro."
 
 #~ msgid "Unbalanced parens"
-#~ msgstr "ParÈnteses non balanceadas"
+#~ msgstr "Par√©nteses non balanceadas"
 
 #~ msgid "%s: can't have filenames when specifying standard input\n"
 #~ msgstr ""
 #~ "%s: non se poden ter nomes de ficheiro cando se especifica a entrada "
-#~ "est·ndar\n"
+#~ "est√°ndar\n"
 
 #~ msgid "Standard input"
-#~ msgstr "Entrada est·ndar"
+#~ msgstr "Entrada est√°ndar"
 
 #~ msgid "indent: bad font specification: %s\n"
-#~ msgstr "indent: especificaciÛn de fonte incorrecta: %s\n"
+#~ msgstr "indent: especificaci√≥n de fonte incorrecta: %s\n"
 
 #~ msgid ""
 #~ "\n"
 #~ "*** Debug output marker line ***\n"
 #~ msgstr ""
 #~ "\n"
-#~ "*** LiÒa marcadora en saÌda de depuraciÛn ***\n"
+#~ "*** Li√±a marcadora en sa√≠da de depuraci√≥n ***\n"
 
 #~ msgid "Parse: Unknown code: %d for %s\n"
-#~ msgstr "An·lise: CÛdigo descoÒecido: %d para %s\n"
+#~ msgstr "An√°lise: C√≥digo desco√±ecido: %d para %s\n"

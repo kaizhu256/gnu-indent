@@ -1,4 +1,5 @@
 /** \file
+ * Copyright (C) 2015 Tim Hentenaar. All rights reserved.
  * Copyright (c) 1993,1994, Joseph Arceneaux.  All rights reserved.
  *
  * Copyright (C) 1986, 1989, 1992 Free Software Foundation, Inc. All rights
@@ -9,21 +10,19 @@
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
- * This file is subject to the terms of the GNU General Public License as
- * published by the Free Software Foundation.  A copy of this license is
- * included with this software distribution in the file COPYING.  If you
- * do not have a copy, you may obtain a copy by writing to the Free
- * Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * This software is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "sys.h"
 #include "indent.h"
 #include "globs.h"
+#include "parse.h"
 
 #ifdef HAVE_MALLOC_H
 #include <malloc.h>
@@ -38,22 +37,20 @@ RCSTAG_CC ("$Id$");
  * size_t, but not all systems have size_t, so I hope "unsigned" will work.
  * It works for GNU style machines, where it is 32 bits, and works on
  * MS-DOS.  */
-
-extern char * xmalloc (
-   unsigned size)
+extern void *xmalloc (unsigned int size)
 {
-    char *val = (char *) calloc (1, size);
+    void *val = calloc(1, size);
 
     if (!val)
     {
-        fprintf (stderr, _("indent: Virtual memory exhausted.\n"));
-        exit (system_error);
+        fprintf(stderr, _("indent: Virtual memory exhausted.\n"));
+        do_exit(system_error);
     }
 
 #if defined (DEBUG)
     /* Fill it with garbage to detect code which depends on stuff being
        zero-filled.  */
-    memset (val, 'x', size);
+    memset(val, 'x', size);
 #endif
 
     return val;
@@ -62,31 +59,44 @@ extern char * xmalloc (
 /**
  * Like realloc but get error if no storage available. 
  */
-
-extern char *xrealloc (
-   char *ptr,
-   unsigned size)
+extern void *xrealloc(void *ptr, unsigned int size)
 {
-    char *val = (char *) realloc (ptr, size);
+    void *val = realloc(ptr, size);
 
     if (!val)
     {
-        fprintf (stderr, _("indent: Virtual memory exhausted.\n"));
-        exit (system_error);
+        fprintf(stderr, _("indent: Virtual memory exhausted.\n"));
+        do_exit(system_error);
     }
 
     return val;
 }
 
 /**
- *
+ * Free and nullify a pointer allocated with xmalloc().
  */
+extern void xfree(void *ptr)
+{
+    if (!ptr)
+    {
+#if defined(DEBUG)
+        fprintf(stderr, "indent: Attempting to free a NULL pointer.\n");
+#endif
+        return;
+    }
 
-extern void message(
-    char     * kind,
-    char     * string,
-    unsigned * a0,
-    unsigned * a1)
+    free(ptr);
+}
+
+/**
+ * Write a message to stderr.
+ *
+ * \param[in] kind   "Warning" or "Error"
+ * \param[in] string Format string
+ * \param[in] a0     First value to format, or NULL.
+ * \param[in] a1     Second value to format, or NULL.
+ */
+extern void message(char *kind, char *string, char *a0, char *a1)
 {
     if (kind)
     {
@@ -95,6 +105,17 @@ extern void message(
 
     fprintf (stderr, string, a0, a1);
     fprintf (stderr, "\n");
+}
+
+/**
+ * Wrapper around exit to ensure things get
+ * cleaned up.
+ */
+extern void do_exit(int code)
+{
+    uninit_parser();
+    cleanup_user_specials();
+    exit(code);
 }
 
 /**
@@ -120,5 +141,5 @@ extern void fatal (
         perror (0);
     }
 
-    exit (indent_fatal);
+    do_exit (indent_fatal);
 }

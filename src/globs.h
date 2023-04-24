@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef INDENT_GLOBS_H
@@ -24,27 +23,17 @@ RCSTAG_H (globs, "$Id$");
 
 /* *Warning messages:  indent continues */
 #define WARNING(s, a, b) \
-    message (_("Warning"), s, (unsigned int *)(a), (unsigned int *)(b))
+    message(_("Warning"), s, (char *)(a), (char *)(b))
 
 /** Error messages: indent stops processing the current file. */
 #define ERROR(s, a, b) \
-    message (_("Error"), s, (unsigned int *)(a), (unsigned int *)(b))
+    message(_("Error"), s, (char *)(a), (char *)(b))
 
-extern char *xmalloc(
-   unsigned int size);
-
-extern char *xrealloc(
-   char *ptr, 
-   unsigned int size);
-
-extern void fatal(
-   const char *string, 
-   const char *a0);
-
-extern void message(
-   char *kind, 
-   char *string, 
-   unsigned int *a0, 
-   unsigned int *a1);
+extern void *xmalloc(unsigned int size);
+extern void *xrealloc(void *ptr, unsigned int size);
+extern void xfree(void *ptr);
+extern void do_exit(int code);
+extern void fatal(const char *string, const char *a0);
+extern void message(char *kind, char *string, char *a0, char *a1);
 
 #endif /* INDENT_GLOBS_H */

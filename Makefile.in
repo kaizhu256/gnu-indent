@@ -63,13 +63,15 @@ CPP = @CPP@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 PACKAGE = @PACKAGE@
+U = @U@
 VERSION = @VERSION@
 
 AUTOMAKE_OPTIONS = no-texinfo.tex
 
 bin_PROGRAMS = indent
-indent_SOURCES = args.c comments.c indent.c lexi.c parse.c backup.c globs.c io.c memcpy.c
-noinst_HEADERS = backup.h indent.h sys.h
+indent_SOURCES = args.c comments.c indent.c lexi.c parse.c backup.c globs.c io.c
+noinst_HEADERS = backup.h indent.h sys.h lexi.h args.h comments.h globs.h io.h parse.h
+
 info_TEXINFOS = indent.texinfo
 man_MANS = indent.1
 
@@ -96,7 +98,7 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 indent_OBJECTS =  args.o comments.o indent.o lexi.o parse.o backup.o \
-globs.o io.o memcpy.o
+globs.o io.o
 indent_LDADD = $(LDADD)
 indent_DEPENDENCIES = 
 indent_LDFLAGS = 
@@ -479,14 +481,15 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 	$(MAKE) $(AM_MAKEFLAGS) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-info
-args.o: args.c sys.h config.h indent.h
-backup.o: backup.c sys.h config.h backup.h indent.h
-comments.o: comments.c sys.h config.h indent.h
-globs.o: globs.c sys.h config.h indent.h
-indent.o: indent.c sys.h config.h indent.h backup.h
-io.o: io.c sys.h config.h indent.h
-memcpy.o: memcpy.c
-parse.o: parse.c sys.h config.h indent.h
+args.o: args.c sys.h config.h indent.h lexi.h io.h args.h globs.h
+backup.o: backup.c sys.h config.h backup.h io.h indent.h lexi.h globs.h
+comments.o: comments.c sys.h config.h indent.h lexi.h io.h comments.h \
+	globs.h parse.h
+globs.o: globs.c sys.h config.h indent.h lexi.h io.h globs.h
+indent.o: indent.c sys.h config.h indent.h lexi.h io.h backup.h globs.h \
+	parse.h comments.h args.h
+io.o: io.c sys.h config.h indent.h lexi.h io.h globs.h
+parse.o: parse.c sys.h config.h indent.h lexi.h io.h parse.h globs.h
 
 info-am: $(INFO_DEPS)
 info: info-am
@@ -575,7 +578,7 @@ mostlyclean-generic distclean-generic clean-generic \
 maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 
-lexi.o: $(srcdir)/lexi.c @MAINTAINER_MODE_TRUE@ gperf.c
+lexi.o: $(srcdir)/lexi.c $(srcdir)/sys.h config.h $(srcdir)/indent.h @MAINTAINER_MODE_TRUE@ gperf.c
 	$(COMPILE) -c $(srcdir)/lexi.c
 
 gperf.c: @MAINTAINER_MODE_TRUE@ indent.gperf

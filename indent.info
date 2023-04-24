@@ -6,8 +6,8 @@ START-INFO-DIR-ENTRY
 * Indent: (indent).		C code formatter.
 END-INFO-DIR-ENTRY
 
-   This is Edition 2.1.1 of `The `indent' Manual', for Indent Version
-2.1.1, last updated 15 July 1999.
+   This is Edition 2.2.0 of `The `indent' Manual', for Indent Version
+2.2.0, last updated 24 July 1999.
 
    Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
 Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
@@ -26,8 +26,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 2.1.1, 15 July 1999, of `The `indent' Manual', for
-Indent Version 2.1.1.
+   This is Edition 2.2.0, 24 July 1999, of `The `indent' Manual', for
+Indent Version 2.2.0.
 
 * Menu:
 
@@ -854,6 +854,9 @@ being put far to the right.  In order to prohibit `indent' from joining
 a broken line that has a comment at the end, make sure that the
 comments start on the first line of the break.
 
+   `Indent' does not count lines and comments (see the `-v' option)
+when `indent' is turned off with `/* *INDENT-OFF* */'.
+
 
 File: indent.info,  Node: Copyright,  Prev: Bugs,  Up: Indent Program
 
@@ -1465,8 +1468,8 @@ Node: Breaking long lines24343
 Node: Disabling Formatting26626
 Node: Miscellaneous options28373
 Node: Bugs28924
-Node: Copyright29983
-Node: Option Summary31518
-Node: Index42782
+Node: Copyright30107
+Node: Option Summary31642
+Node: Index42906
 
 End Tag Table

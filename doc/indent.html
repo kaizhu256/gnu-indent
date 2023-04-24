@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
-<!-- Created on March, 21  2002 by texi2html 1.65 -->
+<!-- Created on December, 16  2002 by texi2html 1.65 -->
 <!-- 
 Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
             Karl Berry  <karl@freefriends.org>
@@ -36,8 +36,8 @@ The <CODE>indent</CODE> program
 changes the appearance of a C program by inserting or deleting whitespace.  
 </P><P>
 
-This is Edition 2.2.8, 21 March 2002, of <CITE>The <CODE>indent</CODE> Manual</CITE>,
-for Indent Version 2.2.8.
+This is Edition 2.2.9, 10 November 2002, of <CITE>The <CODE>indent</CODE> Manual</CITE>,
+for Indent Version 2.2.9.
 </P><P>
 
 <BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
@@ -1037,10 +1037,20 @@ With the `<SAMP>-nbc</SAMP>' option this would look like
 <A NAME="IDX117"></A>
 <A NAME="IDX118"></A>
 <A NAME="IDX119"></A>
+<A NAME="IDX120"></A>
+<A NAME="IDX121"></A>
+<A NAME="IDX122"></A>
+<A NAME="IDX123"></A>
 The `<SAMP>-bfda</SAMP>' option causes a newline to be forced after the comma
 separating the arguments of a function declaration.  The arguments will
-appear at the current indention level matching the opening paren.  This 
-is particularly helpful for functions with long argument lists.   For 
+appear at one indention level deeper than the function declaration.  This 
+is particularly helpful for functions with long argument lists. 
+The option `<SAMP>-bfde</SAMP>' causes a newline to be forced before the closing 
+bracket of the function declaration. For both options the 'n' setting is the default:
+-nbdfa and -nbdfe.
+</P><P>
+
+For 
 example,
 </P><P>
 
@@ -1048,27 +1058,40 @@ example,
 </pre></td></tr></table>With the `<SAMP>-bfda</SAMP>' option this would look like
 </P><P>
 
-<TABLE><tr><td>&nbsp;</td><td class=example><pre>void foo (int arg1,
-          char arg2,
-          int *arg3,
-          long arg4,
-          char arg5);
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void foo (
+    int arg1,
+    char arg2,
+    int *arg3,
+    long arg4,
+    char arg5);
 </pre></td></tr></table></P><P>
 
-<A NAME="IDX120"></A>
-<A NAME="IDX121"></A>
-<A NAME="IDX122"></A>
-<A NAME="IDX123"></A>
+With, in addition, the `<SAMP>-bfde</SAMP>' option this would look like
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void foo (
+    int arg1,
+    char arg2,
+    int *arg3,
+    long arg4,
+    char arg5
+    );
+</pre></td></tr></table></P><P>
+
 <A NAME="IDX124"></A>
+<A NAME="IDX125"></A>
+<A NAME="IDX126"></A>
+<A NAME="IDX127"></A>
+<A NAME="IDX128"></A>
 The `<SAMP>-psl</SAMP>' option causes the type of a procedure being defined to
 be placed on the line before the name of the procedure.  This style is
 required for the <CODE>etags</CODE> program to work correctly, as well as some
 of the <CODE>c-mode</CODE> functions of Emacs.
 </P><P>
 
-<A NAME="IDX125"></A>
-<A NAME="IDX126"></A>
-<A NAME="IDX127"></A>
+<A NAME="IDX129"></A>
+<A NAME="IDX130"></A>
+<A NAME="IDX131"></A>
 You must use the `<SAMP>-T</SAMP>'
 option to tell <CODE>indent</CODE> the name of all the typenames in your
 program that are defined by <CODE>typedef</CODE>.  `<SAMP>-T</SAMP>' can be specified
@@ -1120,14 +1143,14 @@ The `<SAMP>-bls</SAMP>' option formats them like this:
 <!--docid::SEC11::-->
 <P>
 
-<A NAME="IDX128"></A>
-<A NAME="IDX129"></A>
-<A NAME="IDX130"></A>
-<A NAME="IDX131"></A>
 <A NAME="IDX132"></A>
 <A NAME="IDX133"></A>
 <A NAME="IDX134"></A>
 <A NAME="IDX135"></A>
+<A NAME="IDX136"></A>
+<A NAME="IDX137"></A>
+<A NAME="IDX138"></A>
+<A NAME="IDX139"></A>
 One issue in the formatting of code is how far each line should be
 indented from the left margin.  When the beginning of a statement such
 as <CODE>if</CODE> or <CODE>for</CODE> is encountered, the indentation level is
@@ -1155,8 +1178,8 @@ With `<SAMP>-lp</SAMP>' in effect the code looks somewhat clearer:
                         third_procedure (p4, p5));
 </pre></td></tr></table></P><P>
 
-<A NAME="IDX136"></A>
-<A NAME="IDX137"></A>
+<A NAME="IDX140"></A>
+<A NAME="IDX141"></A>
 When a statement is broken in between two or more paren pairs (...),
 each extra pair causes the indentation level extra indentation:
 </P><P>
@@ -1183,10 +1206,10 @@ columns wide, but (as of version 1.2) may be changed by the `<SAMP>-ts</SAMP>'
 option.  Tabs are treated as the equivalent number of spaces.
 </P><P>
 
-<A NAME="IDX138"></A>
-<A NAME="IDX139"></A>
-<A NAME="IDX140"></A>
-<A NAME="IDX141"></A>
+<A NAME="IDX142"></A>
+<A NAME="IDX143"></A>
+<A NAME="IDX144"></A>
+<A NAME="IDX145"></A>
 The indentation of type declarations in old-style function definitions
 is controlled by the `<SAMP>-ip</SAMP>' parameter.  This is a numeric parameter
 specifying how many spaces to indent type declarations.  For example,
@@ -1207,15 +1230,39 @@ For compatibility with other versions of indent, the option `<SAMP>-nip</SAMP>'
 is provided, which is equivalent to `<SAMP>-ip0</SAMP>'.
 </P><P>
 
-<A NAME="IDX142"></A>
-<A NAME="IDX143"></A>
-<A NAME="IDX144"></A>
-<A NAME="IDX145"></A>
+<A NAME="IDX146"></A>
+<A NAME="IDX147"></A>
+<A NAME="IDX148"></A>
+<A NAME="IDX149"></A>
 ANSI C allows white space to be placed on preprocessor command lines
 between the character `<SAMP>#</SAMP>' and the command name.  By default,
 <CODE>indent</CODE> removes this space, but specifying the `<SAMP>-lps</SAMP>' option
-directs <CODE>indent</CODE> to leave this space unmodified.
+directs <CODE>indent</CODE> to leave this space unmodified. The option `<SAMP>-ppi</SAMP>' 
+overrides  `<SAMP>-nlps</SAMP>' and  `<SAMP>-lps</SAMP>'.
 </P><P>
+
+<A NAME="IDX150"></A>
+<A NAME="IDX151"></A>
+This option can be used to request that preprocessor conditional statements can
+be indented by to given number of spaces, for example with the option `<SAMP>-ppi 3</SAMP>'
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#if X
+#if Y
+#define Z 1
+#else
+#define Z 0
+#endif
+#endif
+</pre></td></tr></table>becomes
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#if X
+#   if Y
+#      define Z 1
+#   else
+#      define Z 0
+#   endif
+#endif
+</pre></td></tr></table></P><P>
 
 <A NAME="Breaking long lines"></A>
 <HR SIZE="6">
@@ -1235,8 +1282,8 @@ directs <CODE>indent</CODE> to leave this space unmodified.
 <!--docid::SEC12::-->
 <P>
 
-<A NAME="IDX146"></A>
-<A NAME="IDX147"></A>
+<A NAME="IDX152"></A>
+<A NAME="IDX153"></A>
 With the option `<SAMP>-l<VAR>n</VAR></SAMP>', or `<SAMP>--line-length<VAR>n</VAR></SAMP>', it is
 possible to specify the maximum length of a line of C code, not including
 possible comments that follow it.
@@ -1247,14 +1294,14 @@ tries to break the line at a logical place.  This is new as of version 2.1
 however and not very intelligent or flexible yet.
 </P><P>
 
-<A NAME="IDX148"></A>
-<A NAME="IDX149"></A>
-<A NAME="IDX150"></A>
-<A NAME="IDX151"></A>
-<A NAME="IDX152"></A>
-<A NAME="IDX153"></A>
 <A NAME="IDX154"></A>
 <A NAME="IDX155"></A>
+<A NAME="IDX156"></A>
+<A NAME="IDX157"></A>
+<A NAME="IDX158"></A>
+<A NAME="IDX159"></A>
+<A NAME="IDX160"></A>
+<A NAME="IDX161"></A>
 Currently there are two options that allows one to interfere with the
 algorithm that determines where to break a line.
 </P><P>
@@ -1383,25 +1430,25 @@ GNU <CODE>indent</CODE>.
 <!--docid::SEC14::-->
 <P>
 
-<A NAME="IDX156"></A>
+<A NAME="IDX162"></A>
 To find out what version of <CODE>indent</CODE> you have, use the command
 <CODE>indent -version</CODE>.  This will report the version number of
 <CODE>indent</CODE>, without doing any of the normal processing.
 </P><P>
 
-<A NAME="IDX157"></A>
-<A NAME="IDX158"></A>
-<A NAME="IDX159"></A>
-<A NAME="IDX160"></A>
+<A NAME="IDX163"></A>
+<A NAME="IDX164"></A>
+<A NAME="IDX165"></A>
+<A NAME="IDX166"></A>
 The `<SAMP>-v</SAMP>' option can be used to turn on verbose mode.  When in
 verbose mode, <CODE>indent</CODE> reports when it splits one line of input
 into two more more lines of output, and gives some size statistics at
 completion. 
 </P><P>
 
-<A NAME="IDX161"></A>
-<A NAME="IDX162"></A>
-<A NAME="IDX163"></A>
+<A NAME="IDX167"></A>
+<A NAME="IDX168"></A>
+<A NAME="IDX169"></A>
 The `<SAMP>-pmt</SAMP>' option causes <CODE>indent</CODE> to preserve the access
 and modification times on the output files.  Using this option
 has the advantage that running indent on all source and header
@@ -1674,7 +1721,13 @@ See section <A HREF="indent.html#SEC8">1.5 Comments</A>.
 
 <DT>`<SAMP>-bfda</SAMP>'
 <DD><DT>`<SAMP>--break-function-decl-args</SAMP>'
-<DD>Align all arguments in a declaration with opening paren.<BR>
+<DD>Break the line before all arguments in a declaration.<BR>
+See section <A HREF="indent.html#SEC10">1.7 Declarations</A>.
+<P>
+
+<DT>`<SAMP>-bfde</SAMP>'
+<DD><DT>`<SAMP>--break-function-decl-args</SAMP>'
+<DD>Break the line after the last argument in a declaration.<BR>
 See section <A HREF="indent.html#SEC10">1.7 Declarations</A>.
 <P>
 
@@ -2045,6 +2098,7 @@ the corresponding short option.
 --break-after-boolean-operator                  -nbbo
 --break-before-boolean-operator                 -bbo
 --break-function-decl-args                      -bfda
+--break-function-decl-args-end                  -bfde
 --case-indentation                              -cli<VAR>n</VAR>     
 --case-brace-indentation                        -cbi<VAR>n</VAR>
 --comment-delimiters-on-blank-lines             -cdb            
@@ -2056,6 +2110,7 @@ the corresponding short option.
 --declaration-comment-column                    -cd<VAR>n</VAR>      
 --declaration-indentation                       -di<VAR>n</VAR>      
 --dont-break-function-decl-args                 -nbfda
+--dont-break-function-decl-args-end             -nbfde
 --dont-break-procedure-type                     -npsl           
 --dont-cuddle-do-while                          -ncdw
 --dont-cuddle-else                              -nce            
@@ -2170,59 +2225,62 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX69"><CODE>--brace-indent<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX67"><CODE>--braces-after-if-line</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX65"><CODE>--braces-on-if-line</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX151"><CODE>--break-after-boolean-operator</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX149"><CODE>--break-before-boolean-operator</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX157"><CODE>--break-after-boolean-operator</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX155"><CODE>--break-before-boolean-operator</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX117"><CODE>--break-function-decl-args</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX121"><CODE>--break-function-decl-args-end</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX81"><CODE>--case-brace-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX79"><CODE>--case-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX57"><CODE>--comment-delimiters-on-blank-lines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX51"><CODE>--comment-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX131"><CODE>--continuation-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX133"><CODE>--continue-at-parentheses</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX135"><CODE>--continuation-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX137"><CODE>--continue-at-parentheses</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX75"><CODE>--cuddle-do-while</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX71"><CODE>--cuddle-else</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX53"><CODE>--declaration-comment-column<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX111"><CODE>--declaration-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX119"><CODE>--dont-break-function-decl-args</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX123"><CODE>--dont-break-procedure-type</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX123"><CODE>--dont-break-function-decl-args-end</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX127"><CODE>--dont-break-procedure-type</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX77"><CODE>--dont-cuddle-do-while</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX73"><CODE>--dont-cuddle-else</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX43"><CODE>--dont-format-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX47"><CODE>--dont-format-first-column-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX135"><CODE>--dont-line-up-parentheses</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX139"><CODE>--dont-line-up-parentheses</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX85"><CODE>--dont-space-special-semicolon</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX63"><CODE>--dont-star-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX55"><CODE>--else-endif-column<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX41"><CODE>--format-all-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX45"><CODE>--format-first-column-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX16"><CODE>--gnu-style</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX153"><CODE>--honour-newlines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX155"><CODE>--ignore-newlines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX159"><CODE>--honour-newlines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX161"><CODE>--ignore-newlines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX12"><CODE>--ignore-profile</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX129"><CODE>--indent-level<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX133"><CODE>--indent-level<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX19"><CODE>--k-and-r-style</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX31"><CODE>--leave-optional-blank-lines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX143"><CODE>--leave-preprocessor-space</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX147"><CODE>--leave-preprocessor-space</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX49"><CODE>--line-comments-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX147"><CODE>--line-length<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX153"><CODE>--line-length<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX115"><CODE>--no-blank-lines-after-commas</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX35"><CODE>--no-blank-lines-after-declarations</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC6">1.4.1 --blank-lines-after-declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX39"><CODE>--no-blank-lines-after-procedures</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC7">1.4.2 --blank-lines-after-procedures</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX27"><CODE>--no-blank-lines-before-block-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX59"><CODE>--no-comment-delimiters-on-blank-lines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX141"><CODE>--no-parameter-indentation</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX145"><CODE>--no-parameter-indentation</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX93"><CODE>--no-space-after-casts</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX99"><CODE>--no-space-after-for</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX89"><CODE>--no-space-after-function-call-names</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX103"><CODE>--no-space-after-if</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX107"><CODE>--no-space-after-while</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX160"><CODE>--no-verbosity</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX166"><CODE>--no-verbosity</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX23"><CODE>--original</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX3"><CODE>--output-file</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX139"><CODE>--parameter-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX162"><CODE>--preserve-mtime</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX121"><CODE>--procnames-start-lines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX145"><CODE>--remove-preprocessor-space</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX143"><CODE>--parameter-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX151"><CODE>--preprocessor-indentation<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX168"><CODE>--preserve-mtime</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX125"><CODE>--procnames-start-lines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX149"><CODE>--remove-preprocessor-space</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX91"><CODE>--space-after-cast</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX97"><CODE>--space-after-for</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX101"><CODE>--space-after-if</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
@@ -2233,14 +2291,15 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX6"><CODE>--standard-output</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX61"><CODE>--star-left-side-of-comments</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX29"><CODE>--swallow-optional-blank-lines</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX137"><CODE>--tab-size<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX158"><CODE>--verbose</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX141"><CODE>--tab-size<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX164"><CODE>--verbose</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX32"><CODE>-bad</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC6">1.4.1 --blank-lines-after-declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX36"><CODE>-bap</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC7">1.4.2 --blank-lines-after-procedures</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX24"><CODE>-bbb</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX148"><CODE>-bbo</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX154"><CODE>-bbo</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX112"><CODE>-bc</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX116"><CODE>-bfda</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX120"><CODE>-bfde</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX66"><CODE>-bl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX68"><CODE>-bli<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX64"><CODE>-br</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
@@ -2250,7 +2309,7 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX52"><CODE>-cd<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX74"><CODE>-cdw</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX70"><CODE>-ce</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX130"><CODE>-ci<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX134"><CODE>-ci<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX78"><CODE>-cli<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX50"><CODE>-c<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX54"><CODE>-cp<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
@@ -2261,45 +2320,47 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX44"><CODE>-fc1</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX40"><CODE>-fca</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX15"><CODE>-gnu</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX152"><CODE>-hnl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX128"><CODE>-i<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX138"><CODE>-ip<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX158"><CODE>-hnl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX132"><CODE>-i<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX142"><CODE>-ip<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX18"><CODE>-kr</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX146"><CODE>-l<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX132"><CODE>-lp</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX142"><CODE>-lps</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX152"><CODE>-l<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX136"><CODE>-lp</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX146"><CODE>-lps</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX34"><CODE>-nbad</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC6">1.4.1 --blank-lines-after-declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX38"><CODE>-nbap</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC7">1.4.2 --blank-lines-after-procedures</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX26"><CODE>-nbbb</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX150"><CODE>-nbbo</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX156"><CODE>-nbbo</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX114"><CODE>-nbc</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX118"><CODE>-nbfda</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX122"><CODE>-nbfde</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX58"><CODE>-ncdb</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX76"><CODE>-ncdw</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX92"><CODE>-ncs</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX46"><CODE>-nfc1</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX42"><CODE>-nfca</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX154"><CODE>-nhnl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX140"><CODE>-nip</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX134"><CODE>-nlp</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX144"><CODE>-nlps</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX160"><CODE>-nhnl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC12">1.9 Breaking long lines</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX144"><CODE>-nip</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX138"><CODE>-nlp</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX148"><CODE>-nlps</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX88"><CODE>-npcs</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX163"><CODE>-npmt</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX169"><CODE>-npmt</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX11"><CODE>-npro</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX122"><CODE>-npsl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX126"><CODE>-npsl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX98"><CODE>-nsaf</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX102"><CODE>-nsai</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX106"><CODE>-nsaw</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX62"><CODE>-nsc</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX30"><CODE>-nsob</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX84"><CODE>-nss</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX159"><CODE>-nv</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX165"><CODE>-nv</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX2"><CODE>-o</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX22"><CODE>-orig</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX86"><CODE>-pcs</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX161"><CODE>-pmt</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX167"><CODE>-pmt</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX150"><CODE>-ppi<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX108"><CODE>-prs</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX120"><CODE>-psl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX124"><CODE>-psl</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX96"><CODE>-saf</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX100"><CODE>-sai</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX104"><CODE>-saw</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
@@ -2307,10 +2368,10 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX28"><CODE>-sob</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC5">1.4 Blank lines</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX82"><CODE>-ss</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC9">1.6 Statements</A></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX5"><CODE>-st</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX125"><CODE>-T</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX136"><CODE>-ts<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX157"><CODE>-v</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX156"><CODE>-version</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX129"><CODE>-T</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX140"><CODE>-ts<VAR>n</VAR></CODE></A></TD><TD valign=top><A HREF="indent.html#SEC11">1.8 Indentation</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX163"><CODE>-v</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX162"><CODE>-version</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC14">1.11 Miscellaneous options</A></TD></TR>
 <TR><TD COLSPAN=3> <HR></TD></TR>
 <TR><TH><A NAME="ky_."></A>.</TH><TD></TD><TD></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX9">`<TT>.indent.pro</TT>' file</A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
@@ -2325,7 +2386,7 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#SEC8">Comments</A></TD><TD valign=top><A HREF="indent.html#SEC8">1.5 Comments</A></TD></TR>
 <TR><TD COLSPAN=3> <HR></TD></TR>
 <TR><TH><A NAME="ky_E"></A>E</TH><TD></TD><TD></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX124"><CODE>etags</CODE> requires `<SAMP>-psl</SAMP>'</A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX128"><CODE>etags</CODE> requires `<SAMP>-psl</SAMP>'</A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD COLSPAN=3> <HR></TD></TR>
 <TR><TH><A NAME="ky_G"></A>G</TH><TD></TD><TD></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX14">GNU style</A></TD><TD valign=top><A HREF="indent.html#SEC4">1.3 Common styles</A></TD></TR>
@@ -2349,8 +2410,8 @@ the corresponding short option.
 <TR><TD></TD><TD valign=top><A HREF="indent.html#SEC2">Starting <CODE>indent</CODE></A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
 <TR><TD COLSPAN=3> <HR></TD></TR>
 <TR><TH><A NAME="ky_T"></A>T</TH><TD></TD><TD></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX127">typedef</A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
-<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX126">Typenames</A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX131">typedef</A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
+<TR><TD></TD><TD valign=top><A HREF="indent.html#IDX130">Typenames</A></TD><TD valign=top><A HREF="indent.html#SEC10">1.7 Declarations</A></TD></TR>
 <TR><TD COLSPAN=3> <HR></TD></TR>
 <TR><TH><A NAME="ky_U"></A>U</TH><TD></TD><TD></TD></TR>
 <TR><TD></TD><TD valign=top><A HREF="indent.html#IDX7">Using Standard Input</A></TD><TD valign=top><A HREF="indent.html#SEC2">1.1 Invoking <CODE>indent</CODE></A></TD></TR>
@@ -2636,7 +2697,7 @@ the following structure:
 <BR>  
 <FONT SIZE="-1">
 This document was generated
-by <I>david ingamells</I> on <I>March, 21  2002</I>
+by <I>david ingamells</I> on <I>December, 16  2002</I>
 using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
 "><I>texi2html</I></A>
 </FONT>

@@ -68,19 +68,22 @@ VERSION = @VERSION@
 AUTOMAKE_OPTIONS = no-texinfo.tex
 
 bin_PROGRAMS = indent
-indent_SOURCES = args.c comments.c indent.c lexi.c parse.c backup.c globs.c io.c memcpy.c sys.h backup.h indent.h
+indent_SOURCES = args.c comments.c indent.c lexi.c parse.c backup.c globs.c io.c memcpy.c
+noinst_HEADERS = backup.h indent.h sys.h
 info_TEXINFOS = indent.texinfo
 man_MANS = indent.1
 
-BUILT_SOURCES = indent.1 README ChangeLog gperf.c
-EXTRA_DIST = $(BUILT_SOURCES) indent.gperf ChangeLog-1990 ChangeLog-1994
+BUILT_SOURCES = indent.1 README ChangeLog gperf.c indent.html indent_foot.html indent_toc.html
+EXTRA_DIST = $(BUILT_SOURCES) indent.gperf ChangeLog-1990 ChangeLog-1998
 
-DISTCLEANFILES = config.cache config.log config.h README
+DISTCLEANFILES = config.cache config.log config.h
 
 # --------------- Maintainer's Section
 
 MAINTAINERCLEANFILES = aclocal.m4 Makefile.in config.h.in stamp-h.in configure 	ChangeLog texinfo2man indent.1 gperf.c 	indent-1.spec index.html cvslog-*.html indent.html indent_*.html
 
+@MAINTAINER_MODE_TRUE@CFLAGS = -g
+@MAINTAINER_MODE_FALSE@CFLAGS = @CFLAGS@
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
@@ -97,7 +100,6 @@ globs.o io.o memcpy.o
 indent_LDADD = $(LDADD)
 indent_DEPENDENCIES = 
 indent_LDFLAGS = 
-CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
@@ -109,6 +111,8 @@ man1dir = $(mandir)/man1
 MANS = $(man_MANS)
 
 NROFF = nroff
+HEADERS =  $(noinst_HEADERS)
+
 DIST_COMMON =  README ./stamp-h.in AUTHORS COPYING ChangeLog INSTALL \
 Makefile.am Makefile.in NEWS acconfig.h aclocal.m4 config.h.in \
 configure configure.in install-sh maintMakefile.in mdate-sh missing \
@@ -475,14 +479,6 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 	$(MAKE) $(AM_MAKEFLAGS) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-info
-args.o: args.c sys.h config.h indent.h
-backup.o: backup.c sys.h config.h backup.h
-comments.o: comments.c sys.h config.h indent.h
-globs.o: globs.c sys.h config.h
-indent.o: indent.c sys.h config.h indent.h
-io.o: io.c sys.h config.h indent.h
-memcpy.o: memcpy.c
-parse.o: parse.c sys.h config.h indent.h
 
 info-am: $(INFO_DEPS)
 info: info-am
@@ -506,7 +502,7 @@ install-am: all-am
 install: install-am
 uninstall-am: uninstall-binPROGRAMS uninstall-info uninstall-man
 uninstall: uninstall-am
-all-am: Makefile $(INFO_DEPS) $(PROGRAMS) $(MANS) config.h
+all-am: Makefile $(INFO_DEPS) $(PROGRAMS) $(MANS) $(HEADERS) config.h
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
@@ -571,11 +567,11 @@ mostlyclean-generic distclean-generic clean-generic \
 maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 
-lexi.o: lexi.c @MAINTAINER_MODE_TRUE@ gperf.c
-	$(COMPILE) -c lexi.c
+lexi.o: $(srcdir)/lexi.c @MAINTAINER_MODE_TRUE@ gperf.c
+	$(COMPILE) -c $(srcdir)/lexi.c
 
 gperf.c: @MAINTAINER_MODE_TRUE@ indent.gperf
-	gperf -c -p -t -T -g -j1 -o -K rwd -N is_reserved indent.gperf > gperf.c
+	gperf -D -c -p -t -T -g -j1 -o -K rwd -N is_reserved indent.gperf > gperf.c
 
 @MAINTAINER_MODE_TRUE@include $(srcdir)/maintMakefile
 
@@ -586,7 +582,7 @@ maintainer-clean-local:
 	echo -e "\taclocal" >> Makefile
 	echo -e "\tautoconf" >> Makefile
 	echo -e "\tautoheader" >> Makefile
-	echo -e "\tconfigure --enable-maintainer-mode" >> Makefile
+	echo -e "\tconfigure --enable-maintainer-mode --prefix=/home/carlo" >> Makefile
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

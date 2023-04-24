@@ -1,11 +1,12 @@
 This is Info file indent.info, produced by Makeinfo version 1.68 from
 the input file indent.texinfo.
 
-   This is Edition 1.10.0 of `The `indent' Manual', for Indent Version
-1.10.0, last updated 26 May 1999.
+   This is Edition 2.1.0 of `The `indent' Manual', for Indent Version
+2.1.0, last updated 5 July 1999.
 
-   Copyright (C) 1989, 1992, 1993, 1994, 1999 Free Software Foundation,
-Inc.
+   Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
+Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
+(C) 1999 Carlo Wood.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -20,8 +21,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 1.10.0, 26 May 1999, of `The `indent' Manual', for
-Indent Version 1.10.0.
+   This is Edition 2.1.0, 5 July 1999, of `The `indent' Manual', for
+Indent Version 2.1.0.
 
 * Menu:
 
@@ -54,6 +55,7 @@ is the default.
 * Statements::                  Statements
 * Declarations::                Declarations
 * Indentation::                 Indentation
+* Breaking long lines::         Breaking long lines
 * Disabling Formatting::        Disabling Formatting
 * Miscellaneous options::       Miscellaneous options
 * Bugs::                 	Bugs
@@ -124,12 +126,17 @@ be:
      indent +braces-on-if-line +line-length185 test/metabolism.c
 
    If you find that you often use `indent' with the same options, you
-may put those options into a file called `.indent.pro'.  `indent' will
+may put those options into a file named `.indent.pro'.  `indent' will
 first look for `.indent.pro' in the current directory and use that if
 found.  Otherwise, `indent' will search your home directory for
 `.indent.pro' and use that file if it is found.  This behaviour is
 different from that of other versions of `indent', which load both
 files if they both exist.
+
+   The format of `.indent.pro' is simply a list of options, just as
+they would appear on the command line, separated by white space (tabs,
+spaces, and newlines).  Options in `.indent.pro' may be surrounded by C
+or C++ comments, in which case they are ignored.
 
    Command line switches are handled *after* processing `.indent.pro'.
 Options specified later override arguments specified earlier, with one
@@ -202,9 +209,8 @@ style.  Thus, it is no longer neccessary to specify the option `-gnu'
 to obtain this format, although doing so will not cause an error.
 Option settings which correspond to the GNU style are:
 
-     -nbad -bap -nbc -bl -bli2 -bls -c33 -cd33 -ncdb -nce -cli0
-     -cp1 -di2 -nfc1 -nfca -i2 -ip5 -lp -pcs -psl -cs
-     -nsc -nsob -nss -ts8 -d0 -ci0 -l78
+     -nbad -bap -nbc -bbo -bl -bli2 -bls -ncdb -nce -cp1 -cs -di2
+     -ndj -nfc1 -nfca -hnl -i2 -ip5 -lp -pcs -psl -nsc -nsob
 
    The GNU coding style is that preferred by the GNU project.  It is the
 style that the GNU Emacs C mode encourages and which is used in the C
@@ -218,9 +224,9 @@ book `The C Programming Language'.  It is enabled with the `-kr'
 option.  The Kernighan & Ritchie style corresponds to the following set
 of options:
 
-     -nbad -bap -nbc -br -brs -c33 -cd33 -ncdb -ce -ci4
-     -cli0 -cp33 -d0 -di1 -nfc1 -nfca -i4 -ip0 -l75 -lp
-     -npcs -npsl -nsc -nsob -nss -ts8 -cs
+     -nbad -bap -bbo -nbc -br -brs -c33 -cd33 -ncdb -ce -ci4 -cli0
+     -cp33 -cs -d0 -di1 -nfc1 -nfca -hnl -i4 -ip0 -l75 -lp -npcs
+     -npsl -nsc -nsob -nss
 
 Kernighan & Ritchie style does not put comments to the right of code in
 the same column at all times (nor does it use only one space to the
@@ -231,9 +237,9 @@ column 33.
 specifying `-orig' (or by specifyfying `--original', using the long
 option name).  This style is equivalent to the following settings:
 
-     -nbap -nbad -bc -br -brs -c33 -cd33 -cdb -ce -ci4
-     -cli0 -cp33 -d4 -di16 -fc1 -fca -i4 -ip4 -l75 -lp
-     -npcs -psl -sc -nsob -nss -ts8 -ncs
+     -nbad -nbap -bbo -bc -br -brs -c33 -cd33 -cdb -ce -ci4 -cli0
+     -cp33 -di16 -fc1 -fca -hnl -i4 -ip4 -l75 -lp -npcs -psl -sc
+     -nsob -nss -ts8
 
 
 File: indent.info,  Node: Blank lines,  Next: Comments,  Prev: Common styles,  Up: Indent Program
@@ -251,6 +257,9 @@ such blank lines.
 
    The `-bap' option forces a blank line after every procedure body.
 The `-nbap' option forces no such blank line.
+
+   The `-bbb' option forces a blank line before every boxed comment.
+(*Note Comments::) The `-nbbb' option does not force such blank lines.
 
    The `-sob' option causes `indent' to swallow optional blank lines
 (that is, any optional blank lines present in the input will be removed
@@ -352,7 +361,7 @@ Comments
 ========
 
    `indent' formats both C and C++ comments. C comments are begun with
-`/*' and terminated with `*/' and may contain newline characters.  C++
+`/*', terminated with `*/' and may contain newline characters.  C++
 comments begin with the delimiter `//' and end at the newline.
 
    `indent' handles comments differently depending upon their context.
@@ -362,14 +371,21 @@ preprocessor directives, and comments which are not preceded by code of
 any sort, i.e., they begin the text of the line (although not
 neccessarily in column 1).
 
-   `indent' further attempts to leave "boxed comments" unmodified.  The
-general idea of such a comment is that it is enclosed in a rectangle or
-"box" of stars or dashes to visually set it apart.  More precisely,
-boxed comments are defined as those in which the initial `/*' is
-followed immediately by the character `*', `=', `_', or `-', or those
-in which the beginning comment delimiter (`/*') is on a line by itself,
-and the following line begins with a `*' in the same column as the star
-of the opening delimiter.
+   `indent' further distinguishes between comments found outside of
+procecures and aggregates, and those found within them.  In particular,
+comments beginning a line found within a procedure will be indented to
+the column at which code is currently indented.  The exception to this a
+comment beginning in the leftmost column;  such a comment is output at
+that column.
+
+   `indent' attempts to leave "boxed comments" unmodified.  The general
+idea of such a comment is that it is enclosed in a rectangle or "box"
+of stars or dashes to visually set it apart.  More precisely, boxed
+comments are defined as those in which the initial `/*' is followed
+immediately by the character `*', `=', `_', or `-', or those in which
+the beginning comment delimiter (`/*') is on a line by itself, and the
+following line begins with a `*' in the same column as the star of the
+opening delimiter.
 
    Examples of boxed comments are:
 
@@ -388,32 +404,33 @@ and its length is not checked in any way.  The only alteration made is
 that an embedded tab character may be converted into the appropriate
 number of spaces.
 
-   Comments which are not boxed may be formatted, which means that the
-line is broken to fit within a right margin and left-filled with
-whitespace.  Single newlines are equivalent to a space, but blank lines
-(two or more newlines in a row) are taken to mean a paragraph break.
-Formatting of comments which begin after the first column is enabled
-with the `-fca' option.  To format those beginning in column one,
-specify `-fc1'.  Such formatting is disabled by default.
+   If the `-bbb' option is specified, all such boxed comments will be
+preceded by a blank line, unless such a comment is preceded by code.
+
+   Comments which are not boxed comments may be formatted, which means
+that the line is broken to fit within a right margin and left-filled
+with whitespace.  Single newlines are equivalent to a space, but blank
+lines (two or more newlines in a row) are taken to mean a paragraph
+break.  Formatting of comments which begin after the first column is
+enabled with the `-fca' option.  To format those beginning in column
+one, specify `-fc1'.  Such formatting is disabled by default.
 
    The right margin for formatting defaults to 78, but may be changed
-with the `-lc' or the `-l' option.  `-l' specifies the right margin for
-all code, and `-lc' specifies the margin for only for comments.  If
-`-l' is used alone, comments will be formatted according to the margin
-specified with that option.
-
-   If the margin specified does not allow the comment to be printed, the
-margin will be automatically extended for the duration of that comment.
-The margin is not respected if the comment is not being formatted.
+with the `-lc' option.  If the margin specified does not allow the
+comment to be printed, the margin will be automatically extended for the
+duration of that comment.  The margin is not respected if the comment is
+not being formatted.
 
    If the comment begins a line (i.e., there is no program text to its
 left), it will be indented to the column it was found in unless the
-comment is within a block of code.  In that case, such a comment will
-be aligned with the indented code of that block.  This alignment may be
-affected by the `-d' option, which specifies an amount by which such
-comments are moved to the *left*, or unindented.  For example, `-d2'
-places comments two spaces to the left of code.  By default, comments
-are aligned with code.
+comment is within a block of code.  In that case, such a comment will be
+aligned with the indented code of that block (unless the comment began
+in the first column).  This alignment may be affected by the `-d'
+option, which specifies an amount by which such comments are moved to
+the *left*, or unindented.  For example, `-d2' places comments two
+spaces to the left of code.  By default, comments are aligned with
+code, unless they begin in the first column, in which case they are left
+there by default - to get them aligned with the code, specify `-fc1'.
 
    Comments to the right of code will appear by default in column 33.
 This may be changed with one of three options.  `-c' will specify the
@@ -464,24 +481,6 @@ The `-bl' option formats them like this:
          x--;
        }
 
-   These options also affect structure and enumeration declarations.
-The `-br' option produces structure declarations like the following:
-
-     struct Sname {
-         int i;
-         char chp;
-     } Vname;
-
-   The default behaviour, also obtained by specifying `-bl', would
-yield the following format for the same declaration:
-
-     struct Sname
-       {
-          int i;
-          char chp;
-       }
-     Vname;
-
    If you use the `-bl' option, you may also want to specify the `-bli'
 option.  This option specifies the number of spaces by which braces are
 indented.  `-bli2', the default, gives the result shown above.  `-bli0'
@@ -514,6 +513,50 @@ With `-br -nce' that code would appear as
 
    The `-cli' option specifies the number of spaces that case labels
 should be indented to the right of the containing `switch' statement.
+
+The default gives code like:
+
+     switch (i)
+       {
+       case 0:
+         break;
+       case 1:
+         {
+           ++i;
+         }
+       default:
+         break;
+       }
+
+   Using the `-cli2' that would become:
+
+     switch (i)
+       {
+         case 0:
+           break;
+         case 1:
+           {
+     	++i;
+           }
+         default:
+           break;
+       }
+
+   The indentation of the braces below a case statement can be
+controlled with the `-cbiN' option.  For example, using `-cli2 -cbi0'
+results in:
+
+     switch (i)
+       {
+         case 0:
+           break;
+         case 1:
+         {
+           ++i;
+         }
+         default:
+           break;
+       }
 
    If a semicolon is on the same line as a `for' or `while' statement,
 the `-ss' option will cause a space to be placed before the semicolon.
@@ -575,11 +618,10 @@ placed on the line before the name of the procedure.  This style is
 required for the `etags' program to work correctly, as well as some of
 the `c-mode' functions of Emacs.
 
-   If you are not using the `-di1' option to place variables being
-declared immediately after their type, you need to use the `-T' option
-to tell `indent' the name of all the typenames in your program that are
-defined by `typedef'.  `-T' can be specified more than once, and all
-names specified are used.  For example, if your program contains
+   You must use the `-T' option to tell `indent' the name of all the
+typenames in your program that are defined by `typedef'.  `-T' can be
+specified more than once, and all names specified are used.  For
+example, if your program contains
 
      typedef unsigned long CODE_ADDR;
      typedef enum {red, blue, green} COLOR;
@@ -601,7 +643,7 @@ The `-bls' option formats them like this:
      };
 
 
-File: indent.info,  Node: Indentation,  Next: Disabling Formatting,  Prev: Declarations,  Up: Indent Program
+File: indent.info,  Node: Indentation,  Next: Breaking long lines,  Prev: Declarations,  Up: Indent Program
 
 Indentation
 ===========
@@ -667,13 +709,72 @@ example, the default `-ip5' makes definitions look like this:
    For compatibility with other versions of indent, the option `-nip'
 is provided, which is equivalent to `-ip0'.
 
-   ASCII C allows white space to be placed on preprocessor command lines
+   ANSI C allows white space to be placed on preprocessor command lines
 between the character `#' and the command name.  By default, `indent'
 removes this space, but specifying the `-lps' option directs `indent'
 to leave this space unmodified.
 
 
-File: indent.info,  Node: Disabling Formatting,  Next: Miscellaneous options,  Prev: Indentation,  Up: Indent Program
+File: indent.info,  Node: Breaking long lines,  Next: Disabling Formatting,  Prev: Indentation,  Up: Indent Program
+
+Breaking long lines
+===================
+
+   With the option `-lN', or `--line-lengthN', it is possible to
+specify the maximum length of a line of C code, not including possible
+comments that follow it.
+
+   When lines become longer then the specified line length, `GNU indent'
+tries to break the line at a logical place.  This is new as of version
+2.1 however and not very intelligent or flexible yet.
+
+   Currently there are two options that allows one to interfere with the
+algorithm that determines where to break a line.
+
+   The `-bbo' option causes `GNU indent' to prefer to break long lines
+before the boolean operators `&&' and `||'.  The `-nbbo' option causes
+`GNU indent' not have that preference.  For example, the default option
+`-bbo' (together with `--line-length60' and `--ignore-newlines') makes
+code look like this:
+
+       if (mask
+           && ((mask[0] == '\0')
+               || (mask[1] == '\0'
+                   && ((mask[0] == '0') || (mask[0] == '*')))))
+
+   Using the option `-nbbo' will make it look like this:
+
+       if (mask &&
+           ((mask[0] == '\0') ||
+            (mask[1] == '\0' &&
+             ((mask[0] == '0') || (mask[0] == '*')))))
+
+   The default `-hnl' however, honours newlines in the input file by
+giving them the highest possible priority to break lines at.  For
+example, when the input file looks like this:
+
+       if (mask
+           && ((mask[0] == '\0')
+           || (mask[1] == '\0' && ((mask[0] == '0') || (mask[0] == '*')))))
+
+   then using the option `-hnl', or `--honour-newlines', together with
+the previously mentioned `-nbbo' and `--line-length60', will cause the
+output not to be what is given in the last example but instead will
+prefer to break at the positions where the code was broken in the input
+file:
+
+       if (mask
+           && ((mask[0] == '\0')
+               || (mask[1] == '\0' &&
+                   ((mask[0] == '0') || (mask[0] == '*')))))
+
+   The idea behind this option is that lines which are too long, but
+are already broken up, will not be touched by `GNU indent'.  Really
+messy code should be run through `indent' at least once using the
+`--ignore-newlines' option though.
+
+
+File: indent.info,  Node: Disabling Formatting,  Next: Miscellaneous options,  Prev: Breaking long lines,  Up: Indent Program
 
 Disabling Formatting
 ====================
@@ -729,9 +830,19 @@ File: indent.info,  Node: Bugs,  Next: Copyright,  Prev: Miscellaneous options, 
 Bugs
 ====
 
-   The "-troff" option is strongly deprecated, and is not supported.  A
-good thing for someone to do is to rewrite `indent' to generate TeX
-source as a hardcopy output option, amoung other things.
+   When `indent' is run twice on a file, with the same profile, it
+should *never* change that file the second time.  With the current
+design of `indent' this can not be garanteed however and it has not
+been extensively tested.
+
+   `Indent' does not understand C.  In some cases this leads to the
+inability to join lines.  The result is that running a file through
+`indent' is *irreversable*, even if the used input file was the result
+of running `indent' with a given profile (`.indent.pro').
+
+   While an attempt was made to get `indent' working for C++, is will
+not do a good job on any C++ source except the real simple (by
+coincidence thus).
 
 
 File: indent.info,  Node: Copyright,  Prev: Bugs,  Up: Indent Program
@@ -744,7 +855,9 @@ copyright and copying permissions for this manual appear near the
 beginning of indent.texinfo and indent.info, and near the end of
 indent.1.
 
-     Copyright (c) 1989, 1992 Free Software Foundation
+     Copyright (c) 1999 Carlo Wood.
+     Copyright (c) 1995, 1996 Joseph Arceneaux.
+     Copyright (c) 1989, 1992, 1993, 1994, 1995, 1996 Free Software Foundation
      Copyright (c) 1985 Sun Microsystems, Inc.
      Copyright (c) 1980 The Regents of the University of California.
      Copyright (c) 1976 Board of Trustees of the University of Illinois.
@@ -789,6 +902,11 @@ option.
      Force blank lines after block comments.
      *Note Blank lines::.
 
+`-bbo'
+`--break-before-boolean-operator'
+     Prefer to break long lines before boolean operators.
+     *Note Breaking long lines::.
+
 `-bc'
 `--blank-lines-after-commas'
      Force newline after comma in declaration.
@@ -818,6 +936,12 @@ option.
 `--braces-on-struct-decl-line'
      Put braces on `struct' declaration line.
      *Note Declarations::.
+
+`-bs'
+`--Bill-Shannon'
+`--blank-before-sizeof'
+     Put a space between `sizeof' and its argument.
+     *Note Statements::
 
 `-cN'
 `--comment-indentationN'
@@ -865,11 +989,6 @@ option.
      Put a space after a cast operator.
      *Note Statements::.
 
-`-bs'
-`--blank-before-sizeof'
-     Put a space between `sizeof' and its argument.
-     *Note Statements::
-
 `-dN'
 `--line-comments-indentationN'
      Set indentation of comments not to the right of code to N spaces.
@@ -895,6 +1014,12 @@ option.
      Use GNU coding style.  This is the default.
      *Note Common styles::.
 
+`-hnl'
+`--honour-newlines'
+     Prefer to break long lines at the position of newlines in the
+     input.
+     *Note Breaking long lines::.
+
 `-iN'
 `--indent-levelN'
      Set indentation level to N spaces.
@@ -913,8 +1038,8 @@ option.
 
 `-lN'
 `--line-lengthN'
-     Set maximum line length to N.
-     *Note Comments::.
+     Set maximum line length for non-comment lines to N.
+     *Note Breaking long lines::.
 
 `-lcN'
 `--comment-line-lengthN'
@@ -940,6 +1065,11 @@ option.
 `--no-blank-lines-after-procedures'
      Do not force blank lines after procedure bodies.
      *Note Blank lines::.
+
+`-nbbo'
+`--break-after-boolean-operator'
+     Do not prefer to break long lines before boolean operators.
+     *Note Breaking long lines::.
 
 `-nbc'
 `--no-blank-lines-after-commas'
@@ -970,6 +1100,12 @@ option.
 `--dont-format-comments'
      Do not format any comments.
      *Note Comments::.
+
+`-nhnl'
+`--ignore-newlines'
+     Do not prefer to break long lines at the position of newlines in
+     the input.
+     *Note Breaking long lines::.
 
 `-nip'
 `--no-parameter-indentation'
@@ -1038,6 +1174,11 @@ option.
      Put the type of a procedure on the line before its name.
      *Note Declarations::.
 
+`-sbiN'
+`--struct-brace-indentationN'
+     Indent braces of a struct, union or enum N spaces.
+     *Note Statements::.
+
 `-sc'
 `--start-left-side-of-comments'
      Put the `*' character at the left of comments.
@@ -1092,6 +1233,8 @@ find the corresponding short option.
      --braces-after-struct-decl-line                 -bls
      --braces-on-if-line                             -br
      --braces-on-struct-decl-line                    -brs
+     --break-after-boolean-operator                  -nbbo
+     --break-before-boolean-operator                 -bbo
      --case-indentation                              -cliN
      --case-brace-indentation                        -cbiN
      --comment-delimiters-on-blank-lines             -cdb
@@ -1112,6 +1255,8 @@ find the corresponding short option.
      --format-all-comments                           -fca
      --format-first-column-comments                  -fc1
      --gnu-style                                     -gnu
+     --honour-newlines                               -hnl
+     --ignore-newlines                               -nhnl
      --ignore-profile                                -npro
      --indent-level                                  -iN
      --k-and-r-style                                 -kr
@@ -1136,6 +1281,7 @@ find the corresponding short option.
      --space-special-semicolon                       -ss
      --standard-output                               -st
      --start-left-side-of-comments                   -sc
+     --struct-brace-indentation                      -sbiN
      --swallow-optional-blank-lines                  -sob
      --tab-size                                      -tsN
      --verbose                                       -v
@@ -1149,12 +1295,16 @@ Index
 * Menu:
 
 * --blank-after-sizeof:                  Statements.
+* --blank-lines-after-block-comments:    Blank lines.
 * --blank-lines-after-commas:            Declarations.
 * --blank-lines-after-declarations:      -bad.
 * --blank-lines-after-procedures:        -bap.
 * --brace-indentN:                       Statements.
 * --braces-after-if-line:                Statements.
 * --braces-on-if-line:                   Statements.
+* --break-after-boolean-operator:        Breaking long lines.
+* --break-before-boolean-operator:       Breaking long lines.
+* --case-brace-indentationN:             Statements.
 * --case-indentationN:                   Statements.
 * --comment-delimiters-on-blank-lines:   Comments.
 * --comment-indentationN:                Comments.
@@ -1174,13 +1324,16 @@ Index
 * --format-all-comments:                 Comments.
 * --format-first-column-comments:        Comments.
 * --gnu-style:                           Common styles.
+* --honour-newlines:                     Breaking long lines.
+* --ignore-newlines:                     Breaking long lines.
 * --ignore-profile:                      Invoking indent.
 * --indent-levelN:                       Indentation.
 * --k-and-r-style:                       Common styles.
 * --leave-optional-blank-lines:          Blank lines.
 * --leave-preprocessor-space:            Indentation.
 * --line-comments-indentationN:          Comments.
-* --line-lengthN:                        Comments.
+* --line-lengthN:                        Breaking long lines.
+* --no-blank-lines-after-block-comments: Blank lines.
 * --no-blank-lines-after-commas:         Declarations.
 * --no-blank-lines-after-declarations:   -bad.
 * --no-blank-lines-after-procedures:     -bap.
@@ -1204,11 +1357,14 @@ Index
 * --verbose:                             Miscellaneous options.
 * -bad:                                  -bad.
 * -bap:                                  -bap.
+* -bbb:                                  Blank lines.
+* -bbo:                                  Breaking long lines.
 * -bc:                                   Declarations.
 * -bl:                                   Statements.
 * -bliN:                                 Statements.
 * -br:                                   Statements.
 * -bs:                                   Statements.
+* -cbiN:                                 Statements.
 * -cdb:                                  Comments.
 * -cdN:                                  Comments.
 * -ce:                                   Statements.
@@ -1223,19 +1379,23 @@ Index
 * -fc1:                                  Comments.
 * -fca:                                  Comments.
 * -gnu:                                  Common styles.
+* -hnl:                                  Breaking long lines.
 * -iN:                                   Indentation.
 * -ipN:                                  Indentation.
 * -kr:                                   Common styles.
-* -lN:                                   Comments.
+* -lN:                                   Breaking long lines.
 * -lp:                                   Indentation.
 * -lps:                                  Indentation.
 * -nbad:                                 -bad.
 * -nbap:                                 -bap.
+* -nbbb:                                 Blank lines.
+* -nbbo:                                 Breaking long lines.
 * -nbc:                                  Declarations.
 * -ncdb:                                 Comments.
 * -ncs:                                  Statements.
 * -nfc1:                                 Comments.
 * -nfca:                                 Comments.
+* -nhnl:                                 Breaking long lines.
 * -nip:                                  Indentation.
 * -nlp:                                  Indentation.
 * -nlps:                                 Indentation.
@@ -1279,23 +1439,24 @@ Index
 
 
 Tag Table:
-Node: Top452
-Node: Indent Program969
-Node: Invoking indent2000
-Node: Backup files5180
-Node: Common styles7041
-Node: Blank lines9261
-Node: -bad10213
-Node: -bap10860
-Node: Comments11721
-Node: Statements16030
-Node: Declarations18454
-Node: Indentation20333
-Node: Disabling Formatting23077
-Node: Miscellaneous options24816
-Node: Bugs25367
-Node: Copyright25679
-Node: Option Summary27106
-Node: Index37342
+Node: Top532
+Node: Indent Program1047
+Node: Invoking indent2130
+Node: Backup files5570
+Node: Common styles7431
+Node: Blank lines9626
+Node: -bad10719
+Node: -bap11366
+Node: Comments12227
+Node: Statements17010
+Node: Declarations19707
+Node: Indentation21480
+Node: Breaking long lines24222
+Node: Disabling Formatting26505
+Node: Miscellaneous options28252
+Node: Bugs28803
+Node: Copyright29564
+Node: Option Summary31099
+Node: Index42363
 
 End Tag Table

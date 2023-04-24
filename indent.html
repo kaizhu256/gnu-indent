@@ -1,15 +1,15 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from indent.texinfo on 24 July 1999 -->
+     from indent.texinfo on 25 September 1999 -->
 
 <TITLE>indent:  Indent and Format C Program Source</TITLE>
 </HEAD>
 <BODY>
 <H1>Indent</H1>
 <H2>Format C Code</H2>
-<H2>Edition 2.2.0, for Indent Version 2.2.0</H2>
-<H2>24 July 1999</H2>
+<H2>Edition 2.2.1, for Indent Version 2.2.1</H2>
+<H2>18 September 1999</H2>
 <ADDRESS>Carlo Wood</ADDRESS>
 <ADDRESS>Joseph Arceneaux</ADDRESS>
 <ADDRESS>Jim Kingdon</ADDRESS>
@@ -355,8 +355,8 @@ The <SAMP>`-nbap'</SAMP> option forces no such blank line.
 <A NAME="IDX28"></A>
 <A NAME="IDX29"></A>
 <A NAME="IDX30"></A>
-The <SAMP>`-bbb'</SAMP> option forces a blank line before every boxed comment.
-(See section <A HREF="indent.html#SEC8">Comments</A>) The <SAMP>`-nbbb'</SAMP> option does not force such blank lines.
+The <SAMP>`-bbb'</SAMP> option forces a blank line before every boxed comment,
+See section <A HREF="indent.html#SEC8">Comments</A>. The <SAMP>`-nbbb'</SAMP> option does not force such blank lines.
 
 </P>
 <P>
@@ -1267,6 +1267,18 @@ into two more more lines of output, and gives some size statistics at
 completion. 
 
 </P>
+<P>
+<A NAME="IDX142"></A>
+<A NAME="IDX143"></A>
+<A NAME="IDX144"></A>
+The <SAMP>`-pmt'</SAMP> option causes <CODE>indent</CODE> to preserve the access
+and modification times on the output files.  Using this option
+has the advantage that running indent on all source and header
+files in a project won't cause <CODE>make</CODE> to rebuild all targets.
+This option is only available on Operating Systems that have the
+POSIX <CODE>utime(2)</CODE> function.
+
+</P>
 
 
 <H2><A NAME="SEC15" HREF="indent_toc.html#TOC15">Bugs</A></H2>
@@ -1302,6 +1314,13 @@ comments start on the first line of the break.
 <P>
 <CODE>Indent</CODE> does not count lines and comments (see the <SAMP>`-v'</SAMP> option)
 when <CODE>indent</CODE> is turned off with <CODE>/* *INDENT-OFF* */</CODE>.
+
+</P>
+<P>
+Comments of the form /*UPPERCASE*/ are not treated as comment but as an
+identifier, causing them to be joined with the next line. This renders
+comments of this type useless unless they are embedded in the code to
+begin with.
 
 </P>
 
@@ -1427,7 +1446,7 @@ See section <A HREF="indent.html#SEC10">Declarations</A>.
 <DT><SAMP>`--blank-before-sizeof'</SAMP>
 <DD>
 Put a space between <CODE>sizeof</CODE> and its argument.<BR>
-See section <A HREF="indent.html#SEC9">Statements</A>
+See section <A HREF="indent.html#SEC9">Statements</A>.
 
 <DT><SAMP>`-c<VAR>n</VAR>'</SAMP>
 <DD>
@@ -1520,7 +1539,7 @@ See section <A HREF="indent.html#SEC8">Comments</A>.
 <DT><SAMP>`--format-all-comments'</SAMP>
 <DD>
 Do not disable all formatting of comments.<BR>
-See section <A HREF="indent.html#SEC8">Comments</A>
+See section <A HREF="indent.html#SEC8">Comments</A>.
 
 <DT><SAMP>`-gnu'</SAMP>
 <DD>
@@ -1661,7 +1680,7 @@ See section <A HREF="indent.html#SEC12">Breaking long lines</A>.
 <DT><SAMP>`--no-parameter-indentation'</SAMP>
 <DD>
 Zero width indentation for parameters.<BR>
-See section <A HREF="indent.html#SEC11">Indentation</A>
+See section <A HREF="indent.html#SEC11">Indentation</A>.
 
 <DT><SAMP>`-nlp'</SAMP>
 <DD>
@@ -1742,6 +1761,13 @@ See section <A HREF="indent.html#SEC9">Statements</A>.
 Specify the extra indentation per open parentheses '(' when a
 statement is broken.
 See section <A HREF="indent.html#SEC9">Statements</A>.
+
+<DT><SAMP>`-pmt'</SAMP>
+<DD>
+<DT><SAMP>`--preserve-mtime'</SAMP>
+<DD>
+Preserve access and modification times on output files.
+See section <A HREF="indent.html#SEC14">Miscellaneous options</A>.
 
 <DT><SAMP>`-psl'</SAMP>
 <DD>
@@ -1873,6 +1899,7 @@ the corresponding short option.
 --original                                      -orig
 --parameter-indentation                         -ip<VAR>n</VAR>      
 --paren-indentation                             -pi<VAR>n</VAR>
+--preserve-mtime				-pmt
 --procnames-start-lines                         -psl            
 --space-after-cast                              -cs             
 --space-after-procedure-calls                   -pcs            
@@ -1970,6 +1997,7 @@ Jump to:
 <LI><A HREF="indent.html#IDX25">--original</A>
 <LI><A HREF="indent.html#IDX6">--output-file</A>
 <LI><A HREF="indent.html#IDX120">--parameter-indentation<VAR>n</VAR></A>
+<LI><A HREF="indent.html#IDX143">--preserve-mtime</A>
 <LI><A HREF="indent.html#IDX103">--procnames-start-lines</A>
 <LI><A HREF="indent.html#IDX126">--remove-preprocessor-space</A>
 <LI><A HREF="indent.html#IDX91">--space-after-cast</A>
@@ -2025,6 +2053,7 @@ Jump to:
 <LI><A HREF="indent.html#IDX115">-nlp</A>
 <LI><A HREF="indent.html#IDX125">-nlps</A>
 <LI><A HREF="indent.html#IDX88">-npcs</A>
+<LI><A HREF="indent.html#IDX144">-npmt</A>
 <LI><A HREF="indent.html#IDX14">-npro</A>
 <LI><A HREF="indent.html#IDX104">-npsl</A>
 <LI><A HREF="indent.html#IDX66">-nsc</A>
@@ -2034,6 +2063,7 @@ Jump to:
 <LI><A HREF="indent.html#IDX5">-o</A>
 <LI><A HREF="indent.html#IDX24">-orig</A>
 <LI><A HREF="indent.html#IDX86">-pcs</A>
+<LI><A HREF="indent.html#IDX142">-pmt</A>
 <LI><A HREF="indent.html#IDX102">-psl</A>
 <LI><A HREF="indent.html#IDX64">-sc</A>
 <LI><A HREF="indent.html#IDX31">-sob</A>
@@ -2100,7 +2130,7 @@ Jump to:
 
 </P>
 <P><HR><P>
-This document was generated on 24 July 1999 using the
+This document was generated on 25 September 1999 using the
 <A HREF="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>
 translator version 1.52.</P>
 </BODY>

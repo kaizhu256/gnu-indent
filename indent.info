@@ -1,13 +1,13 @@
-This is Info file indent.info, produced by Makeinfo version 1.68 from
-the input file indent.texinfo.
+This is indent.info, produced by Makeinfo version 3.12f from
+indent.texinfo.
 
 INFO-DIR-SECTION Indent Code Formatter
 START-INFO-DIR-ENTRY
 * Indent: (indent).		C code formatter.
 END-INFO-DIR-ENTRY
 
-   This is Edition 2.2.0 of `The `indent' Manual', for Indent Version
-2.2.0, last updated 24 July 1999.
+   This is Edition 2.2.1 of `The `indent' Manual', for Indent Version
+2.2.1, last updated 18 September 1999.
 
    Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
 Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
@@ -26,8 +26,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 2.2.0, 24 July 1999, of `The `indent' Manual', for
-Indent Version 2.2.0.
+   This is Edition 2.2.1, 18 September 1999, of `The `indent' Manual',
+for Indent Version 2.2.1.
 
 * Menu:
 
@@ -143,7 +143,7 @@ they would appear on the command line, separated by white space (tabs,
 spaces, and newlines).  Options in `.indent.pro' may be surrounded by C
 or C++ comments, in which case they are ignored.
 
-   Command line switches are handled *after* processing `.indent.pro'.
+   Command line switches are handled _after_ processing `.indent.pro'.
 Options specified later override arguments specified earlier, with one
 exception: Explicitly specified options always override background
 options (*note Common styles::.).  You can prevent `indent' from
@@ -184,7 +184,7 @@ environment variable `VERSION_CONTROL'.  If it is the string `simple',
 then only simple backups will be made.  If its value is the string
 `numbered', then numbered backups will be made.  If its value is
 `numbered-existing', then numbered backups will be made if there
-*already exist* numbered backups for the file being indented;
+_already exist_ numbered backups for the file being indented;
 otherwise, a simple backup is made.  If `VERSION_CONTROL' is not set,
 then `indent' assumes the behaviour of `numbered-existing'.
 
@@ -263,8 +263,8 @@ such blank lines.
    The `-bap' option forces a blank line after every procedure body.
 The `-nbap' option forces no such blank line.
 
-   The `-bbb' option forces a blank line before every boxed comment.
-(*Note Comments::) The `-nbbb' option does not force such blank lines.
+   The `-bbb' option forces a blank line before every boxed comment,
+*Note Comments::. The `-nbbb' option does not force such blank lines.
 
    The `-sob' option causes `indent' to swallow optional blank lines
 (that is, any optional blank lines present in the input will be removed
@@ -432,7 +432,7 @@ comment is within a block of code.  In that case, such a comment will be
 aligned with the indented code of that block (unless the comment began
 in the first column).  This alignment may be affected by the `-d'
 option, which specifies an amount by which such comments are moved to
-the *left*, or unindented.  For example, `-d2' places comments two
+the _left_, or unindented.  For example, `-d2' places comments two
 spaces to the left of code.  By default, comments are aligned with
 code, unless they begin in the first column, in which case they are left
 there by default - to get them aligned with the code, specify `-fc1'.
@@ -829,6 +829,12 @@ verbose mode, `indent' reports when it splits one line of input into
 two more more lines of output, and gives some size statistics at
 completion.
 
+   The `-pmt' option causes `indent' to preserve the access and
+modification times on the output files.  Using this option has the
+advantage that running indent on all source and header files in a
+project won't cause `make' to rebuild all targets.  This option is only
+available on Operating Systems that have the POSIX `utime(2)' function.
+
 
 File: indent.info,  Node: Bugs,  Next: Copyright,  Prev: Miscellaneous options,  Up: Indent Program
 
@@ -836,13 +842,13 @@ Bugs
 ====
 
    When `indent' is run twice on a file, with the same profile, it
-should *never* change that file the second time.  With the current
+should _never_ change that file the second time.  With the current
 design of `indent' this can not be garanteed however and it has not
 been extensively tested.
 
    `Indent' does not understand C.  In some cases this leads to the
 inability to join lines.  The result is that running a file through
-`indent' is *irreversable*, even if the used input file was the result
+`indent' is _irreversable_, even if the used input file was the result
 of running `indent' with a given profile (`.indent.pro').
 
    While an attempt was made to get `indent' working for C++, is will
@@ -856,6 +862,11 @@ comments start on the first line of the break.
 
    `Indent' does not count lines and comments (see the `-v' option)
 when `indent' is turned off with `/* *INDENT-OFF* */'.
+
+   Comments of the form /*UPPERCASE*/ are not treated as comment but as
+an identifier, causing them to be joined with the next line. This
+renders comments of this type useless unless they are embedded in the
+code to begin with.
 
 
 File: indent.info,  Node: Copyright,  Prev: Bugs,  Up: Indent Program
@@ -954,7 +965,7 @@ option.
 `--Bill-Shannon'
 `--blank-before-sizeof'
      Put a space between `sizeof' and its argument.
-     *Note Statements::
+     *Note Statements::.
 
 `-cN'
 `--comment-indentationN'
@@ -1020,7 +1031,7 @@ option.
 `-fca'
 `--format-all-comments'
      Do not disable all formatting of comments.
-     *Note Comments::
+     *Note Comments::.
 
 `-gnu'
 `--gnu-style'
@@ -1123,7 +1134,7 @@ option.
 `-nip'
 `--no-parameter-indentation'
      Zero width indentation for parameters.
-     *Note Indentation::
+     *Note Indentation::.
 
 `-nlp'
 `--dont-line-up-parentheses'
@@ -1181,6 +1192,11 @@ option.
 `--paren-indentationN'
      Specify the extra indentation per open parentheses '(' when a
      statement is broken.  *Note Statements::.
+
+`-pmt'
+`--preserve-mtime'
+     Preserve access and modification times on output files.  *Note
+     Miscellaneous options::.
 
 `-psl'
 `--procnames-start-lines'
@@ -1288,6 +1304,7 @@ find the corresponding short option.
      --original                                      -orig
      --parameter-indentation                         -ipN
      --paren-indentation                             -piN
+     --preserve-mtime				-pmt
      --procnames-start-lines                         -psl
      --space-after-cast                              -cs
      --space-after-procedure-calls                   -pcs
@@ -1358,6 +1375,7 @@ Index
 * --original:                            Common styles.
 * --output-file:                         Invoking indent.
 * --parameter-indentationN:              Indentation.
+* --preserve-mtime:                      Miscellaneous options.
 * --procnames-start-lines:               Declarations.
 * --remove-preprocessor-space:           Indentation.
 * --space-after-cast:                    Statements.
@@ -1368,6 +1386,7 @@ Index
 * --swallow-optional-blank-lines:        Blank lines.
 * --tab-sizeN:                           Indentation.
 * --verbose:                             Miscellaneous options.
+* -T:                                    Declarations.
 * -bad:                                  -bad.
 * -bap:                                  -bap.
 * -bbb:                                  Blank lines.
@@ -1377,18 +1396,18 @@ Index
 * -bliN:                                 Statements.
 * -br:                                   Statements.
 * -bs:                                   Statements.
+* -cN:                                   Comments.
 * -cbiN:                                 Statements.
-* -cdb:                                  Comments.
 * -cdN:                                  Comments.
+* -cdb:                                  Comments.
 * -ce:                                   Statements.
 * -ciN:                                  Indentation.
 * -cliN:                                 Statements.
-* -cN:                                   Comments.
 * -cpN:                                  Comments.
 * -cs:                                   Statements.
+* -dN:                                   Comments.
 * -dce:                                  Statements.
 * -diN:                                  Declarations.
-* -dN:                                   Comments.
 * -fc1:                                  Comments.
 * -fca:                                  Comments.
 * -gnu:                                  Common styles.
@@ -1413,6 +1432,7 @@ Index
 * -nlp:                                  Indentation.
 * -nlps:                                 Indentation.
 * -npcs:                                 Statements.
+* -npmt:                                 Miscellaneous options.
 * -npro:                                 Invoking indent.
 * -npsl:                                 Declarations.
 * -nsc:                                  Comments.
@@ -1422,12 +1442,12 @@ Index
 * -o:                                    Invoking indent.
 * -orig:                                 Common styles.
 * -pcs:                                  Statements.
+* -pmt:                                  Miscellaneous options.
 * -psl:                                  Declarations.
 * -sc:                                   Comments.
 * -sob:                                  Blank lines.
 * -ss:                                   Statements.
 * -st:                                   Invoking indent.
-* -T:                                    Declarations.
 * -tsN:                                  Indentation.
 * -v:                                    Miscellaneous options.
 * -version:                              Miscellaneous options.
@@ -1436,7 +1456,6 @@ Index
 * Berkeley style:                        Common styles.
 * Blank lines:                           Blank lines.
 * Comments:                              Comments.
-* etags requires -psl:                   Declarations.
 * GNU style:                             Common styles.
 * Initialization file:                   Invoking indent.
 * Invoking indent:                       Invoking indent.
@@ -1448,28 +1467,29 @@ Index
 * Starting indent:                       Invoking indent.
 * Typenames:                             Declarations.
 * Using Standard Input:                  Invoking indent.
+* etags requires -psl:                   Declarations.
 
 
 
 Tag Table:
-Node: Top652
-Node: Indent Program1168
-Node: Invoking indent2251
-Node: Backup files5691
-Node: Common styles7552
-Node: Blank lines9747
-Node: -bad10840
-Node: -bap11487
-Node: Comments12348
-Node: Statements17131
-Node: Declarations19828
-Node: Indentation21601
-Node: Breaking long lines24343
-Node: Disabling Formatting26626
-Node: Miscellaneous options28373
-Node: Bugs28924
-Node: Copyright30107
-Node: Option Summary31642
-Node: Index42906
+Node: Top633
+Node: Indent Program1154
+Node: Invoking indent2237
+Node: Backup files5677
+Node: Common styles7538
+Node: Blank lines9733
+Node: -bad10825
+Node: -bap11472
+Node: Comments12333
+Node: Statements17116
+Node: Declarations19813
+Node: Indentation21586
+Node: Breaking long lines24328
+Node: Disabling Formatting26611
+Node: Miscellaneous options28358
+Node: Bugs29251
+Node: Copyright30663
+Node: Option Summary32198
+Node: Index43620
 
 End Tag Table

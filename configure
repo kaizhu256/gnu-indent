@@ -695,7 +695,7 @@ fi
 
 PACKAGE=indent
 
-VERSION=2.2.0
+VERSION=2.2.1
 
 if test "`cd $srcdir && pwd`" != "`pwd`" && test -f $srcdir/config.status; then
   { echo "configure: error: source directory already configured; run "make distclean" there first" 1>&2; exit 1; }
@@ -1685,7 +1685,7 @@ EOF
 
 fi
 
-for ac_func in strchr memcpy memmove
+for ac_func in strchr memcpy memmove utime
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
 echo "configure:1692: checking for $ac_func" >&5
@@ -1740,7 +1740,7 @@ else
 fi
 done
 
-for ac_hdr in unistd.h string.h
+for ac_hdr in unistd.h string.h malloc.h utime.h
 do
 ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6

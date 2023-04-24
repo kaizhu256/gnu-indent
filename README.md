@@ -1,4 +1,4 @@
-README for GNU indent 2.2.12
+README for GNU indent 2.2.13
 ============================
 
   GNU indent changes the appearance of a C program by inserting or
@@ -91,11 +91,11 @@ Sending code
   result of `diff -c <old_file> <new_file>`.
 
   Please make sure that patches you provide apply cleanly to the latest
-  code published in the Mercurial repo:
+  code published in the Git repo:
 
-    https://hg.savannah.gnu.org/hgweb/indent/
+    https://git.savannah.gnu.org/cgit/indent.git
 
-  Because of the regression testing the project requires of indent, 
+  Because of the regression testing the project requires of indent,
   it is extremely unlikely that your code will be installed into indent
   "as-is";  however it may still be helpful, and will likely have
   solved your particular problem.

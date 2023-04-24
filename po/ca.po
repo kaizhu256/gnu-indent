@@ -6,31 +6,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indent 2.2.8\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
-"PO-Revision-Date: 2002-10-27 20:30GMT\n"
-"Last-Translator: Josep Maria Balasch <jbalasch@mailtvc.com>\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
+"PO-Revision-Date: 2022-05-14 21:18+0000\n"
+"Last-Translator: Maite Guix <maite.guix@gmail.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: src/args.c:673
-#, fuzzy
 msgid ""
 "usage: indent file [-o outfile ] [ options ]\n"
 "       indent file1 file2 ... fileN [ options ]\n"
-msgstr "    indent fitxer1 fitxer2 ... fitxerN [ opcions ]\n"
+msgstr ""
+"ús: indent fitxer [-o fitxer_de_salida ] [ opcions ]\n"
+"       indent fitxer1 fitxer2 ... fitxerN [ opcions ]\n"
 
 #: src/args.c:740
-#, fuzzy, c-format
+#, c-format
 msgid "%s: missing argument to parameter %s\n"
-msgstr "indent: argument inexistent al paràmetre %s\n"
+msgstr "%s: falta l’argument per al paràmetre %s\n"
 
 #: src/args.c:864
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown option \"%s\"\n"
-msgstr "indent: opció desconeguda \"%s\"\n"
+msgstr "%s: es desconeix l’opció «%s»\n"
 
 #: src/args.c:877
 #, c-format
@@ -43,19 +46,18 @@ msgid "GNU indent %s\n"
 msgstr "GNU indent %s\n"
 
 #: src/args.c:959
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option ``%s'' requires a numeric parameter\n"
-msgstr "indent: l'opció ``%s'' requereix un paràmetre numèric\n"
+msgstr "%s: l’opció «%s» requereix un paràmetre numèric\n"
 
 #: src/args.c:966
-#, fuzzy, c-format
+#, c-format
 msgid "set_option: internal error: p_type %d\n"
-msgstr "indent: set_option: error intern: p_type %d\n"
+msgstr "set_option: error intern: p_type %d\n"
 
 #: src/args.c:1022
-#, fuzzy
 msgid "Profile contains an unterminated comment"
-msgstr "El perfil conté caràcters no acceptables"
+msgstr "El perfil conté un comentari no determinat"
 
 #: src/args.c:1060
 msgid "Profile contains unpalatable characters"
@@ -65,6 +67,7 @@ msgstr "El perfil conté caràcters no acceptables"
 #, c-format
 msgid "File named by environment variable %s does not exist or is not readable"
 msgstr ""
+"El fitxer anomenat per la variable d’entorn %s no existeix o no es pot llegir"
 
 #: src/backup.c:463
 #, c-format
@@ -176,7 +179,7 @@ msgstr "indent: només un fitxer d'entrada quan stdout és emprat\n"
 
 #: src/indent.c:899
 msgid "command line"
-msgstr ""
+msgstr "línia d’ordres"
 
 #: src/indent.c:1117
 #, c-format
@@ -194,9 +197,9 @@ msgid "Can't stat input file %s"
 msgstr "No hi pot haver el fitxer d'entrada %s"
 
 #: src/code_io.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "Zero-length file %s"
-msgstr "Advertència: Fitxer de longitud zero %s"
+msgstr "Fitxer de longitud zero %s"
 
 #: src/code_io.c:235 src/code_io.c:249
 #, c-format
@@ -214,24 +217,24 @@ msgid "Error reading input file %s"
 msgstr "Error en llegir el fitxer d'entrada %s"
 
 #: src/code_io.c:293
-#, fuzzy, c-format
+#, c-format
 msgid "Error closing input file %s"
 msgstr "Error en tancar el fitxer d'entrada %s"
 
 #: src/code_io.c:482
-#, fuzzy, c-format
+#, c-format
 msgid "File %s contains NULL-characters: cannot proceed\n"
-msgstr "Advertència: El fitxer %s conté NULL-caràcters\n"
+msgstr "El fitxer %s conté caràcters NULL; no es pot continuar\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "La constant caràcter no és acabada"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "La constant string no és acabada"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr "ambigüetat d'assignació old-style en \"=%s\".  S'assumeix \"= %s\"\n"

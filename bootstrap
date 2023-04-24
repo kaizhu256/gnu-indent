@@ -13,14 +13,9 @@ autopoint  --version
 autopoint -f
 
 echo
-echo "#### getting libgettext.h"
-
-cp /usr/share/gettext/gettext.h src/libgettext.h
-
-echo
 echo "#### running aclocal"
 aclocal --version
-aclocal -I m4 -I ./aclocal
+aclocal -I m4
 
 if [ $? -ne 0 ]
 then

@@ -85,7 +85,7 @@ extern void need_chars(buf_ty * bp, size_t needed)
 
     if (current_size + needed >= (size_t)bp->size)
     {
-        bp->size = ((current_size + needed) & (size_t)~1023);
+        bp->size = ROUND_UP (current_size + needed, 1024);
         bp->ptr = xrealloc(bp->ptr, bp->size);
         if (bp->ptr == NULL)
         {
@@ -717,8 +717,10 @@ static void handle_token_binary_op(
 {
     char           * t_ptr;
             
-    if (parser_state_tos->want_blank        || 
-        (e_code > s_code && *e_code != ' '))
+    if ((parser_state_tos->want_blank || (e_code > s_code && *e_code != ' '))
+        && !(parser_state_tos->in_parameter_declaration
+             && !settings.pointer_align_right
+             && *token == '*'))
     {
         set_buf_break (bb_binary_op, paren_target);
         *(e_code++) = ' ';
@@ -752,7 +754,9 @@ static void handle_token_binary_op(
     }
 #endif
     
-    parser_state_tos->want_blank = true;
+    parser_state_tos->want_blank = !(parser_state_tos->in_parameter_declaration
+                                     && settings.pointer_align_right
+                                     && *token == '*');
 }
 
 /**
@@ -1968,8 +1972,8 @@ static void handle_token_preesc(
 
             bp_save = buf_ptr;
             be_save = buf_end;
-            buf_ptr = save_com.ptr;
             need_chars (&save_com, 1);
+            buf_ptr = save_com.ptr;
             buf_end = save_com.end;
             save_com.end = save_com.ptr;        /* make save_com empty */
         }

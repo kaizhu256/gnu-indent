@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indent 2.2.10\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
-"PO-Revision-Date: 2018-02-11 15:37+0000\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
+"PO-Revision-Date: 2020-10-11 06:26+0000\n"
 "Last-Translator: Marczis István <marczisi@yahoo.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/args.c:673
 msgid ""
@@ -79,9 +79,9 @@ msgid "indent:  Strange version-control value\n"
 msgstr "indent:  Furcsa verziókövetés-érték\n"
 
 #: src/backup.c:464
-#, fuzzy, c-format
+#, c-format
 msgid "indent:  Using numbered-existing\n"
-msgstr "indent:  Számozott-létező használata\n"
+msgstr "indent:  számozott, ha rendelkezésre áll.\n"
 
 #: src/backup.c:495
 #, c-format
@@ -228,21 +228,20 @@ msgstr "Hiba a(z) %s bemeneti fájl lezárásakor"
 #: src/code_io.c:482
 #, c-format
 msgid "File %s contains NULL-characters: cannot proceed\n"
-msgstr "A(z) %s  NULL karaktereket tartalmaz:nem folytatható\n"
+msgstr "A(z) %s NULL karaktereket tartalmaz:nem folytatható\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Lezáratlan karakterállandó"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Lezáratlan karakterlánc-állandó"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
-msgstr ""
-"régi stílusú kétértelmű hozzárendelés \"=%s\".  \"= %s\" feltételezve\n"
+msgstr "régi stílusú kétértelmű hozzárendelés \"=%s\". \"= %s\" feltételezve\n"
 
 #: src/output.c:1339
 #, c-format

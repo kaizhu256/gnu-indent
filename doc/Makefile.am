@@ -2,11 +2,11 @@
 
 info_TEXINFOS = indent.texi
 
-docdir = $(prefix)/doc/@PACKAGE@
-dvidir = $(docdir)
-psdir = $(docdir)
-pdfdir = $(docdir)
-htmldir = $(docdir)
+docdir = @docdir@
+dvidir = @dvidir@
+psdir = @psdir@
+pdfdir = @pdfdir@
+htmldir = @htmldir@
 HTMLSTYLE = monolithic
 
 AUTOMAKE_OPTIONS = 1.2 gnits

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU indent 2.2.12\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
-"PO-Revision-Date: 2015-09-05 10:25+0200\n"
-"Last-Translator: Vangelis Skarmoutsos <skarmoutsosv@gmail.com>\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
+"PO-Revision-Date: 2020-11-29 17:28+0000\n"
+"Last-Translator: george k <norhorn@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/indent/"
 "translations/el/>\n"
 "Language: el\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.4-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: src/args.c:673
 msgid ""
@@ -231,18 +231,18 @@ msgstr "Σφάλμα κλεισίματος του αρχείου εισόδου
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "Το αρχείο %s περιέχει χαρακτήρες NULL: αδύνατη η συνέχιση\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Μη τερματισμένη σταθερά χαρακτήρα"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Μη τερματισμένη σταθερά συμβολοσειράς"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
-msgstr "ασαφής εκχώρηση παλιού στυλ στο \"=%s\".  Υποθέτοντας ότι \"= %s\"\n"
+msgstr "ασαφής εκχώρηση παλιού στυλ στο \"=%s\". Υποθέτοντας ότι \"= %s\"\n"
 
 #: src/output.c:1339
 #, c-format

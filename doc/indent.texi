@@ -792,7 +792,7 @@ if (x > 0)
 
 @kindex -ce
 @kindex --cuddle-else
-@kindex -dce
+@kindex -nce
 @kindex --dont-cuddle-else
 If you are using the @option{-br} option, you probably want to also use
 the @option{-ce} option.  This causes the @code{else} in an if-then-else
@@ -2046,6 +2046,11 @@ Line up continued lines at parentheses.@*
 Leave space between @samp{#} and preprocessor directive.@*
 @xref{Indentation}.
 
+@item -nlps
+@itemx --remove-preprocessor-space
+Remove space between @samp{#} and preprocessor directive.@*
+@xref{Indentation}.
+
 @item -nbad
 @itemx --no-blank-lines-after-declarations
 Do not force blank lines after declarations.@*
@@ -2412,6 +2417,7 @@ the corresponding short option.
 \line{ --preprocessor-indentation \leaderfill      -ppi@var{n}\ }
 \line{ --preserve-mtime \leaderfill                -pmt\ }
 \line{ --procnames-start-lines \leaderfill         -psl\ }  
+\line{ --remove-preprocessor-space \leaderfill     -nlps\ }
 \line{ --single-line-conditionals \leaderfill      -slc\ }
 \line{ --space-after-cast \leaderfill              -cs\ \ }
 \line{ --space-after-for \leaderfill               -saf\ }
@@ -2507,6 +2513,7 @@ the corresponding short option.
 --preserve-mtime				-pmt
 --preprocessor-indentation                      -ppi@var{n}
 --procnames-start-lines                         -psl            
+--remove-preprocessor-space                     -nlps
 --single-line-conditionals                      -slc
 --space-after-cast                              -cs             
 --space-after-for				-saf

@@ -53,7 +53,7 @@ RCSTAG_CC ("$Id$");
 
 parser_state_ty *parser_state_tos = NULL;
 
-#define INITIAL_BUFFER_SIZE 1000
+#define INITIAL_BUFFER_SIZE 1024
 #define INITIAL_STACK_SIZE 2
 
 /**

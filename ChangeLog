@@ -1,3 +1,36 @@
+2023-01-26 Andrej Shadura <andrew@shadura.me>
+	* Run tests with C locale
+	* Add large file support
+	* Modernise autofoo
+
+2021-04-18 Andrej Shadura <andrew@shadura.me>
+	* Remove .travis.yml since Travis is no longer friends with free software
+	* We use Git, point users there
+	* Restore the ROUND_UP macro and adjust the initial buffer size.
+	* Be nice to the packagers, don’t default to -Werror
+	* Enable hardening and sanitisers in the maintainer mode
+	* Change the invocation error code to EX_USAGE = 64
+	* Document the return codes of indent
+	* Regenerate the manpage
+	* Make sure (doc|dvi|ps|pdf|html)dir options to configure are actually used
+
+2021-04-18 Petr Písař <ppisar@redhat.com>
+	* Recognize binary integer literals
+	* doc: Fix --dont-cuddle-else short option and index --remove-preprocessor-space
+	* Add m4/ax_cc_for_build.m4 for CC_FOR_BUILD
+
+2021-04-18 Dan Collins <dcollinsn@gmail.com>:
+	* Fix use after free error
+	* Prevent reads past the end of the buffer
+	* Fix buffer overflow
+	* Null-terminate e_com
+
+2021-04-18 Nikhil Benesch <nikhil.benesch@gmail.com>
+	* Correctly handle pointer alignment with typedef'd types
+
+2019-08-19 Andrej Shadura <andrew@shadura.me>
+	* Use -Wextra in maintainer mode
+
 2018-09-02 Andrej Shadura <andrew@shadura.me>
 	* Add C99 and C11 keywords; add typeof.
 	* Don’t insert a space between ! in !!x

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU indent 2.2.12\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
 "PO-Revision-Date: 2015-08-26 18:34+0300\n"
 "Last-Translator:  Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
@@ -224,20 +224,20 @@ msgstr "Грешка при затваряне на входящ файл %s"
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "Файлът %s съдържа NULL-знаци, не може да се обработи\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Незавършена константа за знак"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Незавършена константа за низ"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr ""
-"Остарял двусмислен начин за присвояване при \"=%s\".  Предполага се \"= %s"
-"\"\n"
+"Остарял двусмислен начин за присвояване при \"=%s\".  Предполага се \"= "
+"%s\"\n"
 
 #: src/output.c:1339
 #, c-format

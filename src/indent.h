@@ -57,7 +57,7 @@
 RCSTAG_H (indent, "$Id$");
 #include <config.h>
 
-#include <libgettext.h>
+#include <libintl.h>
 #ifdef ENABLE_NLS
 #define _(X) gettext(X)
 #else
@@ -65,6 +65,14 @@ RCSTAG_H (indent, "$Id$");
 #endif
 
 #include "lexi.h"
+
+/**
+ * Round up P to be a multiple of SIZE.
+ */
+
+#ifndef ROUND_UP
+#define ROUND_UP(p, size) (((unsigned long) (p) + (size) - 1) & ~((size) - 1))
+#endif
 
 /** Values that `indent' can return for exit status.
  *
@@ -89,7 +97,7 @@ RCSTAG_H (indent, "$Id$");
 typedef enum exit_values
 {
   total_success = 0,
-  invocation_error = 1,
+  invocation_error = 64, /* EX_USAGE */
   indent_error = 2,
   indent_punt = 3,
   indent_fatal = 4,

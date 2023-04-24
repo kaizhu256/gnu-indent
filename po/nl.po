@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU indent 2.2.12\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
 "PO-Revision-Date: 2015-08-22 20:21+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -229,15 +229,15 @@ msgstr "Fout bij sluiten van invoerbestand %s"
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "Bestand %s bevat NULL-tekens; kan niet verdergaan\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Onafgemaakte tekenconstante"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Onafgemaakte tekenreeksconstante"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr ""

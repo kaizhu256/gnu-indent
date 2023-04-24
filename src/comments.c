@@ -412,6 +412,7 @@ extern void print_comment(
   /* Output the beginning comment delimiter.  They are both two
    * characters long. */
 
+   CHECK_COM_SIZE(2);
    *e_com++ = *start_delim;
    *e_com++ = *(start_delim + 1);
    column = start_column + 2;
@@ -903,6 +904,7 @@ begin_line:
       }
    }
 
+   *e_com = '\0';
    parser_state_tos->tos--;
    parser_state_tos->com_col = (two_contiguous_comments ? 1 : start_column);
    parser_state_tos->box_com = boxed_comment;

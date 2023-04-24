@@ -286,15 +286,24 @@ extern codes_ty lexi(void)
       if (parser_state_tos->last_rw == rw_return)
           parser_state_tos->last_rw = rw_none;
 
+      /* decimal, octal, hex, binary and floating point number format */
       if (isdigit (*buf_ptr) ||
           ((buf_ptr[0] == '.') && isdigit (buf_ptr[1])))
       {
-         int seendot = 0, seenexp = 0, ishexa = 0;
+         int seendot = 0, seenexp = 0, ishexa = 0, isbinary = 0;
 
-         if ((*buf_ptr == '0') && ((buf_ptr[1] == 'x') || (buf_ptr[1] == 'X')))
+         if (*buf_ptr == '0')
          {
-            ishexa = 1;
-            buf_ptr += 1;
+            if ((buf_ptr[1] == 'x') || (buf_ptr[1] == 'X'))
+            {
+               ishexa = 1;
+               buf_ptr += 1;
+            }
+            else if ((buf_ptr[1] == 'b') || (buf_ptr[1] == 'B'))
+            {
+               isbinary = 1;
+               buf_ptr += 1;
+            }
          }
          while (1)
          {
@@ -312,8 +321,10 @@ extern codes_ty lexi(void)
 
             buf_ptr++;
 
-            if (!(ishexa && !seenexp ?
-                 isxdigit (*buf_ptr) : isdigit (*buf_ptr)
+            if (!(
+                 (ishexa && !seenexp && isxdigit (*buf_ptr)) ||
+                 (isbinary && !seenexp && (*buf_ptr == '0' || *buf_ptr == '1')) ||
+                 ((!(ishexa || isbinary) || seenexp) && isdigit (*buf_ptr))
                  ) && *buf_ptr != '.')
             {
                if ((ishexa ?
@@ -594,6 +605,13 @@ found_keyword:
             
          for (tp = buf_ptr + 1; (paren_count > 0) && (tp < in_prog + in_prog_size); tp++)
          {
+            if (buf_ptr >= buf_end)
+            {
+               fill_buffer();
+            }
+            if (had_eof) {
+                goto not_proc;
+            }
             if (*tp == '(')
             {
                paren_count++;

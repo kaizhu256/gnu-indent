@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indent 2.2.8\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
 "PO-Revision-Date: 2018-06-08 21:34+0000\n"
 "Last-Translator: Osoitz <oelkoro@gmail.com>\n"
 "Language-Team: Basque <translation-team-eu@lists.sourceforge.net>\n"
@@ -225,15 +225,15 @@ msgstr "Errorea %s sarrea fitxategia itxitzean"
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "Oharra: %s fitxategiak NULL karaktereak ditu\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Amaitu gabeko karaktere konstantea"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Amaitu gabeko kate konstantea"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, fuzzy, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr "estilo zarreko zehaztapen anbiguoa \"=%s\".  \"=%s\" bezala ulertzen\n"

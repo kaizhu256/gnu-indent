@@ -251,6 +251,11 @@ Leave space between \(oq#\(cq and preprocessor directive.
 .br
 See \fB\ INDENTATION\fR.
 .TP
+.B -nlps\fR, \fB--remove-preprocessor-space\fR
+Remove space between \(oq#\(cq and preprocessor directive.
+.br
+See \fB\ INDENTATION\fR.
+.TP
 .B -nbad\fR, \fB--no-blank-lines-after-declarations\fR
 Do not force blank lines after declarations.
 .br
@@ -2103,6 +2108,7 @@ the corresponding short option.
 --preserve-mtime				-pmt
 --preprocessor-indentation                      -ppi\fIn\fR
 --procnames-start-lines                         -psl            
+--remove-preprocessor-space                     -nlps
 --single-line-conditionals                      -slc
 --space-after-cast                              -cs             
 --space-after-for				-saf
@@ -2124,7 +2130,27 @@ the corresponding short option.
 .fi
 
 .SH "RETURN VALUE"
-Unknown
+.IP \(bu 2
+0 means no errors or warnings were found during a successful invocation of
+the program.
+.br
+.IP \(bu 2
+2 is returned if errors occur during formatting which do not prevent completion
+of the formatting, but which appear to be  manifested by incorrect code (i.e. code
+which wouldn't compile).
+.br
+.IP \(bu 2
+3 is returned if formatting of a file is halted because of an error with the file
+which prevents completion of formatting. If more than one input file was specified,
+indent continues to the next file.
+.br
+.IP \(bu 2
+4 is returned if a serious internal problem occurs and the entire indent process
+is terminated, even if all specified files have not been processed.
+.br
+.IP \(bu 2
+64 is returned if an invocation problem (like an incorrect option) prevents
+any formatting to occur.
 .SH FILES
 .br
 .nf

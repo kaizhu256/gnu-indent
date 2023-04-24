@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indent 2.2.10\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
-"PO-Revision-Date: 2017-10-08 13:19+0000\n"
-"Last-Translator: Andrej Shadura <andrew@shadura.me>\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
+"PO-Revision-Date: 2020-06-14 21:41+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/args.c:673
 msgid ""
@@ -73,7 +73,7 @@ msgstr "Datoteka imenovana varijablom okoline %s ne postoji ili nije čitljiva"
 #: src/backup.c:463
 #, c-format
 msgid "indent:  Strange version-control value\n"
-msgstr "indent:  Čudna vrijednost kontrole inačice\n"
+msgstr "indent:  Čudna vrijednost za kontrolu verzije\n"
 
 #: src/backup.c:464
 #, c-format
@@ -130,7 +130,7 @@ msgstr "Greška"
 
 #: src/indent.c:291
 msgid "EOF encountered in comment"
-msgstr "Pronađen EOF u komentaru"
+msgstr "Pronađen kraj datoteke u komentaru"
 
 #: src/indent.c:355
 msgid "Line broken"
@@ -223,19 +223,19 @@ msgstr "Greška zatvaranja ulazne datoteke %s"
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "Datoteka %s sadrži prazne (NULL) znakove: ne može se nastaviti\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Nezavršena znakovna konstanta"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Nezavršena konstanta znakovnog niza"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr ""
-"višeznačnost starog načina pridruživanja u „=%s”.  Pretpostavljam „= %s”\n"
+"višeznačnost starog načina pridruživanja u „=%s”. Pretpostavljam „= %s”\n"
 
 #: src/output.c:1339
 #, c-format

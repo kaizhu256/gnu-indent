@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indent 2.2.10\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
 "PO-Revision-Date: 2017-03-12 07:25+0000\n"
 "Last-Translator: mao <mao@lins.fju.edu.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -224,15 +224,15 @@ msgstr "關閉輸入檔 %s 時發生問題"
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "檔案 %s 包含空字元：不能進行\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "可能少掉一個字元單引號"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "可能少掉一個字串雙引號"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
 msgstr "舊式的寫法 \"=%s\"。假設它為 \"= %s\"\n"

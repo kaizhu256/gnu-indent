@@ -1,3 +1,27 @@
+Release notes for GNU indent version 2.2.13, Jan 2023
+
+ * Fix buffer overflows and use after free bugs
+ * Recognize binary integer literals
+ * New and updated translations, thanks to our translators:
+       * Adolfo Jayme Barrientos
+       * Allan Nordhøy
+       * "Brandan"
+       * Ihor Hordiichuk
+       * J. Lavoie,
+       * "liimee"
+       * Maite Guix
+       * Marczis István
+       * Matei Copoț
+       * Milo Ivir
+       * "Nathan"
+       * Oğuz Ersen,
+       * Reza Almanda
+       * "ssantos"
+     * Updated translations:
+        Catalan, Croatian, French, Galician, German, Greek, Hungarian,
+        Indonesian, Italian, Romanian, Serbian, Spanish, Turkish, Ukrainian
+     * New translation: Portuguese
+
 Release notes for GNU indent version 2.2.12, Sep 2018
 
  * This release drops support for VMS and Watcom.

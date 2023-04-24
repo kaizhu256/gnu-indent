@@ -12,15 +12,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: indent 2.2.10\n"
 "Report-Msgid-Bugs-To: bug-indent@gnu.org\n"
-"POT-Creation-Date: 2018-09-01 17:48+0200\n"
-"PO-Revision-Date: 2012-11-10 13:39+0200\n"
-"Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
+"POT-Creation-Date: 2023-01-26 10:49+0100\n"
+"PO-Revision-Date: 2021-02-25 13:50+0000\n"
+"Last-Translator: Brandan <brandanpl@outlook.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.5\n"
 
 #: src/args.c:673
 msgid ""
@@ -77,7 +78,7 @@ msgstr ""
 #: src/backup.c:463
 #, c-format
 msgid "indent:  Strange version-control value\n"
-msgstr "indent:  valor do control de versións estraño\n"
+msgstr "indent:  O valor do control de versións é estraño\n"
 
 #: src/backup.c:464
 #, c-format
@@ -87,7 +88,7 @@ msgstr "indent:  ssando numeradas-se-existen\n"
 #: src/backup.c:495
 #, c-format
 msgid "indent: Can't make backup filename of %s\n"
-msgstr "indent: non é posíbel compoñer o nome da copia de seguridade de %s\n"
+msgstr "indent: Non é posíbel construír o nome da copia de seguridade de %s\n"
 
 #: src/backup.c:503
 #, c-format
@@ -109,22 +110,22 @@ msgstr ""
 #: src/globs.c:46 src/globs.c:68
 #, c-format
 msgid "indent: Virtual memory exhausted.\n"
-msgstr "indent: memoria virtual esgotada.\n"
+msgstr "indent: Memoria virtual esgotada.\n"
 
 #: src/globs.c:103
 #, c-format
 msgid "indent: %s:%d: %s:"
-msgstr "indent: %s:%d: %s: "
+msgstr "indent: %s:%d: %s:"
 
 #: src/globs.c:130
 #, c-format
 msgid "indent: Fatal Error: "
-msgstr "indent: erro grave: "
+msgstr "indent: Erro fatal: "
 
 #: src/globs.c:140
 #, c-format
 msgid "indent: System Error: "
-msgstr "indent: erro do Sistema: "
+msgstr "indent: Erro do sistema: "
 
 #: src/globs.h:26
 msgid "Warning"
@@ -144,7 +145,7 @@ msgstr "Liña cortada"
 
 #: src/indent.c:565
 msgid "Unexpected end of file"
-msgstr "Final inesperado de ficheiro"
+msgstr "Final de ficheiro inesperado"
 
 #: src/indent.c:571
 #, c-format
@@ -163,19 +164,19 @@ msgstr "Liña cortada 2"
 #: src/indent.c:821
 #, c-format
 msgid "indent: only one output file (2nd was %s)\n"
-msgstr "indent: só un ficheiro de saída (o segundo era %s)\n"
+msgstr "indent: Só un ficheiro de saída (o segundo era %s)\n"
 
 #: src/indent.c:830 src/indent.c:856
 #, c-format
 msgid "indent: only one input file when output file is specified\n"
 msgstr ""
-"indent: só un ficheiro de entrada cando se especifica un ficheiro de saida\n"
+"indent: Só un ficheiro de entrada cando se especifica un ficheiro de saida\n"
 
 #: src/indent.c:844 src/indent.c:890
 #, c-format
 msgid "indent: can't have filenames when specifying standard input\n"
 msgstr ""
-"indent: non se poden ter nomes de ficheiro cando se especifica a entrada "
+"indent: non pode haber nomes de ficheiro cando se especifica a entrada "
 "estándar\n"
 
 #: src/indent.c:864
@@ -186,7 +187,7 @@ msgstr ""
 
 #: src/indent.c:899
 msgid "command line"
-msgstr "liña de ordes"
+msgstr "liña de comandos"
 
 #: src/indent.c:1117
 #, c-format
@@ -204,7 +205,7 @@ msgid "Can't stat input file %s"
 msgstr "Non foi posíbel obter información do ficheiro de entrada %s"
 
 #: src/code_io.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "Zero-length file %s"
 msgstr "Aviso: ficheiro de lonxitude cero %s"
 
@@ -224,28 +225,27 @@ msgid "Error reading input file %s"
 msgstr "Produciuse un erro ao ler o ficheiro de entrada %s"
 
 #: src/code_io.c:293
-#, fuzzy, c-format
+#, c-format
 msgid "Error closing input file %s"
 msgstr "Produciuse un erro ao pechar o ficheiro de entrada %s"
 
 #: src/code_io.c:482
-#, fuzzy, c-format
+#, c-format
 msgid "File %s contains NULL-characters: cannot proceed\n"
 msgstr "Aviso: o ficheiro %s contén caracteres nulos\n"
 
-#: src/lexi.c:834
+#: src/lexi.c:852
 msgid "Unterminated character constant"
 msgstr "Constante de carácter sen rematar"
 
-#: src/lexi.c:835 src/lexi.c:854
+#: src/lexi.c:853 src/lexi.c:872
 msgid "Unterminated string constant"
 msgstr "Constante de cadea sen rematar"
 
-#: src/lexi.c:1113
+#: src/lexi.c:1131
 #, c-format
 msgid "old style assignment ambiguity in \"=%s\". Assuming \"= %s\"\n"
-msgstr ""
-"ambigüidade na asignación ao vello estilo en «=%s».  Supoñendo «= %s»\n"
+msgstr "ambigüidade na asignación ao vello estilo en «=%s». Supoñendo «= %s»\n"
 
 #: src/output.c:1339
 #, c-format

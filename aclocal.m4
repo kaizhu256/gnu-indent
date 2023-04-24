@@ -1,4 +1,4 @@
-dnl aclocal.m4 generated automatically by aclocal 1.4a
+dnl aclocal.m4 generated automatically by aclocal 1.4
 
 dnl Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
@@ -21,8 +21,6 @@ dnl AM_INIT_AUTOMAKE(package,version, [no-define])
 
 AC_DEFUN(AM_INIT_AUTOMAKE,
 [AC_REQUIRE([AC_PROG_INSTALL])
-dnl We require 2.13 because we rely on SHELL being computed by configure.
-AC_PREREQ([2.13])
 PACKAGE=[$1]
 AC_SUBST(PACKAGE)
 VERSION=[$2]
@@ -269,4 +267,28 @@ case "x$am_cv_prog_cc_stdc" in
   *) CC="$CC $am_cv_prog_cc_stdc" ;;
 esac
 ])
+
+dnl
+dnl Macro: indent_UTIMBUF
+dnl
+dnl   Check if we have `struct utimbuf'.
+dnl
+AC_DEFUN(indent_UTIMBUF,
+[dnl Do we have a working utime.h?
+AC_CACHE_CHECK([if struct utimbuf needs -posix], 
+unet_cv_sys_utimbuf_needs_posix,
+[AC_TRY_COMPILE([#include <sys/types.h>
+#include <utime.h>],
+[struct utimbuf buf;], unet_cv_sys_utimbuf_needs_posix=no,
+[OLDCFLAGS="$CFLAGS"
+CFLAGS="$CFLAGS -posix"
+AC_TRY_COMPILE([#include <sys/types.h>
+#include <utime.h>],
+[struct utimbuf buf;], unet_cv_sys_utimbuf_needs_posix=yes,
+unet_cv_sys_utimbuf_needs_posix=no)
+CFLAGS="$OLDCFLAGS"
+])])
+if test $unet_cv_sys_utimbuf_needs_posix = yes; then
+  CFLAGS="$CFLAGS -posix"
+fi])
 

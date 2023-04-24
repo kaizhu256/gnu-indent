@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4a from Makefile.am
+# Makefile.in generated automatically by automake 1.4 from Makefile.am
 
 # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
@@ -39,17 +39,14 @@ pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
 
 top_builddir = .
-
-ACLOCAL = @ACLOCAL@
 AUTOCONF = @AUTOCONF@
 AUTOMAKE = @AUTOMAKE@
 AUTOHEADER = @AUTOHEADER@
 
 INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_STRIP_FLAG =
 transform = @program_transform_name@
 
 NORMAL_INSTALL = :
@@ -60,8 +57,10 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 CC = @CC@
 CPP = @CPP@
+EXEEXT = @EXEEXT@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 U = @U@
 VERSION = @VERSION@
@@ -75,21 +74,24 @@ noinst_HEADERS = backup.h indent.h sys.h lexi.h args.h comments.h globs.h io.h p
 info_TEXINFOS = indent.texinfo
 man_MANS = indent.1
 
-BUILT_SOURCES = indent.1 README README.vc++ ChangeLog gperf.c gperf-cc.c indent.html indent_foot.html indent_toc.html config.h.vc++ config.h.vms
-EXTRA_DIST = $(BUILT_SOURCES) indent.gperf indent-cc.gperf ChangeLog-1990 ChangeLog-1998 indent.dsp README.VMS make-decc.com
+BUILT_SOURCES = indent.1 README README.vc++ ChangeLog gperf.c gperf-cc.c indent.html config.h.vc++ config.h.vms
+EXTRA_DIST = $(BUILT_SOURCES) indent.gperf indent-cc.gperf ChangeLog-1990 ChangeLog-1998 indent.dsp README.VMS make-decc.com              aclocal/UTIMBUF.m4 gnuc-make.com indent.mak Makefile.mingw32 vaxc-make.com wildexp.c
+
 
 DISTCLEANFILES = config.cache config.log config.h
 
 # --------------- Maintainer's Section
 
-MAINTAINERCLEANFILES = aclocal.m4 Makefile.in config.h.in stamp-h.in configure 	ChangeLog texinfo2man indent.1 gperf.c gperf-cc.c 	indent-1.spec index.html cvslog-*.html indent.html indent_*.html
+MAINTAINERCLEANFILES = aclocal.m4 Makefile.in config.h.in stamp-h.in configure 	ChangeLog texinfo2man indent.1 gperf.c gperf-cc.c 	indent-1.spec index.html cvslog-*.html indent.html
 
+ACLOCAL = aclocal -I aclocal
 @MAINTAINER_MODE_TRUE@CFLAGS = -g
 @MAINTAINER_MODE_FALSE@CFLAGS = @CFLAGS@
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =  maintMakefile
+bin_PROGRAMS =  indent$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
 
@@ -97,8 +99,9 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I.
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-indent_OBJECTS =  args.o comments.o indent.o lexi.o parse.o backup.o \
-globs.o io.o
+indent_OBJECTS =  args.$(OBJEXT) comments.$(OBJEXT) indent.$(OBJEXT) \
+lexi.$(OBJEXT) parse.$(OBJEXT) backup.$(OBJEXT) globs.$(OBJEXT) \
+io.$(OBJEXT)
 indent_LDADD = $(LDADD)
 indent_DEPENDENCIES = 
 indent_LDFLAGS = 
@@ -130,7 +133,7 @@ OBJECTS = $(indent_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
-.SUFFIXES: .S .c .dvi .info .o .ps .s .texi .texinfo .txi
+.SUFFIXES: .S .c .dvi .info .o .obj .ps .s .texi .texinfo .txi
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps Makefile
 
@@ -190,8 +193,8 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo "  $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
-	     $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	    echo "  $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+	     $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
 	  else :; fi; \
 	done
 
@@ -204,6 +207,11 @@ uninstall-binPROGRAMS:
 .c.o:
 	$(COMPILE) -c $<
 
+# FIXME: We should only use cygpath when building on Windows,
+# and only if it is available.
+.c.obj:
+	$(COMPILE) -c `cygpath -w $<`
+
 .s.o:
 	$(COMPILE) -c $<
 
@@ -212,6 +220,7 @@ uninstall-binPROGRAMS:
 
 mostlyclean-compile:
 	-rm -f *.o core *.core
+	-rm -f *.$(OBJEXT)
 
 clean-compile:
 
@@ -220,8 +229,8 @@ distclean-compile:
 
 maintainer-clean-compile:
 
-indent: $(indent_OBJECTS) $(indent_DEPENDENCIES)
-	@rm -f indent
+indent$(EXEEXT): $(indent_OBJECTS) $(indent_DEPENDENCIES)
+	@rm -f indent$(EXEEXT)
 	$(LINK) $(indent_LDFLAGS) $(indent_OBJECTS) $(indent_LDADD) $(LIBS)
 
 $(srcdir)/version.texi: @MAINTAINER_MODE_TRUE@stamp-vti
@@ -470,6 +479,7 @@ distdir: $(DISTFILES)
 	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
+	$(mkinstalldirs) $(distdir)/aclocal
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
@@ -516,7 +526,7 @@ uninstall: uninstall-am
 all-am: Makefile $(INFO_DEPS) $(PROGRAMS) $(MANS) $(HEADERS) config.h
 all-redirect: all-am
 install-strip:
-	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs:
 	$(mkinstalldirs)  $(DESTDIR)$(bindir) $(DESTDIR)$(infodir) \
 		$(DESTDIR)$(mandir)/man1
@@ -586,6 +596,7 @@ gperf.c: @MAINTAINER_MODE_TRUE@ indent.gperf
 
 gperf-cc.c: @MAINTAINER_MODE_TRUE@ indent-cc.gperf
 	gperf -D -c -l -p -t -T -g -j1 -o -K rwd -N is_reserved_cc -H hash_cc indent-cc.gperf > gperf-cc.c
+aclocal.m4: $(shell ls aclocal/*.m4)
 
 @MAINTAINER_MODE_TRUE@include $(srcdir)/maintMakefile
 
@@ -600,7 +611,7 @@ gperf-cc.c: @MAINTAINER_MODE_TRUE@ indent-cc.gperf
 
 maintainer-clean-local:
 	echo "all:" > Makefile
-	echo -e "\taclocal" >> Makefile
+	echo -e "\t$(ACLOCAL)" >> Makefile
 	echo -e "\tautoheader" >> Makefile
 	echo -e "\tautoconf" >> Makefile
 	echo -e "\tautomake --foreign" >> Makefile

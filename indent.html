@@ -1,15 +1,15 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52
-     from indent.texinfo on 5 July 1999 -->
+     from indent.texinfo on 15 July 1999 -->
 
 <TITLE>indent:  Indent and Format C Program Source</TITLE>
 </HEAD>
 <BODY>
 <H1>Indent</H1>
 <H2>Format C Code</H2>
-<H2>Edition 2.1.0, for Indent Version 2.1.0</H2>
-<H2>5 July 1999</H2>
+<H2>Edition 2.1.1, for Indent Version 2.1.1</H2>
+<H2>15 July 1999</H2>
 <ADDRESS>Carlo Wood</ADDRESS>
 <ADDRESS>Joseph Arceneaux</ADDRESS>
 <ADDRESS>Jim Kingdon</ADDRESS>
@@ -1288,8 +1288,15 @@ file was the result of running <CODE>indent</CODE> with a given profile
 </P>
 <P>
 While an attempt was made to get <CODE>indent</CODE> working for C++, is
-will not do a good job on any C++ source except the real simple
-(by coincidence thus).
+will not do a good job on any C++ source except the real simple.
+
+</P>
+<P>
+<CODE>Indent</CODE> does not look at the given <SAMP>`--line-length'</SAMP> option
+when writing comments to the output file.  This results often in comments
+being put far to the right.  In order to prohibit <CODE>indent</CODE> from
+joining a broken line that has a comment at the end, make sure that the
+comments start on the first line of the break.
 
 </P>
 
@@ -2088,7 +2095,7 @@ Jump to:
 
 </P>
 <P><HR><P>
-This document was generated on 5 July 1999 using the
+This document was generated on 15 July 1999 using the
 <A HREF="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>
 translator version 1.52.</P>
 </BODY>

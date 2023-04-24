@@ -1,8 +1,13 @@
 This is Info file indent.info, produced by Makeinfo version 1.68 from
 the input file indent.texinfo.
 
-   This is Edition 2.1.0 of `The `indent' Manual', for Indent Version
-2.1.0, last updated 5 July 1999.
+INFO-DIR-SECTION Indent Code Formatter
+START-INFO-DIR-ENTRY
+* Indent: (indent).		C code formatter.
+END-INFO-DIR-ENTRY
+
+   This is Edition 2.1.1 of `The `indent' Manual', for Indent Version
+2.1.1, last updated 15 July 1999.
 
    Copyright (C) 1989, 1992, 1993, 1994, 1995, 1996 Free Software
 Foundation, Inc.  Copyright (C) 1995, 1996 Joseph Arceneaux.  Copyright
@@ -21,8 +26,8 @@ File: indent.info,  Node: Top,  Next: Indent Program,  Prev: (dir),  Up: (dir)
    The `indent' program changes the appearance of a C program by
 inserting or deleting whitespace.
 
-   This is Edition 2.1.0, 5 July 1999, of `The `indent' Manual', for
-Indent Version 2.1.0.
+   This is Edition 2.1.1, 15 July 1999, of `The `indent' Manual', for
+Indent Version 2.1.1.
 
 * Menu:
 
@@ -841,8 +846,13 @@ inability to join lines.  The result is that running a file through
 of running `indent' with a given profile (`.indent.pro').
 
    While an attempt was made to get `indent' working for C++, is will
-not do a good job on any C++ source except the real simple (by
-coincidence thus).
+not do a good job on any C++ source except the real simple.
+
+   `Indent' does not look at the given `--line-length' option when
+writing comments to the output file.  This results often in comments
+being put far to the right.  In order to prohibit `indent' from joining
+a broken line that has a comment at the end, make sure that the
+comments start on the first line of the break.
 
 
 File: indent.info,  Node: Copyright,  Prev: Bugs,  Up: Indent Program
@@ -1439,24 +1449,24 @@ Index
 
 
 Tag Table:
-Node: Top532
-Node: Indent Program1047
-Node: Invoking indent2130
-Node: Backup files5570
-Node: Common styles7431
-Node: Blank lines9626
-Node: -bad10719
-Node: -bap11366
-Node: Comments12227
-Node: Statements17010
-Node: Declarations19707
-Node: Indentation21480
-Node: Breaking long lines24222
-Node: Disabling Formatting26505
-Node: Miscellaneous options28252
-Node: Bugs28803
-Node: Copyright29564
-Node: Option Summary31099
-Node: Index42363
+Node: Top652
+Node: Indent Program1168
+Node: Invoking indent2251
+Node: Backup files5691
+Node: Common styles7552
+Node: Blank lines9747
+Node: -bad10840
+Node: -bap11487
+Node: Comments12348
+Node: Statements17131
+Node: Declarations19828
+Node: Indentation21601
+Node: Breaking long lines24343
+Node: Disabling Formatting26626
+Node: Miscellaneous options28373
+Node: Bugs28924
+Node: Copyright29983
+Node: Option Summary31518
+Node: Index42782
 
 End Tag Table

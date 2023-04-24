@@ -479,6 +479,14 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 	$(MAKE) $(AM_MAKEFLAGS) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-info
+args.o: args.c sys.h config.h indent.h
+backup.o: backup.c sys.h config.h backup.h indent.h
+comments.o: comments.c sys.h config.h indent.h
+globs.o: globs.c sys.h config.h indent.h
+indent.o: indent.c sys.h config.h indent.h backup.h
+io.o: io.c sys.h config.h indent.h
+memcpy.o: memcpy.c
+parse.o: parse.c sys.h config.h indent.h
 
 info-am: $(INFO_DEPS)
 info: info-am
